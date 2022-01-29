@@ -56,14 +56,20 @@ public class Drivetrain extends SubsystemBase {
     left2.setInverted(false);
     left3.setInverted(false);
 
-    left1E.setPosition(0); //Resets all the neo encoders to 0
+    resetEncoders();
+    
+    //assumes position of 0, 0
+    m_odometry = new DifferentialDriveOdometry(navX.getRotation2d());
+  }
+
+  //Resets all the neo encoders to 0
+  public static void resetEncoders() {
+    left1E.setPosition(0); 
     left2E.setPosition(0);
     left3E.setPosition(0);
     right2E.setPosition(0);
     right2E.setPosition(0);
     right3E.setPosition(0);
-
-    m_odometry = new DifferentialDriveOdometry(navX.getRotation2d());
   }
 
   public static void moveLeftSide(final double speed) {
@@ -98,23 +104,26 @@ public class Drivetrain extends SubsystemBase {
     return (right1E.getPosition() + right2E.getPosition() + right3E.getPosition()) / 3.0;
   }
 
+  //encoder 42 pulses per revolution
+
   // distance in feet the right side of the robot has traveled
   public static double rightDistance() {
-    return ((rightEncoder() / 8.05) * 4 * Math.PI);
+    // dont know why 2.2 works but it works in place of the gearbox ratio
+    return ((rightEncoder() / Constants.pulsesPerRotation) / 2.21 * Math.PI * Constants.wheelDiameter);
   }
 
   // distance in feet the left side of the robot has traveled
   public static double leftDistance() {
-    return -((leftEncoder() / 8.05) * 4 * Math.PI);
+    return -((leftEncoder() / Constants.pulsesPerRotation) / 2.21 * Math.PI * Constants.wheelDiameter);
   }
 
   //returns speed, idk what the numbers mean (maybe wrong)
   public double leftDriveSpeed() {
-    return (left1E.getVelocity() / 60) * 42 * (0.1524 * Math.PI) / 42 * 10.38;
+    return (left1E.getVelocity() / 60) * Constants.pulsesPerRotation * (0.1524 * Math.PI) / Constants.pulsesPerRotation * Constants.gearboxRatio;
   }
 
   public double rightDriveSpeed() {
-    return -(right1E.getVelocity() / 60) * 42 * (0.1524 * Math.PI) / 42 * 10.38;
+    return -(right1E.getVelocity() / 60) * Constants.pulsesPerRotation * (0.1524 * Math.PI) / Constants.pulsesPerRotation * Constants.gearboxRatio;
   }
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
@@ -131,7 +140,10 @@ public class Drivetrain extends SubsystemBase {
     return m_odometry.getPoseMeters();
   }
 
-
+  public void resetOdometry(Pose2d pose) {
+    resetEncoders();
+    m_odometry.resetPosition(pose, navX.getRotation2d());
+  }
 
   @Override
   public void periodic() {

@@ -15,7 +15,14 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final double ksVolts = 0.20491;
+    public static final boolean botMostLikelyToGetPHD = true;
+
+
+    public static final double gearboxRatio = 10.38;
+    public static final double wheelDiameter = 6.0;
+    public static final int pulsesPerRotation = 42;
+
+    public static final double ks = 0.20491;
     public static final double kv = 2.6341;
     public static final double ka = 0.69297;
 
@@ -30,4 +37,16 @@ public final class Constants {
 
     public static final double kRamseteB = 2;
     public static final double kRamseteZeta = 0.7;
+
+    public static final double autoMaxVoltage = 10;
+
+    // Measurements for limelight
+    public static final double tapeHeight = 81;
+    public static final double limelightHeight = 46;
+    public static final double limelightAngle = 25;
+
+
+    // button ids
+    public static final int toggleLimelightButtonID = 12;
+    public static final int lookToTargetButtonID = 5;
 }
