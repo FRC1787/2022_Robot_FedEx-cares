@@ -16,29 +16,35 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
  */
 public final class Constants {
     public static final boolean botMostLikelyToGetPHD = true;
+    public static final boolean botWithWorstPathweaverSystem = true;
 
+    //we probably should put units on all of these variable names for clarity
 
-    public static final double gearboxRatio = 10.38;
+    public static final double gearboxRatio = 7.25;
     public static final double wheelDiameter = 6.0;
     public static final int pulsesPerRotation = 42;
 
-    public static final double ks = 0.20491;
-    public static final double kv = 2.6341;
-    public static final double ka = 0.69297;
+    public static final double positionConversionFactor = 0.1524*Math.PI/gearboxRatio; //changes rotations of motor to distance traveled in meters
+    public static final double velocityConversionFactor = Math.PI*0.1524/60/gearboxRatio; //changes rpm of motor to m/s
 
-    public static final double kp = 2.5183;
+
+    public static final double ks = 0.090934;
+    public static final double kv = 1.9188;
+    public static final double ka = 0.41978;
+
+    public static final double kp = 2.6484;
 
     public static final double kTrackwidth = 0.66; //idk if this is right lole
     public static final DifferentialDriveKinematics kDriveKinematics = 
         new DifferentialDriveKinematics(kTrackwidth);
     
-    public static final double kMaxSpeed = 1.5;
-    public static final double kMaxAcceleration = 1.5;
+    public static final double kMaxSpeed = 0.2;
+    public static final double kMaxAcceleration = 1.0;
 
     public static final double kRamseteB = 2;
     public static final double kRamseteZeta = 0.7;
 
-    public static final double autoMaxVoltage = 10;
+    public static final double autoMaxVoltage = 8;
 
     // Measurements for limelight
     public static final double tapeHeight = 81;
