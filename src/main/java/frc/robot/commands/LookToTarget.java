@@ -41,8 +41,9 @@ public class LookToTarget extends CommandBase {
     else if (tx < 1.0) {
       steeringAdjust = Kp * headingError + minCommand;
     }
-    Drivetrain.moveLeftSide(-steeringAdjust/10);
-    Drivetrain.moveRightSide(steeringAdjust/10);
+    Drivetrain.moveLeftSide(-steeringAdjust/7);
+    Drivetrain.moveRightSide(steeringAdjust/7);
+
   }
 
   // Called once the command ends or is interrupted.
