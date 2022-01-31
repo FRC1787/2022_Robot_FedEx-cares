@@ -14,9 +14,6 @@ public class Camera extends SubsystemBase {
   NetworkTableEntry tx = table.getEntry("tx");
   NetworkTableEntry ty = table.getEntry("ty");
   NetworkTableEntry ta = table.getEntry("ta");
-  double h1 = 35.5;
-  double h2 = 57;
-  double a1 = 33;
 
   public Camera() {
 
