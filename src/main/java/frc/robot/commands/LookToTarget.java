@@ -41,6 +41,7 @@ public class LookToTarget extends CommandBase {
     else if (tx < 1.0) {
       steeringAdjust = Kp * headingError + minCommand;
     }
+    // dividing by less than 7 causes it to oscillate and doing more than 7 is too slow
     Drivetrain.moveLeftSide(-steeringAdjust/7);
     Drivetrain.moveRightSide(steeringAdjust/7);
 
