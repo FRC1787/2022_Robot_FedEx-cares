@@ -19,13 +19,16 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveArcade;
 import frc.robot.commands.LookToTarget;
+import frc.robot.commands.TestClimb;
 import frc.robot.commands.ToggleLimelight;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Camera;
+import frc.robot.subsystems.Climb;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 
@@ -40,6 +43,7 @@ public class RobotContainer {
 
   public final static Drivetrain drivetrain = new Drivetrain();
   public final static Camera camera = new Camera();
+  public final static Climb climb = new Climb();
 
 
 
@@ -51,6 +55,7 @@ public class RobotContainer {
   public static Joystick stick = new Joystick(0);
   private final Button toggleLimelightButton = new JoystickButton(stick, Constants.toggleLimelightButtonID);
   private final Button lookToTargetButton = new JoystickButton(stick, Constants.lookToTargetButtonID);
+  private final Button liftState = new JoystickButton(stick, 7);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -69,6 +74,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     toggleLimelightButton.whenPressed(new ToggleLimelight(camera));
     lookToTargetButton.whileHeld(new LookToTarget(drivetrain, camera));
+    liftState.toggleWhenPressed(new TestClimb(climb));
+    
   }
 
   /**
@@ -95,7 +102,9 @@ public class RobotContainer {
         )
         .setKinematics(Constants.kDriveKinematics)
         .addConstraint(autoVoltageConstraint);
+  
     
+<<<<<<< Updated upstream
     Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
       //start at 0,0 with degree angle of 0
       new Pose2d(0, 0, new Rotation2d(0)),
@@ -108,13 +117,40 @@ public class RobotContainer {
 
       //end at 3,0 facing 0 again
       new Pose2d(3, 0, new Rotation2d(0)),
+=======
+    Trajectory trajectory;
+    
+    // trajectory = TrajectoryGenerator.generateTrajectory(
+    //   new Pose2d(0, 0, new Rotation2d(0)),
 
-      //pass config to trajectory
-      config
-    );
+      
+    //   List.of(
+    //     new Translation2d(1/3.281, -1/3.281),
+    //     new Translation2d(2/3.281, 1/3.281)
+    //   ),
 
+    //   //drives 3 feet forward
+    //   new Pose2d(3/3.281, 0, new Rotation2d(Math.toRadians(0))),
+
+>>>>>>> Stashed changes
+
+    //   //pass config to trajectory
+    //   config
+    // );
+
+<<<<<<< Updated upstream
     RamseteCommand ramseteCommand = new RamseteCommand(
       exampleTrajectory,
+=======
+    trajectory = Robot.getPathweaverTrajectory();
+
+    var leftController = new PIDController(Constants.kp, 0, 0);
+    var rightController = new PIDController(Constants.kp, 0, 0);
+    
+
+    RamseteCommand ramseteCommand = new RamseteCommand(
+      trajectory,  
+>>>>>>> Stashed changes
       drivetrain::getPose,
       new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
       new SimpleMotorFeedforward(
@@ -124,6 +160,7 @@ public class RobotContainer {
       ),
       Constants.kDriveKinematics,
       drivetrain::getWheelSpeeds,
+<<<<<<< Updated upstream
       new PIDController(Constants.kp, 0, 0),
       new PIDController(Constants.kp, 0, 0),
       drivetrain::tankDrive,
@@ -131,6 +168,24 @@ public class RobotContainer {
     );
 
     drivetrain.resetOdometry(exampleTrajectory.getInitialPose());
+=======
+      leftController,
+      rightController,
+      (leftVolts, rightVolts) -> {
+        drivetrain.tankDrive(leftVolts, rightVolts);
+
+        SmartDashboard.putNumber("left measurement", drivetrain.leftEncoderSpeed());
+        SmartDashboard.putNumber("left reference", leftController.getSetpoint());
+
+        SmartDashboard.putNumber("right measurement", drivetrain.rightEncoderSpeed());
+        SmartDashboard.putNumber("right reference", rightController.getSetpoint());
+      },
+      drivetrain
+    );
+
+    drivetrain.resetGyro(); //robot now assumes degree angle is 0
+    drivetrain.resetOdometry(trajectory.getInitialPose());
+>>>>>>> Stashed changes
 
     return ramseteCommand.andThen(() -> drivetrain.tankDrive(0, 0));
   }

@@ -7,6 +7,11 @@ package frc.robot.subsystems;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+<<<<<<< Updated upstream
+=======
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+>>>>>>> Stashed changes
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
@@ -37,6 +42,8 @@ public class Drivetrain extends SubsystemBase {
    public static RelativeEncoder right3E = right3.getEncoder();
 
    public static AHRS navX = new AHRS();
+
+
 
   
   private final DifferentialDriveOdometry m_odometry;
@@ -175,6 +182,13 @@ public class Drivetrain extends SubsystemBase {
     m_odometry.resetPosition(pose, navX.getRotation2d());
   }
 
+<<<<<<< Updated upstream
+=======
+  public static void resetGyro() {
+    navX.reset();
+  }
+
+>>>>>>> Stashed changes
   @Override
   public void periodic() {
     // Update odometry

@@ -8,6 +8,10 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+<<<<<<< Updated upstream
+=======
+import frc.robot.subsystems.Climb;
+>>>>>>> Stashed changes
 import frc.robot.subsystems.Drivetrain;
 
 /**
@@ -25,10 +29,26 @@ public class Robot extends TimedRobot {
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
+<<<<<<< Updated upstream
+=======
+  String trajectoryJSON = "paths/output/loop.wpilib.json";
+  public static Trajectory trajectory = new Trajectory();
+  
+>>>>>>> Stashed changes
   @Override
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
+<<<<<<< Updated upstream
+=======
+    try {
+      Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+      trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+    } catch (IOException ex) {
+      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
+    }
+
+>>>>>>> Stashed changes
     m_robotContainer = new RobotContainer();
     
   }
@@ -59,8 +79,12 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+<<<<<<< Updated upstream
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
     m_robotContainer.drivetrain.resetEncoders();
+=======
+
+>>>>>>> Stashed changes
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
@@ -79,8 +103,12 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+<<<<<<< Updated upstream
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
     m_robotContainer.drivetrain.resetEncoders();
+=======
+    Climb.extendState = 0;
+>>>>>>> Stashed changes
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
