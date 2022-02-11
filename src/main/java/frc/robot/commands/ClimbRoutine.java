@@ -4,95 +4,32 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.subsystems.Climb;
-import java.util.concurrent.TimeUnit;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 
-
-public class ClimbRoutine extends CommandBase {
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
+// information, see:
+// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+public class ClimbRoutine extends SequentialCommandGroup {
   /** Creates a new ClimbRoutine. */
-
-  private int step;
-  private int bar;
-
   public ClimbRoutine(Climb climb) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(climb);
-  }
+    // Add your commands in the addCommands() call, e.g.
+    // addCommands(new FooCommand(), new BarCommand());
+    addCommands(
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    step = 0;
-    bar = 0;
-    //mount limit switches so it is activated when arm is fully extended/retracted
-    //assumes arm is already on bar when command is started (make sure that bottom limit switch is not active)
-    //retract arm until bottom limit switch is met
-    //see https://docs.revrobotics.com/sparkmax/feature-description/data-port#:~:text=SPARK%20MAX%20has%20two%20limit,output%20into%20the%20neutral%20state.
-    //and https://robotpy.readthedocs.io/projects/rev/en/stable/rev/CANSparkMax.html#rev.CANSparkMax.setSmartCurrentLimit
-    //retract pneumatic
-    //extend arm until top limit switch met
-    //extend pneumatic
-    //retract arm until bottom limit switch met
-    //repeat steps for 15-point climb
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    if (bar < 2) {
-      switch (step) {
-
-        case (0):
-          Climb.setArm(-0.2); //retract arm until limit switch activates
-          if (Climb.isRetracted()) {
-            Climb.setArm(0); //stop arm and move to next step
-            step++;
-            break;
-          }
-
-        case (1):
-          Climb.piston.set(DoubleSolenoid.Value.kReverse);
-          step++;
-          break;
-
-        case (2):
-          Climb.setArm(0.5); //extend arm until limit switch activates
-          if (Climb.isExtended()) {
-            Climb.setArm(0);
-            Climb.piston.set(DoubleSolenoid.Value.kForward);
-            step++;
-          }
-          break;
-        
-        case (3):
-          Climb.setArm(-0.2);
-          if (Climb.isRetracted()) {
-            Climb.setArm(0);
-            step++;
-            break;
-          }
-          
-
-        case (4):
-          step = 0;
-          bar++;
-          break;
-
-      }
-    }
-  }
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    Climb.setArm(0);
-  }
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return bar >= 2;
+      //assumes driver starts with arms attached to first bar and arms extended
+      new MoveArm(climb, -0.1), //pull robot up by retracting arms
+      new WaitCommand(1.0),
+      //TODO: MAKE ARMS EXTEND A LITTLE BEFORE LEANING BACK
+      new SetClimbPiston(climb, false), //lean arm back
+      new WaitCommand(0.5),
+      new MoveArm(climb, 0.2), //extend arm all the way
+      new WaitCommand(1.0),
+      new SetClimbPiston(climb, true), //push arm up against bar
+      new WaitCommand(1.0),
+      new MoveArm(climb, -0.1) //retract arm to pull robot to second bar
+      
+    );
   }
 }

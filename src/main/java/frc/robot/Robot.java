@@ -15,7 +15,10 @@ import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Drivetrain;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -99,6 +102,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    Climb.extendState = 2;
+    Climb.piston.set(DoubleSolenoid.Value.kReverse);
     RobotContainer.drivetrain.resetEncoders();
 
   }

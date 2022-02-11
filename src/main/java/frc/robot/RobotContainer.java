@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.ClimbRoutine;
 import frc.robot.commands.DriveArcade;
 import frc.robot.commands.LookToTarget;
 import frc.robot.commands.TestClimb;
@@ -50,12 +51,13 @@ public class RobotContainer {
   public final static DriveArcade driveArcade = new DriveArcade(drivetrain);
   public final static ToggleLimelight toggleLimelight = new ToggleLimelight(camera);
   public final static LookToTarget lookToTarget = new LookToTarget(drivetrain, camera);
-
+  public final static ClimbRoutine climbRoutine = new ClimbRoutine(climb);
 
   public static Joystick stick = new Joystick(0);
   private final Button toggleLimelightButton = new JoystickButton(stick, Constants.toggleLimelightButtonID);
   private final Button lookToTargetButton = new JoystickButton(stick, Constants.lookToTargetButtonID);
   private final Button liftState = new JoystickButton(stick, 7);
+  private final Button climbRoutineButton = new JoystickButton(stick, 8);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -75,6 +77,7 @@ public class RobotContainer {
     toggleLimelightButton.whenPressed(new ToggleLimelight(camera));
     lookToTargetButton.whileHeld(new LookToTarget(drivetrain, camera));
     liftState.toggleWhenPressed(new TestClimb(climb));
+    climbRoutineButton.whileHeld(new ClimbRoutine(climb));
     
   }
 
