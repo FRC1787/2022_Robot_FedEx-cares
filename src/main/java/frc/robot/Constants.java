@@ -37,14 +37,9 @@ public final class Constants {
     public static final double kTrackwidth = 0.66; //idk if this is right lole
     public static final DifferentialDriveKinematics kDriveKinematics = 
         new DifferentialDriveKinematics(kTrackwidth);
-    
-<<<<<<< Updated upstream
-    public static final double kMaxSpeed = 0.2;
-    public static final double kMaxAcceleration = 1.0;
-=======
+ 
     public static final double kMaxSpeed = 0.5;
     public static final double kMaxAcceleration = 1;
->>>>>>> Stashed changes
 
     public static final double kRamseteB = 2;
     public static final double kRamseteZeta = 0.7;

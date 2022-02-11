@@ -84,6 +84,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+
     var autoVoltageConstraint =
       new DifferentialDriveVoltageConstraint(
         new SimpleMotorFeedforward(
@@ -104,45 +105,26 @@ public class RobotContainer {
         .addConstraint(autoVoltageConstraint);
   
     
-<<<<<<< Updated upstream
-    Trajectory exampleTrajectory = TrajectoryGenerator.generateTrajectory(
-      //start at 0,0 with degree angle of 0
-      new Pose2d(0, 0, new Rotation2d(0)),
-
-      //hit 1, 1 and 2,-1 as interior waypoints
-      List.of(
-        new Translation2d(1, 1),
-        new Translation2d(2, -1)
-      ),
-
-      //end at 3,0 facing 0 again
-      new Pose2d(3, 0, new Rotation2d(0)),
-=======
     Trajectory trajectory;
     
-    // trajectory = TrajectoryGenerator.generateTrajectory(
-    //   new Pose2d(0, 0, new Rotation2d(0)),
+    trajectory = TrajectoryGenerator.generateTrajectory(
+      new Pose2d(0, 0, new Rotation2d(0)),
 
       
-    //   List.of(
-    //     new Translation2d(1/3.281, -1/3.281),
-    //     new Translation2d(2/3.281, 1/3.281)
-    //   ),
+      List.of(
+        new Translation2d(1/3.281, -1/3.281),
+        new Translation2d(2/3.281, 1/3.281)
+      ),
 
-    //   //drives 3 feet forward
-    //   new Pose2d(3/3.281, 0, new Rotation2d(Math.toRadians(0))),
+      //drives 3 feet forward
+      new Pose2d(3/3.281, 0, new Rotation2d(Math.toRadians(0))),
 
->>>>>>> Stashed changes
 
-    //   //pass config to trajectory
-    //   config
-    // );
+      //pass config to trajectory
+      config
+    );
 
-<<<<<<< Updated upstream
-    RamseteCommand ramseteCommand = new RamseteCommand(
-      exampleTrajectory,
-=======
-    trajectory = Robot.getPathweaverTrajectory();
+    //trajectory = Robot.getPathweaverTrajectory();
 
     var leftController = new PIDController(Constants.kp, 0, 0);
     var rightController = new PIDController(Constants.kp, 0, 0);
@@ -150,7 +132,6 @@ public class RobotContainer {
 
     RamseteCommand ramseteCommand = new RamseteCommand(
       trajectory,  
->>>>>>> Stashed changes
       drivetrain::getPose,
       new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
       new SimpleMotorFeedforward(
@@ -160,15 +141,6 @@ public class RobotContainer {
       ),
       Constants.kDriveKinematics,
       drivetrain::getWheelSpeeds,
-<<<<<<< Updated upstream
-      new PIDController(Constants.kp, 0, 0),
-      new PIDController(Constants.kp, 0, 0),
-      drivetrain::tankDrive,
-      drivetrain
-    );
-
-    drivetrain.resetOdometry(exampleTrajectory.getInitialPose());
-=======
       leftController,
       rightController,
       (leftVolts, rightVolts) -> {
@@ -185,7 +157,6 @@ public class RobotContainer {
 
     drivetrain.resetGyro(); //robot now assumes degree angle is 0
     drivetrain.resetOdometry(trajectory.getInitialPose());
->>>>>>> Stashed changes
 
     return ramseteCommand.andThen(() -> drivetrain.tankDrive(0, 0));
   }

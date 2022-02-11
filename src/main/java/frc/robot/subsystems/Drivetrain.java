@@ -7,11 +7,6 @@ package frc.robot.subsystems;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
-<<<<<<< Updated upstream
-=======
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
->>>>>>> Stashed changes
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
@@ -57,12 +52,12 @@ public class Drivetrain extends SubsystemBase {
     left3.setIdleMode(IdleMode.kBrake);
     right3.setIdleMode(IdleMode.kBrake);
 
-    right1.setInverted(true); 
-    right2.setInverted(true);
-    right3.setInverted(true);
-    left1.setInverted(false);
-    left2.setInverted(false);
-    left3.setInverted(false);
+    right1.setInverted(false); 
+    right2.setInverted(false);
+    right3.setInverted(false);
+    left1.setInverted(true);
+    left2.setInverted(true);
+    left3.setInverted(true);
 
     left1E.setPositionConversionFactor(Constants.positionConversionFactor);
     left2E.setPositionConversionFactor(Constants.positionConversionFactor);
@@ -140,29 +135,6 @@ public class Drivetrain extends SubsystemBase {
     return right1E.getVelocity();
   }
 
-  //WE PROBABLY DO NOT NEED ALL OF THIS COMMENTED STUFF
-  // //encoder 42 pulses per revolution
-
-  // // distance in feet the right side of the robot has traveled
-  // public static double rightDistance() {
-  //   // dont know why 2.2 works but it works in place of the gearbox ratio
-  //   return ((rightEncoder() / Constants.pulsesPerRotation) / 10.38 * Math.PI * Constants.wheelDiameter);
-  // }
-
-  // // distance in feet the left side of the robot has traveled
-  // public static double leftDistance() {
-  //   return -((leftEncoder() / Constants.pulsesPerRotation) / 2.21 * Math.PI * Constants.wheelDiameter);
-  // }
-
-  // //returns speed, idk what the numbers mean (maybe wrong)
-  // public double leftDriveSpeed() {
-  //   return (left1E.getVelocity() / 60) * Constants.pulsesPerRotation * (0.1524 * Math.PI) / Constants.pulsesPerRotation * Constants.gearboxRatio;
-  // }
-
-  // public double rightDriveSpeed() {
-  //   return -(right1E.getVelocity() / 60) * Constants.pulsesPerRotation * (0.1524 * Math.PI) / Constants.pulsesPerRotation * Constants.gearboxRatio;
-  // }
-
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
     return new DifferentialDriveWheelSpeeds(leftEncoderSpeed(), rightEncoderSpeed());
   }
@@ -182,13 +154,10 @@ public class Drivetrain extends SubsystemBase {
     m_odometry.resetPosition(pose, navX.getRotation2d());
   }
 
-<<<<<<< Updated upstream
-=======
   public static void resetGyro() {
     navX.reset();
   }
 
->>>>>>> Stashed changes
   @Override
   public void periodic() {
     // Update odometry

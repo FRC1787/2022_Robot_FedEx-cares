@@ -30,8 +30,8 @@ public class DriveArcade extends CommandBase {
     double linearSpeed = deadzone(RobotContainer.stick.getY());
     double angularSpeed = deadzone(RobotContainer.stick.getX());
 
-    Drivetrain.moveLeftSide(linearSpeed - angularSpeed);
-    Drivetrain.moveRightSide(linearSpeed + angularSpeed);
+    Drivetrain.moveLeftSide(-linearSpeed + angularSpeed);
+    Drivetrain.moveRightSide(-linearSpeed - angularSpeed);
     SmartDashboard.putNumber("left distance", Drivetrain.leftEncoderPosition());
     SmartDashboard.putNumber("right distance", Drivetrain.rightEncoderPosition());
     SmartDashboard.putNumber("left speed", Drivetrain.leftEncoderSpeed());
