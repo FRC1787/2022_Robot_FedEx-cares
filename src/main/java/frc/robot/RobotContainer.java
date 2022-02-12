@@ -25,6 +25,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ClimbRoutine;
 import frc.robot.commands.DriveArcade;
 import frc.robot.commands.LookToTarget;
+import frc.robot.commands.MoveArm;
 import frc.robot.commands.TestClimb;
 import frc.robot.commands.ToggleLimelight;
 import frc.robot.subsystems.Drivetrain;
@@ -56,9 +57,9 @@ public class RobotContainer {
   public static Joystick stick = new Joystick(0);
   private final Button toggleLimelightButton = new JoystickButton(stick, Constants.toggleLimelightButtonID);
   private final Button lookToTargetButton = new JoystickButton(stick, Constants.lookToTargetButtonID);
-  private final Button liftState = new JoystickButton(stick, 7);
+  private final Button extendArm = new JoystickButton(stick, 7);
   private final Button climbRoutineButton = new JoystickButton(stick, 8);
-
+  private final Button fullExtend = new JoystickButton(stick, 9);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -76,8 +77,9 @@ public class RobotContainer {
   private void configureButtonBindings() {
     toggleLimelightButton.whenPressed(new ToggleLimelight(camera));
     lookToTargetButton.whileHeld(new LookToTarget(drivetrain, camera));
-    liftState.toggleWhenPressed(new TestClimb(climb));
+    extendArm.toggleWhenPressed(new TestClimb(climb));
     climbRoutineButton.whileHeld(new ClimbRoutine(climb));
+    fullExtend.whenPressed(new MoveArm(climb, .5));
     
   }
 

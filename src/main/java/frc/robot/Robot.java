@@ -102,7 +102,6 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    Climb.extendState = 2;
     Climb.piston.set(DoubleSolenoid.Value.kReverse);
     RobotContainer.drivetrain.resetEncoders();
 

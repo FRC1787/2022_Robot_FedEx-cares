@@ -7,8 +7,6 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-
-import edu.wpi.first.wpilibj.DigitalGlitchFilter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -20,8 +18,8 @@ public class Climb extends SubsystemBase {
   /** Creates a new Climb. */
   public static int extendState = 0; //0 = retracted, 1 = intermediate, 2 = extended
   public static CANSparkMax arm = new CANSparkMax(7, MotorType.kBrushless);
-  public static DigitalInput bottomLimitSwitch = new DigitalInput(0);
-  public static DigitalInput topLimitSwitch = new DigitalInput(1);
+  public static DigitalInput bottomLimitSwitch = new DigitalInput(1);
+  public static DigitalInput topLimitSwitch = new DigitalInput(0);
   public static DoubleSolenoid piston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 0);
 
   public Climb() {
@@ -44,11 +42,11 @@ public class Climb extends SubsystemBase {
 
 
 
-  public static void moveArmOnStartup() {
+  public static void partialMoveArm() {
     Timer timer = new Timer();
     timer.start();
-    while (timer.get() < 0.5) {
-      setArm(0.1);
+    while (timer.get() < 1.0) {
+      setArm(0.3);
     }
     setArm(0);
     timer.stop();
