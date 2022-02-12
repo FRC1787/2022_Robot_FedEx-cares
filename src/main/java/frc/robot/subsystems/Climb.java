@@ -13,11 +13,12 @@ import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Climb extends SubsystemBase {
   /** Creates a new Climb. */
   public static int extendState = 0; //0 = retracted, 1 = intermediate, 2 = extended
-  public static CANSparkMax arm = new CANSparkMax(7, MotorType.kBrushless);
+  public static CANSparkMax arm = new CANSparkMax(Constants.armMotorID, MotorType.kBrushless);
   public static DigitalInput bottomLimitSwitch = new DigitalInput(1);
   public static DigitalInput topLimitSwitch = new DigitalInput(0);
   public static DoubleSolenoid piston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 0);
@@ -46,7 +47,7 @@ public class Climb extends SubsystemBase {
     Timer timer = new Timer();
     timer.start();
     while (timer.get() < 1.0) {
-      setArm(0.3);
+      setArm(0.5);
     }
     setArm(0);
     timer.stop();

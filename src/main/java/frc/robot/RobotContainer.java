@@ -24,11 +24,13 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.ClimbRoutine;
 import frc.robot.commands.DriveArcade;
+import frc.robot.commands.IntakeBalls;
 import frc.robot.commands.LookToTarget;
 import frc.robot.commands.MoveArm;
 import frc.robot.commands.TestClimb;
 import frc.robot.commands.ToggleLimelight;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.Climb;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -41,25 +43,27 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
-
+  //SUBSYSTEMS
   public final static Drivetrain drivetrain = new Drivetrain();
   public final static Camera camera = new Camera();
   public final static Climb climb = new Climb();
+  public final static Intake intake = new Intake();
 
-
-
+  //COMMANDS
   public final static DriveArcade driveArcade = new DriveArcade(drivetrain);
   public final static ToggleLimelight toggleLimelight = new ToggleLimelight(camera);
   public final static LookToTarget lookToTarget = new LookToTarget(drivetrain, camera);
   public final static ClimbRoutine climbRoutine = new ClimbRoutine(climb);
+  public final static IntakeBalls intakeBalls = new IntakeBalls(intake);
 
   public static Joystick stick = new Joystick(0);
   private final Button toggleLimelightButton = new JoystickButton(stick, Constants.toggleLimelightButtonID);
   private final Button lookToTargetButton = new JoystickButton(stick, Constants.lookToTargetButtonID);
-  private final Button extendArm = new JoystickButton(stick, 7);
+  private final Button intakeBallsButton = new JoystickButton(stick, 1);
+  private final Button manualMoveArmButton = new JoystickButton(stick, 7);
   private final Button climbRoutineButton = new JoystickButton(stick, 8);
-  private final Button fullExtend = new JoystickButton(stick, 9);
+  private final Button fullExtendButton = new JoystickButton(stick, 9);
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -77,9 +81,10 @@ public class RobotContainer {
   private void configureButtonBindings() {
     toggleLimelightButton.whenPressed(new ToggleLimelight(camera));
     lookToTargetButton.whileHeld(new LookToTarget(drivetrain, camera));
-    extendArm.toggleWhenPressed(new TestClimb(climb));
+    manualMoveArmButton.toggleWhenPressed(new TestClimb(climb));
     climbRoutineButton.whileHeld(new ClimbRoutine(climb));
-    fullExtend.whenPressed(new MoveArm(climb, .5));
+    fullExtendButton.whenPressed(new MoveArm(climb, .5));
+    intakeBallsButton.whileHeld(new IntakeBalls(intake));
     
   }
 

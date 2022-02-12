@@ -18,15 +18,29 @@ public final class Constants {
     public static final boolean botMostLikelyToGetPHD = true;
     public static final boolean botWithWorstPathweaverSystem = true;
 
+    //MOTOR IDs
+        //climb
+    public static final int armMotorID = 7;
+        //drivetrain
+    public static final int l1MotorID = 20;
+    public static final int l2MotorID = 1;
+    public static final int l3MotorID = 2;
+    public static final int r1MotorID = 13;
+    public static final int r2MotorID = 14;
+    public static final int r3MotorID = 15;
+        //intake
+    public static final int intakeMotorID = 99; //change this later
+        //shooter
+    public static final int indexerMotorID = 99;
+    public static final int acceleratorMotorID = 99;
+    public static final int backspinnerMotorID = 99;
+    
+
+    //AUTO
     //we probably should put units on all of these variable names for clarity
-
-    public static final double gearboxRatio = 7.25;
-    public static final double wheelDiameter = 6.0;
-    public static final int pulsesPerRotation = 42;
-
+    public static final double gearboxRatio = 7.25; //it probably is not this it just is the most accurate with this value
     public static final double positionConversionFactor = 0.1524*Math.PI/gearboxRatio; //changes rotations of motor to distance traveled in meters
     public static final double velocityConversionFactor = Math.PI*0.1524/60/gearboxRatio; //changes rpm of motor to m/s
-
 
     public static final double ks = 0.090934;
     public static final double kv = 1.9188;
@@ -45,6 +59,8 @@ public final class Constants {
     public static final double kRamseteZeta = 0.7;
 
     public static final double autoMaxVoltage = 8;
+
+
 
     // Measurements for limelight
     public static final double tapeHeight = 81;

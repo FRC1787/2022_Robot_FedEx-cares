@@ -5,24 +5,25 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.subsystems.Climb;
+import frc.robot.subsystems.Shooter;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class PartialMoveArm extends InstantCommand {
-  double speed, time;
-  //if we keep this for the final design make this so you can control the distance travelled
-  public PartialMoveArm(Climb climbSubsystem, double speed, double time) {
+public class SetShooterPosition extends InstantCommand {
+  private boolean extended;
+  public SetShooterPosition(Shooter shooterSubsystem, boolean extended) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(climbSubsystem);
-    this.speed = speed;
-    this.time = time;
+    this.extended = extended;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Climb.partialMoveArm();
+    if (extended)
+      Shooter.setShooterPosition(Value.kForward);
+    else  
+      Shooter.setShooterPosition(Value.kReverse);
   }
 }

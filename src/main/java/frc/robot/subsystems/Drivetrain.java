@@ -19,12 +19,12 @@ import com.revrobotics.RelativeEncoder;
 public class Drivetrain extends SubsystemBase {
    /*Spark Max Motor Controller Objects*/
    //look into follower motors (one main motor, other ones try and match speed of first one via encoder value)
-   private static CANSparkMax left1 = new CANSparkMax(20, MotorType.kBrushless);
-   private static CANSparkMax left2 = new CANSparkMax(1, MotorType.kBrushless);
-   private static CANSparkMax left3 = new CANSparkMax(2, MotorType.kBrushless);
-   private static CANSparkMax right1 = new CANSparkMax(13, MotorType.kBrushless);
-   private static CANSparkMax right2 = new CANSparkMax(14, MotorType.kBrushless);
-   private static CANSparkMax right3 = new CANSparkMax(15, MotorType.kBrushless);
+   private static CANSparkMax left1 = new CANSparkMax(Constants.l1MotorID, MotorType.kBrushless);
+   private static CANSparkMax left2 = new CANSparkMax(Constants.l2MotorID, MotorType.kBrushless);
+   private static CANSparkMax left3 = new CANSparkMax(Constants.l3MotorID, MotorType.kBrushless);
+   private static CANSparkMax right1 = new CANSparkMax(Constants.r1MotorID, MotorType.kBrushless);
+   private static CANSparkMax right2 = new CANSparkMax(Constants.r2MotorID, MotorType.kBrushless);
+   private static CANSparkMax right3 = new CANSparkMax(Constants.r3MotorID, MotorType.kBrushless);
  
    /*Neo Motor Encoder Objects*/
    public static RelativeEncoder left1E = left1.getEncoder();

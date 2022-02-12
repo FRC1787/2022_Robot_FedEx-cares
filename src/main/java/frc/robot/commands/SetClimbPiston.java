@@ -4,11 +4,15 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.subsystems.Climb;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
-public class SetClimbPiston extends CommandBase {
+
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
+// information, see:
+// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+public class SetClimbPiston extends InstantCommand {
   /** Creates a new SetClimbPiston. */
   boolean up;
   public SetClimbPiston(Climb climbSubsystem, boolean setPistonUp) {
@@ -21,24 +25,10 @@ public class SetClimbPiston extends CommandBase {
   @Override
   public void initialize() {
     if (up) {
-      Climb.piston.set(DoubleSolenoid.Value.kReverse); //reverse == up position
+      Climb.piston.set(Value.kReverse); //reverse == up position
     }
     else {
-      Climb.piston.set(DoubleSolenoid.Value.kForward);
+      Climb.piston.set(Value.kForward);
     }
-  }
-
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {}
-
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {}
-
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return true;
   }
 }
