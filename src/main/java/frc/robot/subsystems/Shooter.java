@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -17,12 +16,12 @@ import frc.robot.Constants;
 public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
 
-  public static CANSparkMax indexer = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
-  public static CANSparkMax accelerator = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
-  public static CANSparkMax backspinner = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
+  private static CANSparkMax indexer = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
+  private static CANSparkMax accelerator = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
+  private static CANSparkMax backspinner = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
 
-  public static DoubleSolenoid leftPiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 90, 91);
-  public static DoubleSolenoid rightPiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 92, 93);
+  private static DoubleSolenoid leftPiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 90, 91);
+  private static DoubleSolenoid rightPiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 92, 93);
 
 
   public Shooter() {
@@ -41,7 +40,25 @@ public class Shooter extends SubsystemBase {
     rightPiston.set(position);
   }
 
+  public static void setIndexerSpeed(double speed) {
+    indexer.set(speed);
+  }
 
+  public static void setAcceleratorSpeed(double speed) {
+    accelerator.set(speed);
+  }
+
+  public static void setBackspinnerSpeed(double speed) {
+    backspinner.set(speed);
+  }
+
+  public static double getBackspinnerSpeed() {
+    return backspinner.get();
+  }
+
+  public static double getAcceleratorSpeed() {
+    return accelerator.get();
+  }
 
   @Override
   public void periodic() {

@@ -15,10 +15,11 @@ import frc.robot.Constants;
 public class Intake extends SubsystemBase {
   /** Creates a new Intake. */
 
-  public static CANSparkMax intakeMotor = new CANSparkMax(Constants.intakeMotorID, MotorType.kBrushless);
+  private static CANSparkMax intakeMotor = new CANSparkMax(Constants.intakeMotorID, MotorType.kBrushless);
+  private static CANSparkMax kowalski = new CANSparkMax(Constants.kowalksiMotorID, MotorType.kBrushless);
   //REPLACE THESE VALUES
-  public static DoubleSolenoid leftPiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 90, 91);
-  public static DoubleSolenoid rightPiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 92, 93);
+  private static DoubleSolenoid leftPiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 90, 91);
+  private static DoubleSolenoid rightPiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 92, 93);
 
   public Intake() {
     leftPiston.set(DoubleSolenoid.Value.kForward);
@@ -33,6 +34,10 @@ public class Intake extends SubsystemBase {
 
   public static void setIntakeMotor(double speed) {
     intakeMotor.set(speed);
+  }
+
+  public static void setKowalksiMotor(double speed) {
+    kowalski.set(speed);
   }
 
   @Override

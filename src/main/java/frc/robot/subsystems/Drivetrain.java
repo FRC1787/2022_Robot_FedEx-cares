@@ -27,14 +27,14 @@ public class Drivetrain extends SubsystemBase {
    private static CANSparkMax right3 = new CANSparkMax(Constants.r3MotorID, MotorType.kBrushless);
  
    /*Neo Motor Encoder Objects*/
-   public static RelativeEncoder left1E = left1.getEncoder();
-   public static RelativeEncoder left2E = left2.getEncoder();
-   public static RelativeEncoder left3E = left3.getEncoder();
-   public static RelativeEncoder right1E = right1.getEncoder();
-   public static RelativeEncoder right2E = right2.getEncoder();
-   public static RelativeEncoder right3E = right3.getEncoder();
+   private static RelativeEncoder left1E = left1.getEncoder();
+   private static RelativeEncoder left2E = left2.getEncoder();
+   private static RelativeEncoder left3E = left3.getEncoder();
+   private static RelativeEncoder right1E = right1.getEncoder();
+   private static RelativeEncoder right2E = right2.getEncoder();
+   private static RelativeEncoder right3E = right3.getEncoder();
 
-   public static AHRS navX = new AHRS();
+   private static AHRS navX = new AHRS();
 
 
 
@@ -111,25 +111,21 @@ public class Drivetrain extends SubsystemBase {
 
   //distance traveled in meters by left side
   public static double leftEncoderPosition() {
-    //return (left1E.getPosition() + left2E.getPosition() + left3E.getPosition()) / 3.0;
     return left1E.getPosition();
   }
 
   //distance traveled in meters by right side
   public static double rightEncoderPosition() {
-    //return (right1E.getPosition() + right2E.getPosition() + right3E.getPosition()) / 3.0;
     return right1E.getPosition();
   }
 
   //speed of left side in m/s
   public static double leftEncoderSpeed() {
-    //return (left1E.getVelocity() + left2E.getVelocity() + left3E.getVelocity()) / 3.0;
     return left1E.getVelocity();
   }
   
   //speed of right side in m/s
   public static double rightEncoderSpeed() {
-    //return (left1E.getVelocity() + left2E.getVelocity() + left3E.getVelocity()) / 3.0;
     return right1E.getVelocity();
   }
 

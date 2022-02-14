@@ -20,6 +20,7 @@ public class IntakeBalls extends CommandBase {
   public void initialize() {
     Intake.setIntake(Value.kForward); //depends on what the ids are
     Intake.setIntakeMotor(0.7); //tweak this value
+    Intake.setKowalksiMotor(0.5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -31,6 +32,7 @@ public class IntakeBalls extends CommandBase {
   public void end(boolean interrupted) {
     Intake.setIntake(Value.kReverse);
     Intake.setIntakeMotor(0);
+    Intake.setKowalksiMotor(0);
   }
 
   // Returns true when the command should end.

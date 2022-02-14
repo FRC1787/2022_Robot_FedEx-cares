@@ -10,7 +10,7 @@ import frc.robot.Constants;
 
 public class Camera extends SubsystemBase {
 
-  public static NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
+  private static NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
   NetworkTableEntry tx = table.getEntry("tx");
   NetworkTableEntry ty = table.getEntry("ty");
   NetworkTableEntry ta = table.getEntry("ta");

@@ -43,26 +43,49 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  //SUBSYSTEMS
+  // SUBSYSTEMS
   public final static Drivetrain drivetrain = new Drivetrain();
   public final static Camera camera = new Camera();
   public final static Climb climb = new Climb();
   public final static Intake intake = new Intake();
 
-  //COMMANDS
-  public final static DriveArcade driveArcade = new DriveArcade(drivetrain);
-  public final static ToggleLimelight toggleLimelight = new ToggleLimelight(camera);
-  public final static LookToTarget lookToTarget = new LookToTarget(drivetrain, camera);
-  public final static ClimbRoutine climbRoutine = new ClimbRoutine(climb);
-  public final static IntakeBalls intakeBalls = new IntakeBalls(intake);
+  // COMMANDS
+    // Camera
+      public final static ToggleLimelight toggleLimelight = new ToggleLimelight(camera);
+      public final static LookToTarget lookToTarget = new LookToTarget(drivetrain, camera);
+    // Climb
+      public final static ClimbRoutine climbRoutine = new ClimbRoutine(climb);
 
-  public static Joystick stick = new Joystick(0);
-  private final Button toggleLimelightButton = new JoystickButton(stick, Constants.toggleLimelightButtonID);
-  private final Button lookToTargetButton = new JoystickButton(stick, Constants.lookToTargetButtonID);
-  private final Button intakeBallsButton = new JoystickButton(stick, 1);
-  private final Button manualMoveArmButton = new JoystickButton(stick, 7);
-  private final Button climbRoutineButton = new JoystickButton(stick, 8);
-  private final Button fullExtendButton = new JoystickButton(stick, 9);
+    // Drivetrain
+      public final static DriveArcade driveArcade = new DriveArcade(drivetrain);
+
+    // Intake
+     public final static IntakeBalls intakeBalls = new IntakeBalls(intake);
+
+    // Shooter
+
+  // Controllers
+    public static Joystick stick = new Joystick(0);
+    // public static XboxController stick = new XboxController(0);
+
+  // Button Bindings
+    // Camera
+      private final Button toggleLimelightButton = new JoystickButton(stick, Constants.toggleLimelightButtonID);
+      private final Button lookToTargetButton    = new JoystickButton(stick, Constants.lookToTargetButtonID);
+
+    // Climb
+      private final Button manualMoveArmButton = new JoystickButton(stick, Constants.manualMoveArmButtonID);
+      private final Button climbRoutineButton  = new JoystickButton(stick, Constants.climbRoutineButtonID);
+      private final Button fullExtendButton    = new JoystickButton(stick, Constants.fullExtendButtonID);
+  
+    // Drivetrain
+
+
+    // Intake
+      private final Button intakeBallsButton = new JoystickButton(stick, 1);
+
+    // Shooter
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {

@@ -22,7 +22,7 @@ public class ClimbRoutine extends SequentialCommandGroup {
       new MoveArm(climb, -0.6), //pull robot up by retracting arms
       new WaitCommand(0.25),
       new PartialMoveArm(climb, 0, 0), //extend arm to clear bar (currently values are hardcoded)
-      new WaitCommand(0.25),
+      new WaitCommand(0.75), //wait extra time for the above instant command
       new SetClimbPiston(climb, false), //lean arm back
       new WaitCommand(0.25),
       new MoveArm(climb, 0.7), //extend arm all the way

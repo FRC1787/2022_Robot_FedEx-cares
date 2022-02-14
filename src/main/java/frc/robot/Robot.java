@@ -102,7 +102,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    Climb.piston.set(DoubleSolenoid.Value.kReverse);
+    Climb.setPiston(DoubleSolenoid.Value.kReverse);
     RobotContainer.drivetrain.resetEncoders();
 
   }

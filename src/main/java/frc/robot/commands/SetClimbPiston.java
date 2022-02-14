@@ -25,10 +25,10 @@ public class SetClimbPiston extends InstantCommand {
   @Override
   public void initialize() {
     if (up) {
-      Climb.piston.set(Value.kReverse); //reverse == up position
+      Climb.setPiston(Value.kReverse); //reverse == up position
     }
     else {
-      Climb.piston.set(Value.kForward);
+      Climb.setPiston(Value.kForward);
     }
   }
 }
