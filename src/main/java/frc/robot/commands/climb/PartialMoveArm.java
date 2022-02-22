@@ -2,43 +2,48 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.climb;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Climb;
 
-public class IntakeBalls extends CommandBase {
-  /** Creates a new IntakeBalls. */
-  public IntakeBalls(Intake intakeSubsystem) {
+public class PartialMoveArm extends CommandBase {
+  /** Creates a new PartialMoveArm. */
+  Timer timer = new Timer();
+  double speed;
+  double time;
+  
+  public PartialMoveArm(Climb climbSubsystem, double speed, double time) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intakeSubsystem);
+    addRequirements(climbSubsystem);
+    this.speed=speed;
+    this.time=time;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Intake.setIntake(Value.kForward); //depends on what the ids are
-    Intake.setIntakeMotor(Constants.intakeMotorSpeed); //tweak this value
-    Intake.setKowalksiMotor(Constants.kowalskiMotorSpeed);
+    timer.start();
+    Climb.setArm(speed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Intake.setIntake(Value.kReverse);
-    Intake.setIntakeMotor(0);
-    Intake.setKowalksiMotor(0);
+    Climb.setArm(0);
+    timer.stop(); timer.reset(); //idk if these two are required
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return (timer.get() > time || Climb.isExtended());
   }
 }

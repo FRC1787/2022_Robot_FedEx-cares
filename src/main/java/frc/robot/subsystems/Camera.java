@@ -11,9 +11,7 @@ import frc.robot.Constants;
 public class Camera extends SubsystemBase {
 
   private static NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-  NetworkTableEntry tx = table.getEntry("tx");
-  NetworkTableEntry ty = table.getEntry("ty");
-  NetworkTableEntry ta = table.getEntry("ta");
+
 
   public Camera() {
 
@@ -29,6 +27,10 @@ public class Camera extends SubsystemBase {
 
   @Override
   public void periodic() {
+
+    NetworkTableEntry tx = table.getEntry("tx");
+    NetworkTableEntry ty = table.getEntry("ty");
+    NetworkTableEntry ta = table.getEntry("ta");
 
     double x = tx.getDouble(0.0);
     double y = ty.getDouble(0.0);

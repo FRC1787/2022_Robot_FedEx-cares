@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.climb;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -18,11 +18,13 @@ public class ClimbRoutine extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
 
+      //DONT put these values in constants it is easier to do them here anyways
+
       //assumes driver starts with arms attached to first bar and arms extended
       new MoveArm(climb, -0.6), //pull robot up by retracting arms
       new WaitCommand(0.25),
-      new PartialMoveArm(climb, 0, 0), //extend arm to clear bar (currently values are hardcoded)
-      new WaitCommand(0.75), //wait extra time for the above instant command
+      new PartialMoveArm(climb, 0.7, 0.3), //extend arm to clear bar
+      new WaitCommand(0.25),
       new SetClimbPiston(climb, false), //lean arm back
       new WaitCommand(0.25),
       new MoveArm(climb, 0.7), //extend arm all the way

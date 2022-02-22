@@ -10,9 +10,13 @@ import frc.robot.subsystems.Shooter;
 
 public class ShootBalls extends CommandBase {
   /** Creates a new ShootBalls. */
-  public ShootBalls(Shooter shootSubsystem) {
+  double acceleratorSpeed, backspinnerSpeed, indexerSpeed;
+  public ShootBalls(Shooter shootSubsystem, double acceleratorSpeed, double backspinnerSpeed, double indexerSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shootSubsystem);
+    this.acceleratorSpeed=acceleratorSpeed;
+    this.backspinnerSpeed=backspinnerSpeed;
+    this.indexerSpeed=indexerSpeed;
   }
 
   // Called when the command is initially scheduled.
@@ -22,11 +26,11 @@ public class ShootBalls extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Shooter.getAcceleratorSpeed() != Constants.acceleratorSpeed || Shooter.getBackspinnerSpeed() != Constants.backspinnerSpeed) {
-      Shooter.accelerateShooter(Constants.acceleratorSpeed, Constants.backspinnerSpeed);
+    if (Shooter.getAcceleratorSpeed() != acceleratorSpeed || Shooter.getBackspinnerSpeed() != backspinnerSpeed) {
+      Shooter.accelerateShooter(acceleratorSpeed, backspinnerSpeed);
     }
     else {
-      Shooter.setIndexerSpeed(Constants.indexerSpeed); //adjust this
+      Shooter.setIndexerSpeed(indexerSpeed); //adjust this
     }
   }
 

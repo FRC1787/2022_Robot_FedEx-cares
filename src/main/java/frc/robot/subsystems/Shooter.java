@@ -16,12 +16,12 @@ import frc.robot.Constants;
 public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
 
-  private static CANSparkMax indexer = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
+  private static CANSparkMax indexer     = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
   private static CANSparkMax accelerator = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
   private static CANSparkMax backspinner = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
 
-  private static DoubleSolenoid leftPiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 90, 91);
-  private static DoubleSolenoid rightPiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 92, 93);
+  private static DoubleSolenoid leftPiston  = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.leftIntakePistonFowardID, Constants.leftIntakePistonReverseID);
+  private static DoubleSolenoid rightPiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.rightIntakePistonFowardID, Constants.rightIntakePistonReverseID);
 
 
   public Shooter() {

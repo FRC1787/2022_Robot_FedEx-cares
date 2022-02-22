@@ -20,8 +20,8 @@ public class Climb extends SubsystemBase {
   private static int extendState = 0; //0 = retracted, 1 = intermediate, 2 = extended
   private static CANSparkMax arm = new CANSparkMax(Constants.armMotorID, MotorType.kBrushless);
   private static DigitalInput bottomLimitSwitch = new DigitalInput(1);
-  private static DigitalInput topLimitSwitch = new DigitalInput(0);
-  private static DoubleSolenoid piston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, 1, 0);
+  private static DigitalInput topLimitSwitch    = new DigitalInput(0);
+  private static DoubleSolenoid piston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.armPistonFowardID, Constants.armPistonReverseID);
 
   public Climb() {
     arm.setIdleMode(IdleMode.kBrake);
@@ -43,19 +43,6 @@ public class Climb extends SubsystemBase {
 
   public static void setPiston(DoubleSolenoid.Value value) {
     piston.set(value);
-  }
-
-
-
-  public static void partialMoveArm() {
-    Timer timer = new Timer();
-    timer.start();
-    while (timer.get() < 1.0) {
-      setArm(0.5);
-    }
-    setArm(0);
-    timer.stop();
-    timer.reset();
   }
 
   @Override

@@ -22,15 +22,19 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.ClimbRoutine;
 import frc.robot.commands.DriveArcade;
 import frc.robot.commands.IntakeBalls;
 import frc.robot.commands.LookToTarget;
-import frc.robot.commands.MoveArm;
-import frc.robot.commands.TestClimb;
+import frc.robot.commands.SetShooterPosition;
+import frc.robot.commands.ShootBalls;
 import frc.robot.commands.ToggleLimelight;
+import frc.robot.commands.TurnToTarget;
+import frc.robot.commands.climb.ClimbRoutine;
+import frc.robot.commands.climb.MoveArm;
+import frc.robot.commands.climb.TestClimb;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.Climb;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -44,25 +48,15 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
  */
 public class RobotContainer {
   // SUBSYSTEMS
+  public final static Camera     camera     = new Camera();
+  public final static Climb      climb      = new Climb();
   public final static Drivetrain drivetrain = new Drivetrain();
-  public final static Camera camera = new Camera();
-  public final static Climb climb = new Climb();
-  public final static Intake intake = new Intake();
+  public final static Intake     intake     = new Intake();
+  public final static Shooter    shooter    = new Shooter();
+
 
   // COMMANDS
-    // Camera
-      public final static ToggleLimelight toggleLimelight = new ToggleLimelight(camera);
-      public final static LookToTarget lookToTarget = new LookToTarget(drivetrain, camera);
-    // Climb
-      public final static ClimbRoutine climbRoutine = new ClimbRoutine(climb);
-
-    // Drivetrain
-      public final static DriveArcade driveArcade = new DriveArcade(drivetrain);
-
-    // Intake
-     public final static IntakeBalls intakeBalls = new IntakeBalls(intake);
-
-    // Shooter
+      public final static DriveArcade     driveArcade     = new DriveArcade(drivetrain);
 
   // Controllers
     public static Joystick stick = new Joystick(0);
@@ -71,21 +65,19 @@ public class RobotContainer {
   // Button Bindings
     // Camera
       private final Button toggleLimelightButton = new JoystickButton(stick, Constants.toggleLimelightButtonID);
-      private final Button lookToTargetButton    = new JoystickButton(stick, Constants.lookToTargetButtonID);
-
+      private final Button turnToTargetButton = new JoystickButton(stick, Constants.turnToTargetButtonID);
     // Climb
-      private final Button manualMoveArmButton = new JoystickButton(stick, Constants.manualMoveArmButtonID);
-      private final Button climbRoutineButton  = new JoystickButton(stick, Constants.climbRoutineButtonID);
-      private final Button fullExtendButton    = new JoystickButton(stick, Constants.fullExtendButtonID);
-  
+      private final Button manualMoveArmButton   = new JoystickButton(stick, Constants.manualMoveArmButtonID);
+      private final Button climbRoutineButton    = new JoystickButton(stick, Constants.climbRoutineButtonID);
+      private final Button fullExtendButton      = new JoystickButton(stick, Constants.fullExtendButtonID);
     // Drivetrain
 
-
     // Intake
-      private final Button intakeBallsButton = new JoystickButton(stick, 1);
-
+      private final Button intakeBallsButton     = new JoystickButton(stick, Constants.intakeBallsButtonID);
     // Shooter
-
+      private final Button closeShootBallsButton      = new JoystickButton(stick, Constants.closeShootBallsButtonID);
+      private final Button farShootBallsButton = new JoystickButton(stick, Constants.farShootBallsButtonID);
+      
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -103,11 +95,15 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     toggleLimelightButton.whenPressed(new ToggleLimelight(camera));
-    lookToTargetButton.whileHeld(new LookToTarget(drivetrain, camera));
+    turnToTargetButton.whileHeld(new TurnToTarget(drivetrain, camera));
     manualMoveArmButton.toggleWhenPressed(new TestClimb(climb));
     climbRoutineButton.whileHeld(new ClimbRoutine(climb));
     fullExtendButton.whenPressed(new MoveArm(climb, .5));
     intakeBallsButton.whileHeld(new IntakeBalls(intake));
+    closeShootBallsButton.whileHeld(new SetShooterPosition(shooter, false)
+      .andThen(new ShootBalls(shooter, 0.53, 0.53, 0.2))); //change these values
+    farShootBallsButton.whileHeld(new SetShooterPosition(shooter, true)
+      .andThen(new ShootBalls(shooter, 0.53, 0.53, 0.2))); //change these values
     
   }
 
@@ -188,7 +184,7 @@ public class RobotContainer {
       drivetrain
     );
 
-    drivetrain.resetGyro(); //robot now assumes degree angle is 0
+    drivetrain.resetGyro(); //robot always assumes it is facing degree angle 0
     drivetrain.resetOdometry(trajectory.getInitialPose());
 
     return ramseteCommand.andThen(() -> drivetrain.tankDrive(0, 0));

@@ -100,7 +100,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   //moves left and right sides with voltage
-  public void tankDrive(double leftVolts, double rightVolts) {
+  public static void tankDrive(double leftVolts, double rightVolts) {
     left1.setVoltage(leftVolts);
     left2.setVoltage(leftVolts);
     left3.setVoltage(leftVolts);
@@ -134,7 +134,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   //returns robot's heading in degrees
-  public double getHeading() {
+  public static double getHeading() {
     return navX.getYaw();
   }
 
