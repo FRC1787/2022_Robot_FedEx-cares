@@ -101,9 +101,9 @@ public class RobotContainer {
     fullExtendButton.whenPressed(new MoveArm(climb, .5));
     intakeBallsButton.whileHeld(new IntakeBalls(intake));
     closeShootBallsButton.whileHeld(new SetShooterPosition(shooter, false)
-      .andThen(new ShootBalls(shooter, 0.53, 0.53, 0.2))); //change these values
+      .andThen(new ShootBalls(shooter, camera, 0.53, 0.53, 0.2))); //change these values
     farShootBallsButton.whileHeld(new SetShooterPosition(shooter, true)
-      .andThen(new ShootBalls(shooter, 0.53, 0.53, 0.2))); //change these values
+      .andThen(new ShootBalls(shooter, camera, 0.53, 0.53, 0.2))); //change these values
     
   }
 
@@ -117,9 +117,9 @@ public class RobotContainer {
     var autoVoltageConstraint =
       new DifferentialDriveVoltageConstraint(
         new SimpleMotorFeedforward(
-            Constants.ks,
-            Constants.kv,
-            Constants.ka
+            Constants.ksAuto,
+            Constants.kvAuto,
+            Constants.kaAuto
           ),
           Constants.kDriveKinematics,
           Constants.autoMaxVoltage
@@ -155,8 +155,8 @@ public class RobotContainer {
 
     //trajectory = Robot.getPathweaverTrajectory();
 
-    var leftController = new PIDController(Constants.kp, 0, 0);
-    var rightController = new PIDController(Constants.kp, 0, 0);
+    var leftController = new PIDController(Constants.kpAuto, 0, 0);
+    var rightController = new PIDController(Constants.kpAuto, 0, 0);
     
 
     RamseteCommand ramseteCommand = new RamseteCommand(
@@ -164,9 +164,9 @@ public class RobotContainer {
       drivetrain::getPose,
       new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
       new SimpleMotorFeedforward(
-        Constants.ks,
-        Constants.kv,
-        Constants.ka
+        Constants.ksAuto,
+        Constants.kvAuto,
+        Constants.kaAuto
       ),
       Constants.kDriveKinematics,
       drivetrain::getWheelSpeeds,

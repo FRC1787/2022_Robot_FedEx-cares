@@ -10,8 +10,10 @@ import frc.robot.Constants;
 
 public class Camera extends SubsystemBase {
 
+
   private static NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
+  public static double distToTarget;
 
   public Camera() {
 
@@ -25,6 +27,15 @@ public class Camera extends SubsystemBase {
     return (int) table.getEntry("ledMode").getDouble(3);
   }
 
+  public static double calculateAcceleratorSpeed() {
+    //find regression formula here
+    return 0;
+  }
+
+  public static double calculateBackspinnerSpeed() {
+    return 0;
+  }
+
   @Override
   public void periodic() {
 
@@ -35,12 +46,14 @@ public class Camera extends SubsystemBase {
     double x = tx.getDouble(0.0);
     double y = ty.getDouble(0.0);
     double area = ta.getDouble(0.0);
-    double d = ((Constants.tapeHeight - Constants.limelightHeight)/(Math.tan(Math.toRadians(y + Constants.limelightAngle))));
+    distToTarget = ((Constants.tapeHeight - Constants.limelightHeight)/(Math.tan(Math.toRadians(y + Constants.limelightAngle))));
 
-    SmartDashboard.putNumber("Limelight Distance", d);
+    SmartDashboard.putNumber("Limelight Distance", distToTarget);
     SmartDashboard.putNumber("LimelightX", x);
     SmartDashboard.putNumber("LimelightY", y);
     SmartDashboard.putNumber("LimelightArea", area);
 
   }
+
+
 }

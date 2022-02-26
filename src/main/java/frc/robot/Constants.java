@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import java.util.function.DoubleSupplier;
-
 import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 
 /**
@@ -22,6 +20,12 @@ public final class Constants {
   public static final boolean FedEx_cares                  = true;
   public static final boolean bestSchoolTeamAtOrange       = true;
 
+  // SHOOTER
+  public static double shooterDistanceThreshold;
+  public static double shooterRPMToPercent; //DO THIS
+
+
+
   // SOLENOID IDs
     // Climb
       public static final int armPistonFowardID  = 0;
@@ -33,25 +37,31 @@ public final class Constants {
       public static final int rightIntakePistonReverseID = 5;
 
 
+
+
+
+
   // MOTOR IDs
     // Climb
       public static final int armMotorID = 7;
     // Drivetrain
-      public static final int l1MotorID = 20;
-      public static final int l2MotorID =  1;
-      public static final int l3MotorID =  2;
-      public static final int r1MotorID = 13;
-      public static final int r2MotorID = 14;
-      public static final int r3MotorID = 15;
+      public static final int l1MotorID = 1;
+      public static final int l2MotorID = 2;
+      public static final int r1MotorID = 3;
+      public static final int r2MotorID = 4;
     // Intake
       public static final int intakeMotorID   = 16; //change this later
       public static final int kowalksiMotorID = 17; // da kowalksi :D
-
     // Shooter
       public static final int indexerMotorID     = 18;
       public static final int acceleratorMotorID = 19;
       public static final int backspinnerMotorID = 24;
   
+
+
+
+
+
 
   // MOTOR SPEEDS
     // Climb
@@ -68,16 +78,28 @@ public final class Constants {
       public static final double backspinnerSpeed = 0.52;
 
 
+
+  // PID VALUES
+    // AUTO
+      public static final double ksAuto = 0.090934;
+      public static final double kvAuto = 1.918800;
+      public static final double kaAuto = 0.419780;
+      public static final double kpAuto = 2.648400;
+
+    // SHOOTER
+      public static final double kpShooter = 0.000000;
+      public static final double kiShooter = 0.000000;
+      public static final double kdShooter = 0.000000;
+      
+
+
+
+
   //AUTO
   //we probably should put units on all of these variable names for clarity
     public static final double gearboxRatio             = 7.25;                             //it probably is not this it just is the most accurate with this value
     public static final double positionConversionFactor = 0.1524*Math.PI/gearboxRatio;      //changes rotations of motor to distance traveled in meters
     public static final double velocityConversionFactor = Math.PI*0.1524/60/gearboxRatio;   //changes rpm of motor to m/s
-
-    public static final double ks = 0.090934;
-    public static final double kv = 1.918800;
-    public static final double ka = 0.419780;
-    public static final double kp = 2.648400;
 
     public static final double kTrackwidth = 0.66; //idk if this is right lole
     public static final DifferentialDriveKinematics kDriveKinematics = 
@@ -92,6 +114,9 @@ public final class Constants {
     public static final double autoMaxVoltage = 8.0;
 
 
+
+
+
   // VISION
     // Measurements for limelight
       public static final double tapeHeight      = 81.0;
@@ -101,6 +126,10 @@ public final class Constants {
       public static final double lookToTargetP = 0.05;
       public static final double lookToTargetI = 0.00;
       public static final double lookToTargetD = 0.00;
+
+
+
+
 
 
   // BUTTON IDS
@@ -122,6 +151,7 @@ public final class Constants {
     // Shooter
       public static final int closeShootBallsButtonID = 4;
       public static final int farShootBallsButtonID   = 5;
+
 
 
 

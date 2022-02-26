@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -19,6 +20,9 @@ public class Shooter extends SubsystemBase {
   private static CANSparkMax indexer     = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
   private static CANSparkMax accelerator = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
   private static CANSparkMax backspinner = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
+  
+  private static RelativeEncoder acceleratorE = accelerator.getEncoder();
+  private static RelativeEncoder backspinnerE = backspinner.getEncoder();
 
   private static DoubleSolenoid leftPiston  = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.leftIntakePistonFowardID, Constants.leftIntakePistonReverseID);
   private static DoubleSolenoid rightPiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.rightIntakePistonFowardID, Constants.rightIntakePistonReverseID);
@@ -53,11 +57,11 @@ public class Shooter extends SubsystemBase {
   }
 
   public static double getBackspinnerSpeed() {
-    return backspinner.get();
+    return backspinnerE.getVelocity();
   }
 
   public static double getAcceleratorSpeed() {
-    return accelerator.get();
+    return acceleratorE.getVelocity();
   }
 
   @Override

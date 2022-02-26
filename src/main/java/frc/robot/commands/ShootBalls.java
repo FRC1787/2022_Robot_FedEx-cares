@@ -4,16 +4,29 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.Camera;
 import frc.robot.subsystems.Shooter;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class ShootBalls extends CommandBase {
   /** Creates a new ShootBalls. */
   double acceleratorSpeed, backspinnerSpeed, indexerSpeed;
-  public ShootBalls(Shooter shootSubsystem, double acceleratorSpeed, double backspinnerSpeed, double indexerSpeed) {
+
+  PIDController acceleratorPID = new PIDController(Constants.kpShooter, Constants.kiShooter, Constants.kdShooter);
+  PIDController backspinnerPID = new PIDController(Constants.kpShooter, Constants.kiShooter, Constants.kdShooter);
+
+  private double acceleratorSetpoint;
+  private double backspinnerSetpoint;
+
+  public ShootBalls(Shooter shootSubsystem, Camera cameraSubsystem, double acceleratorSpeed, double backspinnerSpeed, double indexerSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shootSubsystem);
+    addRequirements(cameraSubsystem);
+    acceleratorPID.setTolerance(10);
+    backspinnerPID.setTolerance(10);
     this.acceleratorSpeed=acceleratorSpeed;
     this.backspinnerSpeed=backspinnerSpeed;
     this.indexerSpeed=indexerSpeed;
@@ -21,17 +34,40 @@ public class ShootBalls extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    acceleratorSetpoint = Camera.calculateAcceleratorSpeed(); //function will change depending on threshold
+    backspinnerSetpoint = Camera.calculateBackspinnerSpeed();
+    if (Camera.distToTarget < Constants.shooterDistanceThreshold) {
+      Shooter.setShooterPosition(DoubleSolenoid.Value.kForward);
+    }
+    else Shooter.setShooterPosition(DoubleSolenoid.Value.kReverse);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Shooter.getAcceleratorSpeed() != acceleratorSpeed || Shooter.getBackspinnerSpeed() != backspinnerSpeed) {
-      Shooter.accelerateShooter(acceleratorSpeed, backspinnerSpeed);
+
+    //change this depending on threshold for up or down
+
+
+
+    Shooter.setAcceleratorSpeed(
+      acceleratorPID.calculate(
+        Shooter.getAcceleratorSpeed(), acceleratorSetpoint
+      )*Constants.shooterRPMToPercent
+    );
+
+    Shooter.setBackspinnerSpeed(
+      backspinnerPID.calculate(
+        Shooter.getBackspinnerSpeed(), backspinnerSetpoint
+      )*Constants.shooterRPMToPercent //we are using the same conversion factors for both motors because i dont care
+    );
+
+
+    if (acceleratorPID.atSetpoint() && backspinnerPID.atSetpoint()) {
+      Shooter.setIndexerSpeed(0.2);
     }
-    else {
-      Shooter.setIndexerSpeed(indexerSpeed); //adjust this
-    }
+
   }
 
   // Called once the command ends or is interrupted.
