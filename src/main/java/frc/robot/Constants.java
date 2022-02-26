@@ -42,20 +42,21 @@ public final class Constants {
 
 
   // MOTOR IDs
-    // Climb
-      public static final int armMotorID = 7;
+
     // Drivetrain
       public static final int l1MotorID = 1;
       public static final int l2MotorID = 2;
       public static final int r1MotorID = 3;
       public static final int r2MotorID = 4;
     // Intake
-      public static final int intakeMotorID   = 16; //change this later
-      public static final int kowalksiMotorID = 17; // da kowalksi :D
+      public static final int intakeMotorID   = 5; //change this later
+      public static final int kowalksiMotorID = 6; // da kowalksi :D
     // Shooter
-      public static final int indexerMotorID     = 18;
-      public static final int acceleratorMotorID = 19;
-      public static final int backspinnerMotorID = 24;
+      public static final int indexerMotorID     = 7;
+      public static final int acceleratorMotorID = 8;
+      public static final int backspinnerMotorID = 9;
+    // Climb
+      public static final int armMotorID = 10;
   
 
 
@@ -79,7 +80,7 @@ public final class Constants {
 
 
 
-  // PID VALUES
+  // PID/FEEDFORWARD VALUES
     // AUTO
       public static final double ksAuto = 0.090934;
       public static final double kvAuto = 1.918800;
@@ -147,10 +148,12 @@ public final class Constants {
 
     // Intake
       public static final int intakeBallsButtonID = 1;
+      public static final int reverseIntakeButtonID = 6;
 
     // Shooter
       public static final int closeShootBallsButtonID = 4;
       public static final int farShootBallsButtonID   = 5;
+
 
 
 

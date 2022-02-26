@@ -24,7 +24,7 @@ import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveArcade;
 import frc.robot.commands.IntakeBalls;
-import frc.robot.commands.LookToTarget;
+import frc.robot.commands.ReverseIntake;
 import frc.robot.commands.SetShooterPosition;
 import frc.robot.commands.ShootBalls;
 import frc.robot.commands.ToggleLimelight;
@@ -56,7 +56,7 @@ public class RobotContainer {
 
 
   // COMMANDS
-      public final static DriveArcade     driveArcade     = new DriveArcade(drivetrain);
+      public final static DriveArcade   driveArcade = new DriveArcade(drivetrain);
 
   // Controllers
     public static Joystick stick = new Joystick(0);
@@ -74,9 +74,12 @@ public class RobotContainer {
 
     // Intake
       private final Button intakeBallsButton     = new JoystickButton(stick, Constants.intakeBallsButtonID);
+      private final Button reverseIntakeButton = new JoystickButton(stick, Constants.reverseIntakeButtonID);
+
     // Shooter
       private final Button closeShootBallsButton      = new JoystickButton(stick, Constants.closeShootBallsButtonID);
       private final Button farShootBallsButton = new JoystickButton(stick, Constants.farShootBallsButtonID);
+
       
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -100,10 +103,11 @@ public class RobotContainer {
     climbRoutineButton.whileHeld(new ClimbRoutine(climb));
     fullExtendButton.whenPressed(new MoveArm(climb, .5));
     intakeBallsButton.whileHeld(new IntakeBalls(intake));
+    reverseIntakeButton.whileHeld(new ReverseIntake(intake));
     closeShootBallsButton.whileHeld(new SetShooterPosition(shooter, false)
-      .andThen(new ShootBalls(shooter, camera, 0.53, 0.53, 0.2))); //change these values
+      .andThen(new ShootBalls(shooter, camera, 0.53, 0.53, 0.2))); //finished will not do this but instead values will be automaticallyh calculated
     farShootBallsButton.whileHeld(new SetShooterPosition(shooter, true)
-      .andThen(new ShootBalls(shooter, camera, 0.53, 0.53, 0.2))); //change these values
+      .andThen(new ShootBalls(shooter, camera, 0.53, 0.53, 0.2)));
     
   }
 
