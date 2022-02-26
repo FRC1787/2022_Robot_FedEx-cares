@@ -18,14 +18,13 @@ public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
 
   private static CANSparkMax indexer     = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
-  private static CANSparkMax accelerator = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
-  private static CANSparkMax backspinner = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
+  private static CANSparkMax accelerator = new CANSparkMax(Constants.acceleratorMotorID, MotorType.kBrushless);
+  private static CANSparkMax backspinner = new CANSparkMax(Constants.backspinnerMotorID, MotorType.kBrushless);
   
   private static RelativeEncoder acceleratorE = accelerator.getEncoder();
   private static RelativeEncoder backspinnerE = backspinner.getEncoder();
 
-  private static DoubleSolenoid leftPiston  = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.leftIntakePistonFowardID, Constants.leftIntakePistonReverseID);
-  private static DoubleSolenoid rightPiston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.rightIntakePistonFowardID, Constants.rightIntakePistonReverseID);
+  private static DoubleSolenoid leftPiston  = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.shooterPistonForwardID, Constants.shooterPistonReverseID);
 
 
   public Shooter() {
@@ -41,7 +40,6 @@ public class Shooter extends SubsystemBase {
 
   public static void setShooterPosition(DoubleSolenoid.Value position) {
     leftPiston.set(position);
-    rightPiston.set(position);
   }
 
   public static void setIndexerSpeed(double speed) {

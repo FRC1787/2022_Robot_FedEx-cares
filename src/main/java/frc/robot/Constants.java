@@ -31,10 +31,11 @@ public final class Constants {
       public static final int armPistonFowardID  = 0;
       public static final int armPistonReverseID = 1;
     // Intake
-      public static final int leftIntakePistonFowardID   = 2;
-      public static final int leftIntakePistonReverseID  = 3;
-      public static final int rightIntakePistonFowardID  = 4;
-      public static final int rightIntakePistonReverseID = 5;
+      public static final int leftIntakePistonFowardID   = 5;
+      public static final int leftIntakePistonReverseID  = 4;
+    // Shooter
+      public static final int shooterPistonForwardID = 2;
+      public static final int shooterPistonReverseID = 3;
 
 
 
