@@ -25,11 +25,27 @@ public class Intake extends SubsystemBase {
     //depends on how the ids are set up
 
   }
-
+  
+  /**
+  * Sets the state of the pneumatic cylinder via the connected solenoid
+  * 
+  * <p>
+  * To extend the pneumatic cylinder, use {@code kForward} for the {@code value} parameter, for example: 
+  * {@code setPiston(Value.kForward);}
+  * </p>
+  * <p>
+  * To retract the pneumatic cylinder, use {@code kReverse} for the {@code value} parameter, for example:
+  * {@code setPiston(Value.kReverse);}
+  * 
+  * @param value - {@code Value.kForward} or {@code Value.kReverse}
+  */
   public static void setIntake(DoubleSolenoid.Value state) {
     leftPiston.set(state);
   }
 
+  /** 
+   * Sets the speed of the intake motor
+  */
   public static void setIntakeMotor(double speed) {
     intakeMotor.set(speed);
   }

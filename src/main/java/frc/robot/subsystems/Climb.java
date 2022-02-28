@@ -27,19 +27,57 @@ public class Climb extends SubsystemBase {
     piston.set(DoubleSolenoid.Value.kReverse); //reverse channel pushes up
   }
 
-  //these functions are just for readability
+  /**
+   * Tests if arm is extended
+   * 
+   * @return true if the arm is extended and false otherwise
+   */
   public static boolean isExtended() {
     return !topLimitSwitch.get();
   }
+
+  /**
+   * Tests if arm is retracted
+   * 
+   * @return true if the arm is retracted and false otherwise
+   */
   public static boolean isRetracted() {
     return !bottomLimitSwitch.get();
   }
-  //positive value = retracting, negative value = extending
+
+  /**
+   * Sets the speed of the climb arm
+   * 
+   * <p>
+   * To extend the arm, input a negative value, for example:
+   * {@code setArm(-0.5);}
+   * </p>
+   * <p>
+   * To retract the arm, input a positive value, for example:
+   * {@code setArm(0.5);}
+   * </p>
+   * 
+   * @param speed - speed of the arm input as a voltage
+   * 
+   */
   public static void setArm(double speed) {
     arm.set(speed);
     
   }
 
+  /**
+   * Sets the state of the pneumatic cylinder via the connected solenoid
+   * 
+   * <p>
+   * To extend the pneumatic cylinder, use {@code kForward} for the {@code value} parameter, for example: 
+   * {@code setPiston(Value.kForward);}
+   * </p>
+   * <p>
+   * To retract the pneumatic cylinder, use {@code kReverse} for the {@code value} parameter, for example:
+   * {@code setPiston(Value.kReverse);}
+   * 
+   * @param value - {@code Value.kForward} or {@code Value.kReverse}
+   */
   public static void setPiston(DoubleSolenoid.Value value) {
     piston.set(value);
   }

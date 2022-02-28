@@ -18,11 +18,20 @@ public class Camera extends SubsystemBase {
   public Camera() {
 
   }
-
+  /**
+   * Returns the x value of any target seen by the Limelight
+   * 
+   * @return x value of target
+   */
   public static double getLimelightX() {
     return table.getEntry("tx").getDouble(0.0);
   }
 
+  /**
+   * Returns the current mode of the Limelight's LEDs
+   * 
+   * @return current mode of the Limelight's LEDs
+   */
   public static int getCameraLightState() {
     return (int) table.getEntry("ledMode").getDouble(3);
   }

@@ -62,25 +62,63 @@ public class Drivetrain extends SubsystemBase {
     m_odometry = new DifferentialDriveOdometry(navX.getRotation2d());
   }
 
-  //Resets all the neo encoders to 0
+  /**
+   * Resets all NEO encoders to 0
+   */
   public static void resetEncoders() {
     left1E.setPosition(0); 
     left2E.setPosition(0);
     right1E.setPosition(0);
     right2E.setPosition(0);
   }
-
+  /**
+   * Sets the NEO motors of the left side of the robot to the specified speed
+   * 
+   * <p>
+   * To drive the left side foward, input a positive speed. For example,
+   * {@code moveLeftSide(0.5);}
+   * </p>
+   * <p>
+   * To drive the left side backward, input a negative speed. For example,
+   * {@code moveLeftSide(-0.5);}
+   * </p>
+   * 
+   * @param speed - the speed to set the motors to. Value should be between -1.0 and 1.0
+   * 
+   */
   public static void moveLeftSide(final double speed) {
     left1.set(speed);
     left2.set(speed);
   }
 
+  /**
+   * Sets the NEO motors of the right side of the robot to the specified speed
+   * 
+   * <p>
+   * To drive the right side foward, input a positive speed. For example,
+   * {@code moveRightSide(0.5);}
+   * </p>
+   * <p>
+   * To drive the right side backward, input a negative speed. For example,
+   * {@code moveRightSide(-0.5);}
+   * </p>
+   * 
+   * @param speed - the speed to set the motors to. Value should be between -1.0 and 1.0
+   * 
+   */
   public static void moveRightSide(final double speed) {
     right1.set(speed);
     right2.set(speed);
   }
 
   //moves left and right sides with voltage
+
+  /**
+   * Sets the speed of the NEO motors on the left side of the robot to the specified voltage
+   * 
+   * @param leftVolts - the voltage to set the NEO motors on the left side to. 
+   * @param rightVolts
+   */
   public static void tankDrive(double leftVolts, double rightVolts) {
     left1.setVoltage(leftVolts);
     left2.setVoltage(leftVolts);
