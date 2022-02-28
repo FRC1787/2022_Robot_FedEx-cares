@@ -12,7 +12,7 @@ import frc.robot.subsystems.Drivetrain;
 public class DriveArcade extends CommandBase {
   /** Creates a new DriveArcade. */
   public DriveArcade(Drivetrain ggug) {
-    // Use addRequirements() here to declare subsystem dependencies.
+    // Use addRequirements() here to declare sub   dependencies.
     addRequirements(ggug);
   }
 
@@ -21,7 +21,7 @@ public class DriveArcade extends CommandBase {
   public void initialize() {}
 
   public double deadzone(double num) {
-    return Math.abs(num) > 0.025 ? num : 0;
+    return Math.abs(num) > 0.05 ? num : 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
