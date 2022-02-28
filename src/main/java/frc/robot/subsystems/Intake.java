@@ -21,7 +21,7 @@ public class Intake extends SubsystemBase {
   private static DoubleSolenoid leftPiston  = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.leftIntakePistonFowardID, Constants.leftIntakePistonReverseID); 
 
   public Intake() {
-    leftPiston.set(DoubleSolenoid.Value.kForward);
+    leftPiston.set(DoubleSolenoid.Value.kReverse);
     //depends on how the ids are set up
 
   }

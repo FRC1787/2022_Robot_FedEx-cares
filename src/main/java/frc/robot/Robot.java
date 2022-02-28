@@ -18,6 +18,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PowerDistribution;
+import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 
 
 /**
@@ -37,6 +39,8 @@ public class Robot extends TimedRobot {
   */
   String trajectoryJSON = "paths/output/loop.wpilib.json";
   public static Trajectory trajectory = new Trajectory();
+  private PowerDistribution PDH;
+  
   @Override
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
@@ -49,6 +53,8 @@ public class Robot extends TimedRobot {
       DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
     }
     
+    PDH = new PowerDistribution(1, ModuleType.kRev);
+    PDH.clearStickyFaults();
   }
 
   /**
