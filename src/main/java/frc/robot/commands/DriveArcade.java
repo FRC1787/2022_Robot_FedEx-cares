@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
@@ -21,14 +22,17 @@ public class DriveArcade extends CommandBase {
   public void initialize() {}
 
   public double deadzone(double num) {
-    return Math.abs(num) > 0.05 ? num : 0;
+    return Math.abs(num) > 0.02 ? num : 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double linearSpeed = deadzone(RobotContainer.stick.getY());
-    double angularSpeed = deadzone(RobotContainer.stick.getX());
+    double y = RobotContainer.stick.getY();
+    double x = RobotContainer.stick.getX();
+
+    double linearSpeed = Math.signum(y)*Math.pow(deadzone(y), 2);
+    double angularSpeed = Math.signum(x)*Math.pow(deadzone(x), 2);
 
     Drivetrain.moveLeftSide(-linearSpeed + angularSpeed);
     Drivetrain.moveRightSide(-linearSpeed - angularSpeed);

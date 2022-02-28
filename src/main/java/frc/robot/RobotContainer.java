@@ -106,7 +106,7 @@ public class RobotContainer {
     fullExtendButton.whenPressed(new MoveArm(climb, .5));
     intakeBallsButton.whileHeld(new IntakeBalls(intake));
     reverseIntakeButton.whileHeld(new ReverseIntake(intake));
-    basicShootButton.whileHeld(new BasicShoot(shooter, 0.25, -1.0, 1.0));
+    basicShootButton.whileHeld(new BasicShoot(shooter, intake, 0.8, -0.25, 0.65));
     //smartShootButton.whileHeld(new ShootBalls(shooter, camera)); 
     smartShootButton.whenPressed(new SetShooterPosition(shooter, false));
     temp.whenPressed(new SetShooterPosition(shooter, true));

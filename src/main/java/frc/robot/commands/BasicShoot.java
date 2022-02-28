@@ -7,13 +7,15 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Climb;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
 public class BasicShoot extends CommandBase {
   double indexerSpeed, flywheelSpeed, backspinnerSpeed;
-  public BasicShoot(Shooter shootSubsystem, double indexerSpeed, double flywheelSpeed, double backspinnerSpeed) {
+  public BasicShoot(Shooter shootSubsystem, Intake intakeSubsystem, double indexerSpeed, double flywheelSpeed, double backspinnerSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shootSubsystem);
+    addRequirements(intakeSubsystem);
     this.indexerSpeed=indexerSpeed;
     this.flywheelSpeed=flywheelSpeed;
     this.backspinnerSpeed=backspinnerSpeed;
@@ -31,7 +33,8 @@ public class BasicShoot extends CommandBase {
   @Override
   public void execute() {
     if (Shooter.getAcceleratorSpeed()*Constants.acceleratorRPMToPercent >= flywheelSpeed && Shooter.getBackspinnerSpeed()*Constants.backspinnerRPMToPercent >= backspinnerSpeed) {
-      Shooter.setIndexerSpeed(0.25);
+      Shooter.setIndexerSpeed(0.9);
+      Intake.setKowalksiMotor(0.9);
     }
   }
 
@@ -41,6 +44,7 @@ public class BasicShoot extends CommandBase {
     Shooter.setIndexerSpeed(0);
     Shooter.setAcceleratorSpeed(0);
     Shooter.setBackspinnerSpeed(0);
+    Intake.setKowalksiMotor(0);
   }
 
   // Returns true when the command should end.
