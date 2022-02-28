@@ -17,8 +17,8 @@ public class ReverseIntake extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Intake.setKowalksiMotor(-0.2);
-    Intake.setIntakeMotor(-0.2);
+    Intake.setKowalksiMotor(-0.5);
+    Intake.setIntakeMotor(0.5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

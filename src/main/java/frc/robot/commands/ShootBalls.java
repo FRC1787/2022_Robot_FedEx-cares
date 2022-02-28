@@ -47,10 +47,6 @@ public class ShootBalls extends CommandBase {
   @Override
   public void execute() {
 
-    //change this depending on threshold for up or down
-
-
-
     Shooter.setAcceleratorSpeed(
       acceleratorPID.calculate(
         Shooter.getAcceleratorSpeed(), acceleratorSetpoint

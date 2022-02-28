@@ -20,7 +20,7 @@ public class IntakeBalls extends CommandBase {
   @Override
   public void initialize() {
     Intake.setIntake(Value.kForward); //depends on what the ids are
-    Intake.setIntakeMotor(Constants.intakeMotorSpeed); //tweak this value
+    Intake.setIntakeMotor(-Constants.intakeMotorSpeed); //tweak this value
     Intake.setKowalksiMotor(Constants.kowalskiMotorSpeed);
   }
 
