@@ -5,11 +5,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Shooter;
 
 public class BasicShoot extends CommandBase {
-  /** Creates a new BasicShoot. */
   double indexerSpeed, flywheelSpeed, backspinnerSpeed;
   public BasicShoot(Shooter shootSubsystem, double indexerSpeed, double flywheelSpeed, double backspinnerSpeed) {
     // Use addRequirements() here to declare subsystem dependencies.
@@ -22,14 +22,18 @@ public class BasicShoot extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Shooter.setIndexerSpeed(indexerSpeed);
+    Shooter.setBackspinnerSpeed(indexerSpeed);
     Shooter.setAcceleratorSpeed(flywheelSpeed);
-    Shooter.setBackspinnerSpeed(backspinnerSpeed);
+    
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    if (Shooter.getAcceleratorSpeed()*Constants.acceleratorRPMToPercent >= flywheelSpeed && Shooter.getBackspinnerSpeed()*Constants.backspinnerRPMToPercent >= backspinnerSpeed) {
+      Shooter.setIndexerSpeed(0.25);
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override

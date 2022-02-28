@@ -22,8 +22,8 @@ public final class Constants {
 
   // SHOOTER
   public static double shooterDistanceThreshold = 99999;
-  public static double shooterRPMToPercent = 1/3600; //DO THIS
-
+  public static double acceleratorRPMToPercent = 1./5000.; //DO THIS
+  public static double backspinnerRPMToPercent = 1./1200.;
 
 
   // SOLENOID IDs
@@ -34,8 +34,8 @@ public final class Constants {
       public static final int leftIntakePistonFowardID   = 4;
       public static final int leftIntakePistonReverseID  = 5;
     // Shooter
-      public static final int shooterPistonForwardID = 2;
-      public static final int shooterPistonReverseID = 3;
+      public static final int shooterPistonForwardID = 3;
+      public static final int shooterPistonReverseID = 2;
 
 
 
@@ -71,7 +71,7 @@ public final class Constants {
     // Drivetrain
 
     // Intake
-      public static final double intakeMotorSpeed   = 0.7;
+      public static final double intakeMotorSpeed   = 1.0;
       public static final double kowalskiMotorSpeed = 0.5;
 
     // Shooter
@@ -153,9 +153,9 @@ public final class Constants {
       public static final int reverseIntakeButtonID = 6;
 
     // Shooter
-      public static final int closeShootBallsButtonID = 4;
-      public static final int farShootBallsButtonID   = 5;
-
+      public static final int basicShootButtonID = 2;
+      public static final int smartShootButtonID = 3;
+      
 
 
 

@@ -78,10 +78,11 @@ public class RobotContainer {
       private final Button reverseIntakeButton = new JoystickButton(stick, Constants.reverseIntakeButtonID);
 
     // Shooter
-      private final Button closeShootBallsButton      = new JoystickButton(stick, Constants.closeShootBallsButtonID);
-      private final Button farShootBallsButton = new JoystickButton(stick, Constants.farShootBallsButtonID);
-      private final Button basicShootButton = new JoystickButton(stick, 2);
+      private final Button smartShootButton = new JoystickButton(stick, Constants.smartShootButtonID);
+      private final Button basicShootButton = new JoystickButton(stick, Constants.basicShootButtonID);
       
+
+      private final Button temp = new JoystickButton(stick, 11);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -105,8 +106,11 @@ public class RobotContainer {
     fullExtendButton.whenPressed(new MoveArm(climb, .5));
     intakeBallsButton.whileHeld(new IntakeBalls(intake));
     reverseIntakeButton.whileHeld(new ReverseIntake(intake));
-    basicShootButton.whileHeld(new BasicShoot(shooter, 0.25, 0.25, 0.25));
-    
+    basicShootButton.whileHeld(new BasicShoot(shooter, 0.25, -1.0, 1.0));
+    //smartShootButton.whileHeld(new ShootBalls(shooter, camera)); 
+    smartShootButton.whenPressed(new SetShooterPosition(shooter, false));
+    temp.whenPressed(new SetShooterPosition(shooter, true));
+
   }
 
   /**

@@ -45,13 +45,13 @@ public class ShootBalls extends CommandBase {
     Shooter.setAcceleratorSpeed(
       acceleratorPID.calculate(
         Shooter.getAcceleratorSpeed(), acceleratorSetpoint
-      )*Constants.shooterRPMToPercent
+      )*Constants.acceleratorRPMToPercent
     );
 
     Shooter.setBackspinnerSpeed(
       backspinnerPID.calculate(
         Shooter.getBackspinnerSpeed(), backspinnerSetpoint
-      )*Constants.shooterRPMToPercent //we are using the same conversion factors for both motors because i dont care
+      )*Constants.backspinnerRPMToPercent //we are using the same conversion factors for both motors because i dont care
     );
 
 

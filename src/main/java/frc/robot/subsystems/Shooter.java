@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -31,6 +32,8 @@ public class Shooter extends SubsystemBase {
     indexer.setIdleMode(IdleMode.kBrake);
     accelerator.setIdleMode(IdleMode.kCoast);
     backspinner.setIdleMode(IdleMode.kCoast);
+    acceleratorE.setVelocityConversionFactor(1.0);
+    backspinnerE.setVelocityConversionFactor(1.0);
   }
 
   public static void accelerateShooter(double acceleratorSpeed, double backspinnerSpeed) {
@@ -65,5 +68,7 @@ public class Shooter extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("backspinner speed", getBackspinnerSpeed());
+    SmartDashboard.putNumber("accelerator speed", getAcceleratorSpeed());
   }
 }
