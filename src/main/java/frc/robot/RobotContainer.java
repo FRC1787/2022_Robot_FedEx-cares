@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.BasicShoot;
 import frc.robot.commands.DriveArcade;
 import frc.robot.commands.IntakeBalls;
 import frc.robot.commands.ReverseIntake;
@@ -79,7 +80,7 @@ public class RobotContainer {
     // Shooter
       private final Button closeShootBallsButton      = new JoystickButton(stick, Constants.closeShootBallsButtonID);
       private final Button farShootBallsButton = new JoystickButton(stick, Constants.farShootBallsButtonID);
-
+      private final Button basicShootButton = new JoystickButton(stick, 2);
       
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -104,10 +105,7 @@ public class RobotContainer {
     fullExtendButton.whenPressed(new MoveArm(climb, .5));
     intakeBallsButton.whileHeld(new IntakeBalls(intake));
     reverseIntakeButton.whileHeld(new ReverseIntake(intake));
-    closeShootBallsButton.whileHeld(new SetShooterPosition(shooter, false)
-      .andThen(new ShootBalls(shooter, camera, 0.53, 0.53, 0.2))); //finished will not do this but instead values will be automaticallyh calculated
-    farShootBallsButton.whileHeld(new SetShooterPosition(shooter, true)
-      .andThen(new ShootBalls(shooter, camera, 0.53, 0.53, 0.2)));
+    basicShootButton.whileHeld(new BasicShoot(shooter, 0.25, 0.25, 0.25));
     
   }
 

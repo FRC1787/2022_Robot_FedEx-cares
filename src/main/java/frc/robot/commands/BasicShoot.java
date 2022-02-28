@@ -5,20 +5,26 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Shooter;
 
-public class ReverseIntake extends CommandBase {
-  /** Creates a new ReverseIntake. */
-  public ReverseIntake(Intake intakeSubsystem) {
-    addRequirements(intakeSubsystem);
+public class BasicShoot extends CommandBase {
+  /** Creates a new BasicShoot. */
+  double indexerSpeed, flywheelSpeed, backspinnerSpeed;
+  public BasicShoot(Shooter shootSubsystem, double indexerSpeed, double flywheelSpeed, double backspinnerSpeed) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(shootSubsystem);
+    this.indexerSpeed=indexerSpeed;
+    this.flywheelSpeed=flywheelSpeed;
+    this.backspinnerSpeed=backspinnerSpeed;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Intake.setKowalksiMotor(-0.7);
-    Intake.setIntakeMotor(0.7);
+    Shooter.setIndexerSpeed(indexerSpeed);
+    Shooter.setAcceleratorSpeed(flywheelSpeed);
+    Shooter.setBackspinnerSpeed(backspinnerSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -28,8 +34,9 @@ public class ReverseIntake extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Intake.setKowalksiMotor(0);
-    Intake.setIntakeMotor(0);
+    Shooter.setIndexerSpeed(0);
+    Shooter.setAcceleratorSpeed(0);
+    Shooter.setBackspinnerSpeed(0);
   }
 
   // Returns true when the command should end.

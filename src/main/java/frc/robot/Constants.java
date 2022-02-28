@@ -21,8 +21,8 @@ public final class Constants {
   public static final boolean bestSchoolTeamAtOrange       = true;
 
   // SHOOTER
-  public static double shooterDistanceThreshold;
-  public static double shooterRPMToPercent; //DO THIS
+  public static double shooterDistanceThreshold = 99999;
+  public static double shooterRPMToPercent = 1/3600; //DO THIS
 
 
 
@@ -76,7 +76,8 @@ public final class Constants {
 
     // Shooter
       public static final double indexerSpeed     = 0.20;
-      public static final double acceleratorSpeed = 0.52;
+      //make this always negative pls
+      public static final double acceleratorSpeed = -0.52;
       public static final double backspinnerSpeed = 0.52;
 
 
@@ -89,7 +90,7 @@ public final class Constants {
       public static final double kpAuto = 2.648400;
 
     // SHOOTER
-      public static final double kpShooter = 0.000000;
+      public static final double kpShooter = 0.05;
       public static final double kiShooter = 0.000000;
       public static final double kdShooter = 0.000000;
       

@@ -13,23 +13,18 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class ShootBalls extends CommandBase {
   /** Creates a new ShootBalls. */
-  double acceleratorSpeed, backspinnerSpeed, indexerSpeed;
-
   PIDController acceleratorPID = new PIDController(Constants.kpShooter, Constants.kiShooter, Constants.kdShooter);
   PIDController backspinnerPID = new PIDController(Constants.kpShooter, Constants.kiShooter, Constants.kdShooter);
 
   private double acceleratorSetpoint;
   private double backspinnerSetpoint;
 
-  public ShootBalls(Shooter shootSubsystem, Camera cameraSubsystem, double acceleratorSpeed, double backspinnerSpeed, double indexerSpeed) {
+  public ShootBalls(Shooter shootSubsystem, Camera cameraSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shootSubsystem);
     addRequirements(cameraSubsystem);
     acceleratorPID.setTolerance(10);
     backspinnerPID.setTolerance(10);
-    this.acceleratorSpeed=acceleratorSpeed;
-    this.backspinnerSpeed=backspinnerSpeed;
-    this.indexerSpeed=indexerSpeed;
   }
 
   // Called when the command is initially scheduled.
