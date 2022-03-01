@@ -36,31 +36,95 @@ public class Shooter extends SubsystemBase {
     backspinnerE.setVelocityConversionFactor(1.0);
   }
 
+
+  /**
+   * Sets the speed of the backspinner and accelerator motors
+   * 
+   * <p>
+   * To set the speed of the accelerator motor, input a double between 0 and -1.0. For example,
+   * {@code accelerateShooter(-0.5);}
+   * </p>
+   * <p>
+   * To set the speed of the backspinner motor, input a double between 0 and 1.0. For example,
+   * {@code accelerateShooter(0.5);}
+   * </p>
+   * @param acceleratorSpeed - speed of accelerator motor. Value should be between 0 and -1.0
+   * @param backspinnerSpeed - speed of backspinner motor. Value should be between 0 and -1.0
+   */
   public static void accelerateShooter(double acceleratorSpeed, double backspinnerSpeed) {
     accelerator.set(acceleratorSpeed);
     backspinner.set(backspinnerSpeed);
   }
 
+  /**
+   * Sets the position of the shooter's pneumatic cylinder
+   * 
+   * <p>
+   * To raise the shooter, input {@code kForward} for the {@code position} paraneter. For example,
+   * {@code setShooterPosition(kForward);}
+   * </p>
+   * <p>
+   * To lower the shooter, input {@code kReverse} for the {@code position} paraneter. For example,
+   * {@code setShooterPosition(kReverse);}
+   * </p>
+   * 
+   * @param position - position of the pneimatic cylinder
+   */
   public static void setShooterPosition(DoubleSolenoid.Value position) {
     leftPiston.set(position);
   }
 
+  /**
+   * Sets the speed of the indexer motor
+   * 
+   * <p>
+   * To set the speed of the motor, input a double between 0 and 1.0. For example,
+   * {@code setIndexerSpeed(0.5);}
+   * </p>
+   * @param speed - Speed to set for the motor. Value should be between 0 and 1.0
+   */
   public static void setIndexerSpeed(double speed) {
     indexer.set(speed);
   }
 
+  /**
+   * Sets the speed of the accelerator motor
+   * 
+   * <p>
+   * To set the speed of the motor, input a double between 0 and -1.0. For example,
+   * {@code setAcceleratorSpeed(-0.5);}
+   * </p>
+   * @param speed - Speed to set for the motor. Value should be between 0 and -1.0
+   */
   public static void setAcceleratorSpeed(double speed) {
     accelerator.set(speed);
   }
 
+  /**
+   * Sets the speed of the backspinner motor
+   * 
+   * <p>
+   * To set the speed of the motor, input a double between 0 and 1.0. For example,
+   * {@code setBackspinnerSpeed(0.5);}
+   * </p>
+   * @param speed - Speed to set for the motor. Value should be between 0 and 1.0
+   */
   public static void setBackspinnerSpeed(double speed) {
     backspinner.set(speed);
   }
 
+  /**
+   * Get the velocity of the backspinner motor. This returns in RPM
+   * @return Backspinner motor RPM
+   */
   public static double getBackspinnerSpeed() {
     return backspinnerE.getVelocity();
   }
 
+  /**
+   * Get the velocity of the accelorator motor. This returns in RPM
+   * @return Backspinner motor RPM
+   */
   public static double getAcceleratorSpeed() {
     return acceleratorE.getVelocity();
   }

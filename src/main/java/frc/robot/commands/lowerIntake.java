@@ -6,12 +6,11 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
 
-public class IntakeBalls extends CommandBase {
-  /** Creates a new IntakeBalls. */
-  public IntakeBalls(Intake intakeSubsystem) {
+public class lowerIntake extends CommandBase {
+  /** Creates a new lowerIntake. */
+  public lowerIntake(Intake intakeSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intakeSubsystem);
   }
@@ -19,9 +18,7 @@ public class IntakeBalls extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // Intake.setIntake(Value.kForward); //depends on what the ids are
-    Intake.setIntakeMotor(-Constants.intakeMotorSpeed); //tweak this value
-    Intake.setKowalksiMotor(Constants.kowalskiMotorSpeed);
+    Intake.setIntake(Value.kForward); //depends on what the ids are
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -31,9 +28,7 @@ public class IntakeBalls extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // Intake.setIntake(Value.kReverse);
-    Intake.setIntakeMotor(0);
-    Intake.setKowalksiMotor(0);
+    Intake.setIntake(Value.kReverse);
   }
 
   // Returns true when the command should end.

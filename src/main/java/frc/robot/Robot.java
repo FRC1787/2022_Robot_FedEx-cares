@@ -52,7 +52,6 @@ public class Robot extends TimedRobot {
     } catch (IOException ex) {
       DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
     }
-    
     PDH = new PowerDistribution(1, ModuleType.kRev);
     PDH.clearStickyFaults();
   }

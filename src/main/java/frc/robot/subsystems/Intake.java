@@ -22,7 +22,8 @@ public class Intake extends SubsystemBase {
   private static DoubleSolenoid leftPiston  = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.leftIntakePistonFowardID, Constants.leftIntakePistonReverseID); 
 
   public Intake() {
-    leftPiston.set(DoubleSolenoid.Value.kReverse);
+    setRampRate(1);
+    setIntake(DoubleSolenoid.Value.kReverse);
     //depends on how the ids are set up
 
   }
@@ -44,15 +45,26 @@ public class Intake extends SubsystemBase {
     leftPiston.set(state);
   }
 
-  /** 
+  /**
    * Sets the speed of the intake motor
-  */
+   * 
+   * <p>
+   * To set the speed of the motor, input a double between 0 and 1.0. For example,
+   * {@code setIntakeMotor(0.5);}
+   * </p>
+   * @param speed - Speed to set for the motor. Value should be between 0 and 1.0
+   */
   public static void setIntakeMotor(double speed) {
     intakeMotor.set(speed);
   }
 
   public static void setKowalksiMotor(double speed) {
     kowalski.set(speed);
+  }
+
+  public static void setRampRate(double rate) {
+    intakeMotor.setOpenLoopRampRate(rate);
+    kowalski.setOpenLoopRampRate(rate);
   }
 
   @Override

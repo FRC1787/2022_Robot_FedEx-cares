@@ -80,7 +80,7 @@ public class RobotContainer {
     // Shooter
       private final Button smartShootButton = new JoystickButton(stick, Constants.smartShootButtonID);
       private final Button basicShootButton = new JoystickButton(stick, Constants.basicShootButtonID);
-      
+      private final Button SetShooterPositionButton = new JoystickButton(stick, Constants.SetShooterPositionButtonID);
 
       private final Button temp = new JoystickButton(stick, 11);
 
@@ -109,7 +109,7 @@ public class RobotContainer {
     basicShootButton.whileHeld(new BasicShoot(shooter, intake, 0.8, -0.25, 0.65));
     //smartShootButton.whileHeld(new ShootBalls(shooter, camera)); 
     smartShootButton.whenPressed(new SetShooterPosition(shooter, false));
-    temp.whenPressed(new SetShooterPosition(shooter, true));
+    SetShooterPositionButton.whenPressed(new SetShooterPosition(shooter, true));
 
   }
 

@@ -34,6 +34,12 @@ public class Drivetrain extends SubsystemBase {
   
   private final DifferentialDriveOdometry m_odometry;
 
+  public static void setRampRate(double rate) {
+    left1.setOpenLoopRampRate(rate);
+    left2.setOpenLoopRampRate(rate);
+    right1.setOpenLoopRampRate(rate);
+    right2.setOpenLoopRampRate(rate);
+  }
 
   public Drivetrain() {
     left1.setIdleMode(IdleMode.kBrake); //sets drive motors to brake mode
@@ -60,6 +66,9 @@ public class Drivetrain extends SubsystemBase {
     
     //assumes position of 0, 0
     m_odometry = new DifferentialDriveOdometry(navX.getRotation2d());
+    
+    // Sets the ramp rate of the drivetrain motors to 1 second
+    setRampRate(1);
   }
 
   /**
@@ -173,7 +182,6 @@ public class Drivetrain extends SubsystemBase {
   public void periodic() {
     // Update odometry
     m_odometry.update(navX.getRotation2d(), leftEncoderPosition(), rightEncoderPosition());
-  
-    
+
   }
 }

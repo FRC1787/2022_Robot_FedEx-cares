@@ -15,15 +15,19 @@ import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+  // MEMES
   public static final boolean botMostLikelyToGetPHD        = true;
   public static final boolean botWithWorstPathweaverSystem = true;
   public static final boolean FedEx_cares                  = true;
   public static final boolean bestSchoolTeamAtOrange       = true;
 
+
+
   // SHOOTER
   public static double shooterDistanceThreshold = 99999;
   public static double acceleratorRPMToPercent = 1./5000.; //DO THIS
   public static double backspinnerRPMToPercent = 1./1200.;
+
 
 
   // SOLENOID IDs
@@ -36,9 +40,6 @@ public final class Constants {
     // Shooter
       public static final int shooterPistonForwardID = 3;
       public static final int shooterPistonReverseID = 2;
-
-
-
 
 
 
@@ -58,10 +59,6 @@ public final class Constants {
       public static final int backspinnerMotorID = 9;
     // Climb
       public static final int armMotorID = 10;
-  
-
-
-
 
 
 
@@ -96,8 +93,6 @@ public final class Constants {
       
 
 
-
-
   //AUTO
   //we probably should put units on all of these variable names for clarity
     public static final double gearboxRatio             = 7.25;                             //it probably is not this it just is the most accurate with this value
@@ -118,8 +113,6 @@ public final class Constants {
 
 
 
-
-
   // VISION
     // Measurements for limelight
       public static final double tapeHeight      = 81.0;
@@ -131,36 +124,25 @@ public final class Constants {
       public static final double lookToTargetD = 0.00;
 
 
-
-
-
-
   // BUTTON IDS
     // Camera
       public static final int toggleLimelightButtonID = 12;
-      public static final int turnToTargetButtonID    =  6;
+      public static final int turnToTargetButtonID    =  4;
 
     // Climb
-      public static final int manualMoveArmButtonID = 7;
+      public static final int manualMoveArmButtonID = 9;
       public static final int climbRoutineButtonID  = 8;
-      public static final int fullExtendButtonID    = 9;
-
+      public static final int fullExtendButtonID    = 7;
 
     // Drivetrain
 
     // Intake
       public static final int intakeBallsButtonID = 1;
       public static final int reverseIntakeButtonID = 6;
+      public static final int lowerIntakeButtonID = 3;
 
     // Shooter
       public static final int basicShootButtonID = 2;
       public static final int smartShootButtonID = 3;
-      
-
-
-
-
-
-
-  
+      public static final int SetShooterPositionButtonID = 5;
 }
