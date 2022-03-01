@@ -4,13 +4,13 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.Camera;
+import frc.robot.subsystems.Vision;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class ToggleLimelight extends CommandBase {
   /** Creates a new ToggleLimelight. */
-  public ToggleLimelight(Camera camera) {
+  public ToggleLimelight(Vision camera) {
     addRequirements(camera);
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -22,7 +22,7 @@ public class ToggleLimelight extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(Camera.getCameraLightState() == 3) {
+    if(Vision.getCameraLightState() == 3) {
       NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
     }
     else {

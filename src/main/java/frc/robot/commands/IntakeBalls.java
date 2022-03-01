@@ -19,7 +19,7 @@ public class IntakeBalls extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    // Intake.setIntake(Value.kForward); //depends on what the ids are
+    Intake.setIntake(Value.kForward); //depends on what the ids are
     Intake.setIntakeMotor(-Constants.intakeMotorSpeed); //tweak this value
     Intake.setKowalksiMotor(Constants.kowalskiMotorSpeed);
   }
@@ -31,7 +31,6 @@ public class IntakeBalls extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    // Intake.setIntake(Value.kReverse);
     Intake.setIntakeMotor(0);
     Intake.setKowalksiMotor(0);
   }

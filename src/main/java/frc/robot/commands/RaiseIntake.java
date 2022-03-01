@@ -2,50 +2,38 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.climb;
+package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Climb;
+import frc.robot.subsystems.Intake;
 
-public class MoveArm extends CommandBase {
-  /** Creates a new moveArm. */
-  double val;
-
-
-  /**
-   * 
-   * Fully extends or rectracts climb arm at provided speed
-   * 
-   * @param speed - percentage of motor output: positive if extending, negative if retracting
-   * 
-   */
-  public MoveArm(Climb climbSubsystem, double speed) {
+public class RaiseIntake extends CommandBase {
+  /** Creates a new RaiseIntake. */
+  public RaiseIntake(Intake intakeSubsystem) {
+    addRequirements(intakeSubsystem);
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(climbSubsystem);
-    val=speed;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Climb.setArm(val);
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    Intake.setIntake(Value.kReverse);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    Climb.setArm(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (val < 0) return Climb.isRetracted();
-    else if (val > 0) return Climb.isExtended();
     return false;
   }
 }

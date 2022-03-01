@@ -28,6 +28,8 @@ import frc.robot.commands.IntakeBalls;
 import frc.robot.commands.ReverseIntake;
 import frc.robot.commands.SetShooterPosition;
 import frc.robot.commands.ShootBalls;
+import frc.robot.commands.RaiseIntake;
+import frc.robot.commands.ToggleIntakePosition;
 import frc.robot.commands.ToggleLimelight;
 import frc.robot.commands.TurnToTarget;
 import frc.robot.commands.climb.ClimbRoutine;
@@ -36,7 +38,7 @@ import frc.robot.commands.climb.TestClimb;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Camera;
+import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Climb;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
@@ -49,7 +51,7 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
  */
 public class RobotContainer {
   // SUBSYSTEMS
-  public final static Camera     camera     = new Camera();
+  public final static Vision     vision     = new Vision();
   public final static Climb      climb      = new Climb();
   public final static Drivetrain drivetrain = new Drivetrain();
   public final static Intake     intake     = new Intake();
@@ -76,11 +78,12 @@ public class RobotContainer {
     // Intake
       private final Button intakeBallsButton     = new JoystickButton(stick, Constants.intakeBallsButtonID);
       private final Button reverseIntakeButton = new JoystickButton(stick, Constants.reverseIntakeButtonID);
-
+      private final Button toggleIntakeButton = new JoystickButton(stick, Constants.toggleIntakeButtonID);
+      private final Button raiseIntakeButton = new JoystickButton(stick, Constants.raiseIntakeButtonID);
     // Shooter
       private final Button smartShootButton = new JoystickButton(stick, Constants.smartShootButtonID);
       private final Button basicShootButton = new JoystickButton(stick, Constants.basicShootButtonID);
-      private final Button SetShooterPositionButton = new JoystickButton(stick, Constants.SetShooterPositionButtonID);
+      private final Button setShooterPositionButton = new JoystickButton(stick, Constants.setShooterPositionButtonID);
 
       private final Button temp = new JoystickButton(stick, 11);
 
@@ -99,17 +102,23 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    toggleLimelightButton.whenPressed(new ToggleLimelight(camera));
-    turnToTargetButton.whileHeld(new TurnToTarget(drivetrain, camera));
+    toggleLimelightButton.whenPressed(new ToggleLimelight(vision));
+    turnToTargetButton.whileHeld(new TurnToTarget(drivetrain, vision));
+
     manualMoveArmButton.toggleWhenPressed(new TestClimb(climb));
     climbRoutineButton.whileHeld(new ClimbRoutine(climb));
     fullExtendButton.whenPressed(new MoveArm(climb, .5));
+
     intakeBallsButton.whileHeld(new IntakeBalls(intake));
-    reverseIntakeButton.whileHeld(new ReverseIntake(intake));
-    basicShootButton.whileHeld(new BasicShoot(shooter, intake, 0.8, -0.25, 0.65));
-    //smartShootButton.whileHeld(new ShootBalls(shooter, camera)); 
-    smartShootButton.whenPressed(new SetShooterPosition(shooter, false));
-    SetShooterPositionButton.whenPressed(new SetShooterPosition(shooter, true));
+    reverseIntakeButton.whileHeld(new ReverseIntake(intake, shooter));
+    toggleIntakeButton.whenPressed(new ToggleIntakePosition(intake));
+
+    basicShootButton.whileHeld(new BasicShoot(shooter, intake, 0.4, 1250, 780));
+    
+    //smartShootButton.whileHeld(new ShootBalls(shooter, vision)); 
+    smartShootButton.whileHeld(new ShootBalls(shooter, vision));
+
+    raiseIntakeButton.whenPressed(new RaiseIntake(intake));
 
   }
 

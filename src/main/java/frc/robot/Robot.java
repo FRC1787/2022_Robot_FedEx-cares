@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Climb;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Intake;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
@@ -104,9 +105,12 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
     m_robotContainer.drivetrain.resetEncoders();
+
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    Intake.toggleIntake();
     Climb.setPiston(DoubleSolenoid.Value.kReverse);
     RobotContainer.drivetrain.resetEncoders();
 

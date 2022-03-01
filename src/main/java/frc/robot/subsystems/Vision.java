@@ -5,19 +5,36 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.VideoCamera.WhiteBalance;
 import frc.robot.Constants;
 
-public class Camera extends SubsystemBase {
+public class Vision extends SubsystemBase {
 
 
   private static NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
-  public static double distToTarget;
+  public static double distToTarget = 0;
 
-  public Camera() {
+  public Vision() {
 
   }
+
+  private static final int STANDARD_IMG_WIDTH = 160;
+  private static final int STANDARD_IMG_HEIGHT = 120;
+//   public void configureCamera(UsbCamera camera, boolean targetingCamera) {
+//     camera.setResolution(STANDARD_IMG_WIDTH, STANDARD_IMG_HEIGHT);
+//     camera.setFPS(15);
+//     if (targetingCamera) {
+//         camera.setExposureManual(5);
+//     } else {
+//         camera.setExposureAuto();
+//     }
+
+//     camera.setBrightness(40);
+//     camera.setWhiteBalanceManual(WhiteBalance.kFixedIndoor);
+// }
+
   /**
    * Returns the x value of any target seen by the Limelight
    * 
@@ -36,13 +53,13 @@ public class Camera extends SubsystemBase {
     return (int) table.getEntry("ledMode").getDouble(3);
   }
 
-  public static double calculateAcceleratorSpeed() {
+  public static double calculateAcceleratorRPM() {
     //find regression formula here
-    return 0;
+    return 3600;
   }
 
-  public static double calculateBackspinnerSpeed() {
-    return 0;
+  public static double calculateBackspinnerRPM() {
+    return 3600;
   }
 
   @Override

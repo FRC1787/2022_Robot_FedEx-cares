@@ -10,14 +10,16 @@ import frc.robot.subsystems.Shooter;
 
 public class ReverseIntake extends CommandBase {
   /** Creates a new ReverseIntake. */
-  public ReverseIntake(Intake intakeSubsystem) {
+  public ReverseIntake(Intake intakeSubsystem, Shooter shooterSubsystem) {
     addRequirements(intakeSubsystem);
+    addRequirements(shooterSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Intake.setKowalksiMotor(-0.7);
+    Shooter.setIndexerSpeed(-0.4);
+    Intake.setKowalksiMotor(-0.4);
     Intake.setIntakeMotor(0.7);
   }
 
@@ -30,6 +32,7 @@ public class ReverseIntake extends CommandBase {
   public void end(boolean interrupted) {
     Intake.setKowalksiMotor(0);
     Intake.setIntakeMotor(0);
+    Shooter.setIndexerSpeed(0);
   }
 
   // Returns true when the command should end.

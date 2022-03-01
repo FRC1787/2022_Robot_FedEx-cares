@@ -11,30 +11,40 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
 public class BasicShoot extends CommandBase {
-  double indexerSpeed, flywheelSpeed, backspinnerSpeed;
-  public BasicShoot(Shooter shootSubsystem, Intake intakeSubsystem, double indexerSpeed, double flywheelSpeed, double backspinnerSpeed) {
+
+
+  double indexerSpeed;
+  double flywheelRPM, backspinnerRPM;
+
+  /**
+   * TEMPORARY TEST COMMAND
+   * @param indexerSpeed - motor percentage; positive is correct direction
+   * @param flywheelRPM - RPM, negative is correct direction
+   * @param backspinnerRPM - RPM, positive is correct direction
+   */
+  public BasicShoot(Shooter shootSubsystem, Intake intakeSubsystem, double indexerSpeed, double flywheelRPM, double backspinnerRPM) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shootSubsystem);
     addRequirements(intakeSubsystem);
     this.indexerSpeed=indexerSpeed;
-    this.flywheelSpeed=flywheelSpeed;
-    this.backspinnerSpeed=backspinnerSpeed;
+    this.flywheelRPM=flywheelRPM;
+    this.backspinnerRPM=backspinnerRPM;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Shooter.setBackspinnerSpeed(indexerSpeed);
-    Shooter.setAcceleratorSpeed(flywheelSpeed);
+    Shooter.setBackspinnerRPM(backspinnerRPM);
+    Shooter.setAcceleratorRPM(flywheelRPM);
     
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Shooter.getAcceleratorSpeed()*Constants.acceleratorRPMToPercent >= flywheelSpeed && Shooter.getBackspinnerSpeed()*Constants.backspinnerRPMToPercent >= backspinnerSpeed) {
-      Shooter.setIndexerSpeed(0.9);
-      Intake.setKowalksiMotor(0.9);
+    if (Shooter.getAcceleratorSpeed() >= flywheelRPM && Shooter.getBackspinnerSpeed() >= backspinnerRPM) {
+      Shooter.setIndexerSpeed(indexerSpeed);
+      Intake.setKowalksiMotor(indexerSpeed);
     }
   }
 

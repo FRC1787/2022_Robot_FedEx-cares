@@ -19,12 +19,11 @@ public class Intake extends SubsystemBase {
   
   private static CANSparkMax kowalski    = new CANSparkMax(Constants.kowalksiMotorID, MotorType.kBrushless);
   //REPLACE THESE VALUES
-  private static DoubleSolenoid leftPiston  = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.leftIntakePistonFowardID, Constants.leftIntakePistonReverseID); 
+  private static DoubleSolenoid intakePiston  = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.leftIntakePistonFowardID, Constants.leftIntakePistonReverseID); 
 
   public Intake() {
     setRampRate(1);
     setIntake(DoubleSolenoid.Value.kReverse);
-    //depends on how the ids are set up
 
   }
   
@@ -42,7 +41,16 @@ public class Intake extends SubsystemBase {
   * @param value - {@code Value.kForward} or {@code Value.kReverse}
   */
   public static void setIntake(DoubleSolenoid.Value state) {
-    leftPiston.set(state);
+    intakePiston.set(state);
+  }
+
+  /**
+   * Toggles intake solenoid.
+   * Equivalent to {@code solenoid.toggle()}
+   */
+
+  public static void toggleIntake() {
+    intakePiston.toggle();
   }
 
   /**

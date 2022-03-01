@@ -7,7 +7,8 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.Camera;
+import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
@@ -19,20 +20,20 @@ public class ShootBalls extends CommandBase {
   private double acceleratorSetpoint;
   private double backspinnerSetpoint;
 
-  public ShootBalls(Shooter shootSubsystem, Camera cameraSubsystem) {
+  public ShootBalls(Shooter shootSubsystem, Vision cameraSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shootSubsystem);
     addRequirements(cameraSubsystem);
-    acceleratorPID.setTolerance(10);
-    backspinnerPID.setTolerance(10);
+    acceleratorPID.setTolerance(50);
+    backspinnerPID.setTolerance(50);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    acceleratorSetpoint = Camera.calculateAcceleratorSpeed(); //function will change depending on threshold
-    backspinnerSetpoint = Camera.calculateBackspinnerSpeed();
-    if (Camera.distToTarget < Constants.shooterDistanceThreshold) {
+    acceleratorSetpoint = Vision.calculateAcceleratorRPM(); //function will change depending on threshold
+    backspinnerSetpoint = Vision.calculateBackspinnerRPM();
+    if (Vision.distToTarget < Constants.shooterDistanceThreshold) {
       Shooter.setShooterPosition(DoubleSolenoid.Value.kForward);
     }
     else Shooter.setShooterPosition(DoubleSolenoid.Value.kReverse);
@@ -49,6 +50,7 @@ public class ShootBalls extends CommandBase {
     );
 
     Shooter.setBackspinnerSpeed(
+      
       backspinnerPID.calculate(
         Shooter.getBackspinnerSpeed(), backspinnerSetpoint
       )*Constants.backspinnerRPMToPercent //we are using the same conversion factors for both motors because i dont care
@@ -56,7 +58,8 @@ public class ShootBalls extends CommandBase {
 
 
     if (acceleratorPID.atSetpoint() && backspinnerPID.atSetpoint()) {
-      Shooter.setIndexerSpeed(0.2);
+      Shooter.setIndexerSpeed(0.3);
+      Intake.setKowalksiMotor(0.4);
     }
 
   }

@@ -25,8 +25,8 @@ public final class Constants {
 
   // SHOOTER
   public static double shooterDistanceThreshold = 99999;
-  public static double acceleratorRPMToPercent = 1./5000.; //DO THIS
-  public static double backspinnerRPMToPercent = 1./1200.;
+  public static double acceleratorRPMToPercent = 1./4900.;
+  public static double backspinnerRPMToPercent = 1./5000.;
 
 
 
@@ -87,8 +87,8 @@ public final class Constants {
       public static final double kpAuto = 2.648400;
 
     // SHOOTER
-      public static final double kpShooter = 0.05;
-      public static final double kiShooter = 0.000000;
+      public static final double kpShooter = 0.95;
+      public static final double kiShooter = 0.500;
       public static final double kdShooter = 0.000000;
       
 
@@ -127,7 +127,7 @@ public final class Constants {
   // BUTTON IDS
     // Camera
       public static final int toggleLimelightButtonID = 12;
-      public static final int turnToTargetButtonID    =  4;
+      public static final int turnToTargetButtonID    = 90;
 
     // Climb
       public static final int manualMoveArmButtonID = 9;
@@ -137,12 +137,13 @@ public final class Constants {
     // Drivetrain
 
     // Intake
-      public static final int intakeBallsButtonID = 1;
+      public static final int intakeBallsButtonID   = 1;
+      public static final int toggleIntakeButtonID  = 5;
       public static final int reverseIntakeButtonID = 6;
-      public static final int lowerIntakeButtonID = 3;
+      public static final int raiseIntakeButtonID   = 5;
 
     // Shooter
       public static final int basicShootButtonID = 2;
       public static final int smartShootButtonID = 3;
-      public static final int SetShooterPositionButtonID = 5;
+      public static final int setShooterPositionButtonID = 4;
 }

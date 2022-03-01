@@ -34,6 +34,7 @@ public class Shooter extends SubsystemBase {
     backspinner.setIdleMode(IdleMode.kCoast);
     acceleratorE.setVelocityConversionFactor(1.0);
     backspinnerE.setVelocityConversionFactor(1.0);
+    accelerator.setInverted(true);
   }
 
 
@@ -127,6 +128,14 @@ public class Shooter extends SubsystemBase {
    */
   public static double getAcceleratorSpeed() {
     return acceleratorE.getVelocity();
+  }
+
+  public static void setAcceleratorRPM(double rpm) {
+    accelerator.set(rpm*Constants.acceleratorRPMToPercent);
+  }
+  
+  public static void setBackspinnerRPM(double rpm) {
+    backspinner.set(rpm*Constants.backspinnerRPMToPercent);
   }
 
   @Override
