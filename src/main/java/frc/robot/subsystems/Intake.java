@@ -26,6 +26,11 @@ public class Intake extends SubsystemBase {
     setIntake(DoubleSolenoid.Value.kReverse);
 
   }
+
+  public static void setAmpLimit(int limit) {
+    kowalski.setSmartCurrentLimit(limit);
+    intakeMotor.setSmartCurrentLimit(limit);
+  }
   
   /**
   * Sets the state of the pneumatic cylinder via the connected solenoid
@@ -43,6 +48,7 @@ public class Intake extends SubsystemBase {
   public static void setIntake(DoubleSolenoid.Value state) {
     intakePiston.set(state);
   }
+
 
   /**
    * Toggles intake solenoid.

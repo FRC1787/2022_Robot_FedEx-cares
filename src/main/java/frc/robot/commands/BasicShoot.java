@@ -34,8 +34,8 @@ public class BasicShoot extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Shooter.setBackspinnerRPM(backspinnerRPM);
     Shooter.setAcceleratorRPM(flywheelRPM);
+    Shooter.setBackspinnerRPM(backspinnerRPM);
     
   }
 

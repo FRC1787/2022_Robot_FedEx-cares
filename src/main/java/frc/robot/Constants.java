@@ -22,12 +22,17 @@ public final class Constants {
   public static final boolean bestSchoolTeamAtOrange       = true;
 
 
+  // VISION
+  public static int visionCameraWidth =  160;
+  public static int visionCameraHeight = 120;
+
 
   // SHOOTER
   public static double shooterDistanceThreshold = 99999;
-  public static double acceleratorRPMToPercent = 1./4900.;
-  public static double backspinnerRPMToPercent = 1./5000.;
-
+  public static double flywheelRPMToPercent = 1./4950;
+  public static double backspinnerRPMToPercent = 1./5050;
+  public static double flywheelRPMToVoltage = 12./5410;
+  public static double backspinnerRPMToVoltage = 12./5610;
 
 
   // SOLENOID IDs
@@ -44,7 +49,6 @@ public final class Constants {
 
 
   // MOTOR IDs
-
     // Drivetrain
       public static final int l1MotorID = 1;
       public static final int l2MotorID = 2;
@@ -55,7 +59,7 @@ public final class Constants {
       public static final int kowalksiMotorID = 6; // da kowalksi :D
     // Shooter
       public static final int indexerMotorID     = 7;
-      public static final int acceleratorMotorID = 8;
+      public static final int flywheelMotorID = 8;
       public static final int backspinnerMotorID = 9;
     // Climb
       public static final int armMotorID = 10;
@@ -68,14 +72,14 @@ public final class Constants {
     // Drivetrain
 
     // Intake
-      public static final double intakeMotorSpeed   = 1.0;
-      public static final double kowalskiMotorSpeed = 0.5;
+      public static final double intakeMotorVoltage   = 1.0;
+      public static final double kowalskiMotorVoltage = 0.5;
 
     // Shooter
-      public static final double indexerSpeed     = 0.20;
+      public static final double indexerVoltage     = 0.20;
       //make this always negative pls
-      public static final double acceleratorSpeed = -0.52;
-      public static final double backspinnerSpeed = 0.52;
+      public static final double acceleratorVoltage = -0.52;
+      public static final double backspinnerVoltage = 0.52;
 
 
 
@@ -87,13 +91,14 @@ public final class Constants {
       public static final double kpAuto = 2.648400;
 
     // SHOOTER
-      public static final double kpShooter = 0.95;
-      public static final double kiShooter = 0.500;
+      public static final double kpShooter = 0.0;
+      public static final double kiShooter = 0.0;
       public static final double kdShooter = 0.000000;
+      public static final double kfShooter = 1.0;
       
 
 
-  //AUTO
+  //AUTO (trajectory!)
   //we probably should put units on all of these variable names for clarity
     public static final double gearboxRatio             = 7.25;                             //it probably is not this it just is the most accurate with this value
     public static final double positionConversionFactor = 0.1524*Math.PI/gearboxRatio;      //changes rotations of motor to distance traveled in meters
@@ -103,7 +108,7 @@ public final class Constants {
     public static final DifferentialDriveKinematics kDriveKinematics = 
       new DifferentialDriveKinematics(kTrackwidth);
   
-    public static final double kMaxSpeed        = 0.5;
+    public static final double kMaxVelocity        = 0.5;
     public static final double kMaxAcceleration = 1.0;
 
     public static final double kRamseteB    = 2.0;

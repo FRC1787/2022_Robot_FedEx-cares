@@ -18,12 +18,12 @@ import frc.robot.Constants;
 public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
 
-  private static CANSparkMax indexer     = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
-  private static CANSparkMax accelerator = new CANSparkMax(Constants.acceleratorMotorID, MotorType.kBrushless);
-  private static CANSparkMax backspinner = new CANSparkMax(Constants.backspinnerMotorID, MotorType.kBrushless);
+  static CANSparkMax indexer     = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
+  public static CANSparkMax accelerator = new CANSparkMax(Constants.acceleratorMotorID, MotorType.kBrushless);
+  public static CANSparkMax backspinner = new CANSparkMax(Constants.backspinnerMotorID, MotorType.kBrushless);
   
-  private static RelativeEncoder acceleratorE = accelerator.getEncoder();
-  private static RelativeEncoder backspinnerE = backspinner.getEncoder();
+  static RelativeEncoder acceleratorE = accelerator.getEncoder();
+  static RelativeEncoder backspinnerE = backspinner.getEncoder();
 
   private static DoubleSolenoid leftPiston  = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.shooterPistonForwardID, Constants.shooterPistonReverseID);
 
@@ -131,11 +131,12 @@ public class Shooter extends SubsystemBase {
   }
 
   public static void setAcceleratorRPM(double rpm) {
-    accelerator.set(rpm*Constants.acceleratorRPMToPercent);
+    //accelerator.set(rpm*Constants.acceleratorRPMToPercent);
+    accelerator.setVoltage(rpm*Constants.acceleratorRPMToVoltage);
   }
   
   public static void setBackspinnerRPM(double rpm) {
-    backspinner.set(rpm*Constants.backspinnerRPMToPercent);
+    backspinner.setVoltage(rpm*Constants.backspinnerRPMToVoltage);
   }
 
   @Override

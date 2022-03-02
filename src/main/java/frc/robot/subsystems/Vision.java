@@ -6,6 +6,9 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.CvSink;
+import edu.wpi.first.cscore.CvSource;
+import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.cscore.VideoCamera.WhiteBalance;
 import frc.robot.Constants;
 
@@ -16,24 +19,28 @@ public class Vision extends SubsystemBase {
 
   public static double distToTarget = 0;
 
+  private static CvSink usbCameraFrameGrabber;
+  private static UsbCamera usbCamera;
+  private static CvSource outputStream;
+  
   public Vision() {
 
+    usbCamera = CameraServer.startAutomaticCapture("Camera", 0);
+    configureCamera(usbCamera);
+
+    usbCameraFrameGrabber = CameraServer.getVideo(usbCamera);
+
+    //Push processed or unprocessed frames
+    outputStream = CameraServer.putVideo("Processed Video", Constants.visionCameraWidth, Constants.visionCameraHeight);
   }
 
-  private static final int STANDARD_IMG_WIDTH = 160;
-  private static final int STANDARD_IMG_HEIGHT = 120;
-//   public void configureCamera(UsbCamera camera, boolean targetingCamera) {
-//     camera.setResolution(STANDARD_IMG_WIDTH, STANDARD_IMG_HEIGHT);
-//     camera.setFPS(15);
-//     if (targetingCamera) {
-//         camera.setExposureManual(5);
-//     } else {
-//         camera.setExposureAuto();
-//     }
-
-//     camera.setBrightness(40);
-//     camera.setWhiteBalanceManual(WhiteBalance.kFixedIndoor);
-// }
+  public void configureCamera(UsbCamera camera) {
+    camera.setResolution(Constants.visionCameraWidth, Constants.visionCameraHeight);
+    camera.setFPS(15);
+    camera.setExposureManual(50);
+    camera.setBrightness(75);
+    camera.setWhiteBalanceManual(WhiteBalance.kFixedIndoor);
+  }
 
   /**
    * Returns the x value of any target seen by the Limelight
@@ -53,7 +60,7 @@ public class Vision extends SubsystemBase {
     return (int) table.getEntry("ledMode").getDouble(3);
   }
 
-  public static double calculateAcceleratorRPM() {
+  public static double calculateFlywheelRPM() {
     //find regression formula here
     return 3600;
   }

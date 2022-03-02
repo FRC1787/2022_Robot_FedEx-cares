@@ -70,13 +70,13 @@ public class RobotContainer {
       private final Button toggleLimelightButton = new JoystickButton(stick, Constants.toggleLimelightButtonID);
       private final Button turnToTargetButton = new JoystickButton(stick, Constants.turnToTargetButtonID);
     // Climb
-      private final Button manualMoveArmButton   = new JoystickButton(stick, Constants.manualMoveArmButtonID);
-      private final Button climbRoutineButton    = new JoystickButton(stick, Constants.climbRoutineButtonID);
-      private final Button fullExtendButton      = new JoystickButton(stick, Constants.fullExtendButtonID);
+      private final Button manualMoveArmButton = new JoystickButton(stick, Constants.manualMoveArmButtonID);
+      private final Button climbRoutineButton = new JoystickButton(stick, Constants.climbRoutineButtonID);
+      private final Button fullExtendButton = new JoystickButton(stick, Constants.fullExtendButtonID);
     // Drivetrain
 
     // Intake
-      private final Button intakeBallsButton     = new JoystickButton(stick, Constants.intakeBallsButtonID);
+      private final Button intakeBallsButton = new JoystickButton(stick, Constants.intakeBallsButtonID);
       private final Button reverseIntakeButton = new JoystickButton(stick, Constants.reverseIntakeButtonID);
       private final Button toggleIntakeButton = new JoystickButton(stick, Constants.toggleIntakeButtonID);
       private final Button raiseIntakeButton = new JoystickButton(stick, Constants.raiseIntakeButtonID);
@@ -84,8 +84,6 @@ public class RobotContainer {
       private final Button smartShootButton = new JoystickButton(stick, Constants.smartShootButtonID);
       private final Button basicShootButton = new JoystickButton(stick, Constants.basicShootButtonID);
       private final Button setShooterPositionButton = new JoystickButton(stick, Constants.setShooterPositionButtonID);
-
-      private final Button temp = new JoystickButton(stick, 11);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -113,7 +111,7 @@ public class RobotContainer {
     reverseIntakeButton.whileHeld(new ReverseIntake(intake, shooter));
     toggleIntakeButton.whenPressed(new ToggleIntakePosition(intake));
 
-    basicShootButton.whileHeld(new BasicShoot(shooter, intake, 0.4, 1250, 780));
+    basicShootButton.whileHeld(new BasicShoot(shooter, intake, 0.4, 4000, 4000));
     
     //smartShootButton.whileHeld(new ShootBalls(shooter, vision)); 
     smartShootButton.whileHeld(new ShootBalls(shooter, vision));
@@ -142,7 +140,7 @@ public class RobotContainer {
       
     TrajectoryConfig config = 
       new TrajectoryConfig(
-        Constants.kMaxSpeed,
+        Constants.kMaxVelocity,
         Constants.kMaxAcceleration
         )
         .setKinematics(Constants.kDriveKinematics)

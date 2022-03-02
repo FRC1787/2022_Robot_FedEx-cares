@@ -30,9 +30,9 @@ public class Drivetrain extends SubsystemBase {
    private static RelativeEncoder right1E = right1.getEncoder();
    private static RelativeEncoder right2E = right2.getEncoder();
 
-   private static AHRS navX = new AHRS();
+   private static AHRS gyro = new AHRS();
   
-  private final DifferentialDriveOdometry m_odometry;
+  private final DifferentialDriveOdometry odometry;
 
   public Drivetrain() {
     left1.setIdleMode(IdleMode.kBrake); //sets drive motors to brake mode
@@ -46,19 +46,18 @@ public class Drivetrain extends SubsystemBase {
     left2.setInverted(true);
 
     left1E.setPositionConversionFactor(Constants.positionConversionFactor);
-    left2E.setPositionConversionFactor(Constants.positionConversionFactor);
-    right1E.setPositionConversionFactor(Constants.positionConversionFactor);
-    right2E.setPositionConversionFactor(Constants.positionConversionFactor);
-
     left1E.setVelocityConversionFactor(Constants.velocityConversionFactor);
+    left2E.setPositionConversionFactor(Constants.positionConversionFactor);
     left2E.setVelocityConversionFactor(Constants.velocityConversionFactor);
+    right1E.setPositionConversionFactor(Constants.positionConversionFactor);
     right1E.setVelocityConversionFactor(Constants.velocityConversionFactor);
+    right2E.setPositionConversionFactor(Constants.positionConversionFactor);
     right2E.setVelocityConversionFactor(Constants.velocityConversionFactor);
-
+    
     resetEncoders();
 
     //assumes position of 0, 0
-    m_odometry = new DifferentialDriveOdometry(navX.getRotation2d());
+    odometry = new DifferentialDriveOdometry(gyro.getRotation2d());
     
     // Sets the ramp rate of the drivetrain motors to 1 second
     setRampRate(1);
@@ -169,27 +168,27 @@ public class Drivetrain extends SubsystemBase {
 
   //returns robot's heading in degrees
   public static double getHeading() {
-    return navX.getYaw();
+    return gyro.getYaw();
   }
 
   //return the current pose of the robot
   public Pose2d getPose() {
-    return m_odometry.getPoseMeters();
+    return odometry.getPoseMeters();
   }
 
   public void resetOdometry(Pose2d pose) {
     resetEncoders();
-    m_odometry.resetPosition(pose, navX.getRotation2d());
+    odometry.resetPosition(pose, gyro.getRotation2d());
   }
 
   public static void resetGyro() {
-    navX.reset();
+    gyro.reset();
   }
 
   @Override
   public void periodic() {
     // Update odometry
-    m_odometry.update(navX.getRotation2d(), leftEncoderPosition(), rightEncoderPosition());
+    odometry.update(gyro.getRotation2d(), leftEncoderPosition(), rightEncoderPosition());
 
   }
 }

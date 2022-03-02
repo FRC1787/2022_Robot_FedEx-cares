@@ -16,7 +16,6 @@ import frc.robot.Constants;
 
 public class Climb extends SubsystemBase {
   /** Creates a new Climb. */
-  private static int extendState = 0; //0 = retracted, 1 = intermediate, 2 = extended
   private static CANSparkMax arm = new CANSparkMax(Constants.armMotorID, MotorType.kBrushless);
   private static DigitalInput bottomLimitSwitch = new DigitalInput(0);
   private static DigitalInput topLimitSwitch    = new DigitalInput(1);
@@ -25,6 +24,11 @@ public class Climb extends SubsystemBase {
   public Climb() {
     arm.setIdleMode(IdleMode.kBrake);
     piston.set(DoubleSolenoid.Value.kReverse); //reverse channel pushes up
+    setAmpLimit(50);
+  }
+
+  public static void setAmpLimit(int limit) {
+    arm.setSmartCurrentLimit(limit);
   }
 
   /**
@@ -89,7 +93,6 @@ public class Climb extends SubsystemBase {
     SmartDashboard.putBoolean("isRetracted", isRetracted());
     SmartDashboard.putBoolean("bottomLimitSwitchGet", bottomLimitSwitch.get());
     SmartDashboard.putBoolean("topLimitSwitchGet", topLimitSwitch.get());
-    SmartDashboard.putNumber("extendState", extendState);
     SmartDashboard.putNumber("armget", arm.get());
   }
 }

@@ -20,8 +20,8 @@ public class IntakeBalls extends CommandBase {
   @Override
   public void initialize() {
     Intake.setIntake(Value.kForward); //depends on what the ids are
-    Intake.setIntakeMotor(-Constants.intakeMotorSpeed); //tweak this value
-    Intake.setKowalksiMotor(Constants.kowalskiMotorSpeed);
+    Intake.setIntakeMotor(-Constants.intakeMotorVoltage); //tweak this value
+    Intake.setKowalksiMotor(Constants.kowalskiMotorVoltage);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

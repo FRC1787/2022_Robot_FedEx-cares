@@ -14,24 +14,24 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class ShootBalls extends CommandBase {
   /** Creates a new ShootBalls. */
-  PIDController acceleratorPID = new PIDController(Constants.kpShooter, Constants.kiShooter, Constants.kdShooter);
+  PIDController flywheelPID = new PIDController(Constants.kpShooter, Constants.kiShooter, Constants.kdShooter);
   PIDController backspinnerPID = new PIDController(Constants.kpShooter, Constants.kiShooter, Constants.kdShooter);
 
-  private double acceleratorSetpoint;
+  private double flywheelSetpoint;
   private double backspinnerSetpoint;
 
   public ShootBalls(Shooter shootSubsystem, Vision cameraSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shootSubsystem);
     addRequirements(cameraSubsystem);
-    acceleratorPID.setTolerance(50);
+    flywheelPID.setTolerance(50);
     backspinnerPID.setTolerance(50);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    acceleratorSetpoint = Vision.calculateAcceleratorRPM(); //function will change depending on threshold
+    flywheelSetpoint = Vision.calculateFlywheelRPM(); //function will change depending on threshold
     backspinnerSetpoint = Vision.calculateBackspinnerRPM();
     if (Vision.distToTarget < Constants.shooterDistanceThreshold) {
       Shooter.setShooterPosition(DoubleSolenoid.Value.kForward);
@@ -43,21 +43,24 @@ public class ShootBalls extends CommandBase {
   @Override
   public void execute() {
 
-    Shooter.setAcceleratorSpeed(
-      acceleratorPID.calculate(
-        Shooter.getAcceleratorSpeed(), acceleratorSetpoint
-      )*Constants.acceleratorRPMToPercent
+    Shooter.setFlywheelSpeed(
+      (flywheelPID.calculate(
+        Shooter.getFlywheelSpeed(), flywheelSetpoint)
+      + Constants.kfShooter*flywheelSetpoint)
+      *Constants.flywheelRPMToPercent
     );
 
     Shooter.setBackspinnerSpeed(
       
-      backspinnerPID.calculate(
+      (backspinnerPID.calculate(
         Shooter.getBackspinnerSpeed(), backspinnerSetpoint
+      )
+      + Constants.kfShooter*backspinnerSetpoint
       )*Constants.backspinnerRPMToPercent //we are using the same conversion factors for both motors because i dont care
     );
 
 
-    if (acceleratorPID.atSetpoint() && backspinnerPID.atSetpoint()) {
+    if (flywheelPID.atSetpoint() && backspinnerPID.atSetpoint()) {
       Shooter.setIndexerSpeed(0.3);
       Intake.setKowalksiMotor(0.4);
     }
@@ -67,7 +70,7 @@ public class ShootBalls extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Shooter.setAcceleratorSpeed(0);
+    Shooter.setFlywheelSpeed(0);
     Shooter.setIndexerSpeed(0);
     Shooter.setBackspinnerSpeed(0);
   }
