@@ -108,11 +108,11 @@ public class RobotContainer {
     reverseIntakeButton.whileHeld(new ReverseIntake(intake, shooter));
     toggleIntakeButton.whenPressed(new ToggleIntakePosition(intake));
 
-    basicShootButton.whileHeld(new BasicShoot(shooter, intake, 0.4, 2000, 2000));
+    basicShootButton.whileHeld(new BasicShoot(shooter, intake));
     shooterToggle.whenPressed(new ToggleShooterPosition(shooter));
     
     //smartShootButton.whileHeld(new ShootBalls(shooter, vision)); 
-    smartShootButton.whileHeld(new ShootBalls(shooter, vision));
+    smartShootButton.whileHeld(new ShootBalls(shooter, vision, intake));
   }
 
   /**

@@ -32,6 +32,8 @@ public class Shooter extends SubsystemBase {
     indexer.setIdleMode(IdleMode.kBrake);
     flywheel.setIdleMode(IdleMode.kCoast);
     backspinner.setIdleMode(IdleMode.kCoast);
+    flywheel.setOpenLoopRampRate(0);
+    backspinner.setOpenLoopRampRate(0);
     flywheelE.setVelocityConversionFactor(1.0);
     backspinnerE.setVelocityConversionFactor(1.0);
     flywheel.setInverted(true);
