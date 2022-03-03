@@ -26,13 +26,13 @@ public class TurnToTarget extends PIDCommand {
         // This uses the output
         output -> {
           Drivetrain.moveLeftSide(-output);
-          Drivetrain.moveRightSide(output);
+          Drivetrain.moveRightSide(output); //TODO: add feedforward
         });
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
     addRequirements(drivetrainSubsystem);
     addRequirements(cameraSubsystem);
-    getController().enableContinuousInput(-180, 180);
+    //getController().enableContinuousInput(-180, 180);
     getController().setTolerance(0.5);
   }
 

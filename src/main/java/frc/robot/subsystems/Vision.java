@@ -62,11 +62,11 @@ public class Vision extends SubsystemBase {
 
   public static double calculateFlywheelRPM() {
     //find regression formula here
-    return 3600;
+    return 2500;
   }
 
   public static double calculateBackspinnerRPM() {
-    return 3600;
+    return 2500;
   }
 
   @Override
@@ -87,6 +87,4 @@ public class Vision extends SubsystemBase {
     SmartDashboard.putNumber("LimelightArea", area);
 
   }
-
-
 }

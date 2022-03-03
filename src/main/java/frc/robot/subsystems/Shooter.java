@@ -25,7 +25,7 @@ public class Shooter extends SubsystemBase {
   private static RelativeEncoder flywheelE = flywheel.getEncoder();
   private static RelativeEncoder backspinnerE = backspinner.getEncoder();
 
-  private static DoubleSolenoid leftPiston  = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.shooterPistonForwardID, Constants.shooterPistonReverseID);
+  private static DoubleSolenoid piston  = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.shooterPistonForwardID, Constants.shooterPistonReverseID);
 
 
   public Shooter() {
@@ -35,6 +35,7 @@ public class Shooter extends SubsystemBase {
     flywheelE.setVelocityConversionFactor(1.0);
     backspinnerE.setVelocityConversionFactor(1.0);
     flywheel.setInverted(true);
+    piston.set(DoubleSolenoid.Value.kForward);
   }
 
 
@@ -72,7 +73,11 @@ public class Shooter extends SubsystemBase {
    * @param position - position of the pneimatic cylinder
    */
   public static void setShooterPosition(DoubleSolenoid.Value position) {
-    leftPiston.set(position);
+    piston.set(position);
+  }
+
+  public static void toggleShooterPosition() {
+    piston.toggle();
   }
 
   /**
@@ -131,12 +136,11 @@ public class Shooter extends SubsystemBase {
   }
 
   public static void setFlywheelRPM(double rpm) {
-    //flywheel.set(rpm*Constants.flywheelRPMToPercent);
-    flywheel.setVoltage(rpm*Constants.flywheelRPMToVoltage);
+    flywheel.set((rpm)/5150);
   }
   
   public static void setBackspinnerRPM(double rpm) {
-    backspinner.setVoltage(rpm*Constants.backspinnerRPMToVoltage);
+    backspinner.set((rpm-100)/5320);
   }
 
   @Override

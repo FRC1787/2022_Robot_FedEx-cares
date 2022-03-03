@@ -22,19 +22,18 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.BasicShoot;
 import frc.robot.commands.DriveArcade;
-import frc.robot.commands.IntakeBalls;
-import frc.robot.commands.ReverseIntake;
-import frc.robot.commands.ShootBalls;
-import frc.robot.commands.ShooterToggle;
-import frc.robot.commands.RaiseIntake;
-import frc.robot.commands.ToggleIntakePosition;
 import frc.robot.commands.ToggleLimelight;
 import frc.robot.commands.TurnToTarget;
 import frc.robot.commands.climb.ClimbRoutine;
 import frc.robot.commands.climb.MoveArm;
 import frc.robot.commands.climb.TestClimb;
+import frc.robot.commands.intake.IntakeBalls;
+import frc.robot.commands.intake.ReverseIntake;
+import frc.robot.commands.intake.ToggleIntakePosition;
+import frc.robot.commands.shooter.BasicShoot;
+import frc.robot.commands.shooter.ShootBalls;
+import frc.robot.commands.shooter.ToggleShooterPosition;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -79,12 +78,10 @@ public class RobotContainer {
       private final Button intakeBallsButton = new JoystickButton(stick, Constants.intakeBallsButtonID);
       private final Button reverseIntakeButton = new JoystickButton(stick, Constants.reverseIntakeButtonID);
       private final Button toggleIntakeButton = new JoystickButton(stick, Constants.toggleIntakeButtonID);
-      private final Button raiseIntakeButton = new JoystickButton(stick, Constants.raiseIntakeButtonID);
     // Shooter
       private final Button smartShootButton = new JoystickButton(stick, Constants.smartShootButtonID);
       private final Button basicShootButton = new JoystickButton(stick, Constants.basicShootButtonID);
       private final Button shooterToggle = new JoystickButton(stick, Constants.shooterToggleID);
-
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -111,14 +108,11 @@ public class RobotContainer {
     reverseIntakeButton.whileHeld(new ReverseIntake(intake, shooter));
     toggleIntakeButton.whenPressed(new ToggleIntakePosition(intake));
 
-    basicShootButton.whileHeld(new BasicShoot(shooter, intake, 0.4, 4000, 4000));
-    shooterToggle.whenPressed(new ShooterToggle(shooter, true));
+    basicShootButton.whileHeld(new BasicShoot(shooter, intake, 0.4, 2000, 2000));
+    shooterToggle.whenPressed(new ToggleShooterPosition(shooter));
     
     //smartShootButton.whileHeld(new ShootBalls(shooter, vision)); 
     smartShootButton.whileHeld(new ShootBalls(shooter, vision));
-
-    raiseIntakeButton.whenPressed(new RaiseIntake(intake));
-
   }
 
   /**

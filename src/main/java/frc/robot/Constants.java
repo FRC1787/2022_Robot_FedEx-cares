@@ -68,11 +68,10 @@ public final class Constants {
 
 
   // SHOOTER
-  public static double shooterDistanceThreshold = 99999;
-  public static double flywheelRPMToPercent = 1./4950;
-  public static double backspinnerRPMToPercent = 1./5050;
-  public static double flywheelRPMToVoltage = 12./5410;
-  public static double backspinnerRPMToVoltage = 12./5610;
+  // public static double flywheelRPMToPercent = 1./4950;
+  // public static double backspinnerRPMToPercent = 1./5050;
+  // public static double flywheelRPMToVoltage = 12./5410;
+  // public static double backspinnerRPMToVoltage = 12./5610;
 
 
 
@@ -134,8 +133,6 @@ public final class Constants {
       public static final int intakeBallsButtonID   = 1;
       public static final int toggleIntakeButtonID  = 3;
       public static final int reverseIntakeButtonID = 5;
-      //KILL THIS ONE i think VVVV (I made it negative)
-      public static final int raiseIntakeButtonID   = -5;
     // Shooter
       public static final int basicShootButtonID = 2;
       public static final int smartShootButtonID = 4; //drive team (na than) wants this to be shooter up/down toggle
