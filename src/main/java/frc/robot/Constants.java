@@ -29,9 +29,9 @@ public final class Constants {
 
   // SHOOTER
   public static double shooterDistanceThreshold = 99999;
-  public static double flywheelRPMToPercent = 1./4950;
+  public static double acceleratorRPMToPercent = 1./4950;
   public static double backspinnerRPMToPercent = 1./5050;
-  public static double flywheelRPMToVoltage = 12./5410;
+  public static double acceleratorRPMToVoltage = 12./5410;
   public static double backspinnerRPMToVoltage = 12./5610;
 
 
@@ -59,7 +59,7 @@ public final class Constants {
       public static final int kowalksiMotorID = 6; // da kowalksi :D
     // Shooter
       public static final int indexerMotorID     = 7;
-      public static final int flywheelMotorID = 8;
+      public static final int acceleratorMotorID = 8;
       public static final int backspinnerMotorID = 9;
     // Climb
       public static final int armMotorID = 10;

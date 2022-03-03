@@ -27,6 +27,12 @@ public class Climb extends SubsystemBase {
     setAmpLimit(50);
   }
 
+
+  /**
+   * Sets the maximum ampere limit for the NEO motor on the arm
+   * 
+   * @param limit - limit in amps
+   */
   public static void setAmpLimit(int limit) {
     arm.setSmartCurrentLimit(limit);
   }

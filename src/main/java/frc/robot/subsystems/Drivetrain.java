@@ -64,6 +64,14 @@ public class Drivetrain extends SubsystemBase {
     setAmpLimit(50);
   }
 
+  /**
+   * Sets the ramp rate for NEO motors
+   *
+   * <p>
+   * This is the maximum rate at which the motor controller's output is allowed to change.
+   * </p>
+   * @param rate Time in seconds to go from 0 to full throttle.
+   */
   public static void setRampRate(double rate) {
     left1.setOpenLoopRampRate(rate);
     left2.setOpenLoopRampRate(rate);
@@ -71,6 +79,11 @@ public class Drivetrain extends SubsystemBase {
     right2.setOpenLoopRampRate(rate);
   }
 
+  /**
+   * Sets the maximum ampere limit for the NEO motors in the drivetrain
+   * 
+   * @param limit - limit in amps
+   */
   public static void setAmpLimit(int limit) {
     left1.setSmartCurrentLimit(limit);
     left2.setSmartCurrentLimit(limit);
@@ -79,7 +92,7 @@ public class Drivetrain extends SubsystemBase {
   }
 
   /**
-   * Resets all NEO encoders to 0
+   * Resets the position of all NEO encoders to 0
    */
   public static void resetEncoders() {
     left1E.setPosition(0); 
@@ -142,22 +155,30 @@ public class Drivetrain extends SubsystemBase {
     right2.setVoltage(rightVolts);
   }
 
-  //distance traveled in meters by left side
+  /**
+   * @return Distance traveled in meters by the left side of the drivetrain
+   */
   public static double leftEncoderPosition() {
     return (left1E.getPosition()+left2E.getPosition())/2.0;
   }
 
-  //distance traveled in meters by right side
+  /**
+   * @return Distance traveled in meters by the right side of the drivetrain
+   */
   public static double rightEncoderPosition() {
     return (right1E.getPosition()+right1E.getPosition())/2.0;
   }
 
-  //speed of left side in m/s
+  /**
+   * @return RPM of the left side of the drivetrain
+   */
   public static double leftEncoderSpeed() {
     return (left1E.getVelocity()+left2E.getVelocity())/2.0;
   }
   
-  //speed of right side in m/s
+  /**
+  * @return RPM of the right side of the drivetrain
+  */
   public static double rightEncoderSpeed() {
     return (right1E.getVelocity()+right2E.getVelocity())/2.0;
   }
@@ -166,21 +187,36 @@ public class Drivetrain extends SubsystemBase {
     return new DifferentialDriveWheelSpeeds(leftEncoderSpeed(), rightEncoderSpeed());
   }
 
-  //returns robot's heading in degrees
+  /**
+  * Returns the robot's current yaw value (in degrees, from -180 to 180)
+  * reported by the sensor. 
+  *
+  * @return The robot's current yaw value in degrees (-180 to 180).
+  */
   public static double getHeading() {
     return gyro.getYaw();
   }
 
-  //return the current pose of the robot
+  /**
+   * Return's the robot's current position
+   * @return The pose of the robot in meters
+   */
   public Pose2d getPose() {
     return odometry.getPoseMeters();
   }
 
+  /**
+   * Resets the position of the robot
+   * @param pose - the position on the field the robot is at
+   */
   public void resetOdometry(Pose2d pose) {
     resetEncoders();
     odometry.resetPosition(pose, gyro.getRotation2d());
   }
 
+  /**
+   * Resets the gyro's Z (Yaw) axis to a heading of 0
+   */
   public static void resetGyro() {
     gyro.reset();
   }

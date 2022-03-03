@@ -27,10 +27,6 @@ public class Intake extends SubsystemBase {
 
   }
 
-  public static void setAmpLimit(int limit) {
-    kowalski.setSmartCurrentLimit(limit);
-    intakeMotor.setSmartCurrentLimit(limit);
-  }
   
   /**
   * Sets the state of the pneumatic cylinder via the connected solenoid
