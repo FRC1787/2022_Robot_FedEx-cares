@@ -22,133 +22,122 @@ public final class Constants {
   public static final boolean bestSchoolTeamAtOrange       = true;
 
 
-  // VISION
-  public static int visionCameraWidth =  160;
-  public static int visionCameraHeight = 120;
 
-
-  // SHOOTER
-  public static double shooterDistanceThreshold = 99999;
-  public static double acceleratorRPMToPercent = 1./4950;
-  public static double backspinnerRPMToPercent = 1./5050;
-  public static double acceleratorRPMToVoltage = 12./5410;
-  public static double backspinnerRPMToVoltage = 12./5610;
-
-
-  // SOLENOID IDs
-    // Climb
-      public static final int armPistonFowardID  = 0;
-      public static final int armPistonReverseID = 1;
-    // Intake
-      public static final int leftIntakePistonFowardID   = 4;
-      public static final int leftIntakePistonReverseID  = 5;
-    // Shooter
-      public static final int shooterPistonForwardID = 3;
-      public static final int shooterPistonReverseID = 2;
-
-
-
-  // MOTOR IDs
-    // Drivetrain
-      public static final int l1MotorID = 1;
-      public static final int l2MotorID = 2;
-      public static final int r1MotorID = 3;
-      public static final int r2MotorID = 4;
-    // Intake
-      public static final int intakeMotorID   = 5; //change this later
-      public static final int kowalksiMotorID = 6; // da kowalksi :D
-    // Shooter
-      public static final int indexerMotorID     = 7;
-      public static final int acceleratorMotorID = 8;
-      public static final int backspinnerMotorID = 9;
-    // Climb
-      public static final int armMotorID = 10;
-
-
-
-  // MOTOR SPEEDS
-    // Climb
-
-    // Drivetrain
-
-    // Intake
-      public static final double intakeMotorVoltage   = 1.0;
-      public static final double kowalskiMotorVoltage = 0.5;
-
-    // Shooter
-      public static final double indexerVoltage     = 0.20;
-      //make this always negative pls
-      public static final double acceleratorVoltage = -0.52;
-      public static final double backspinnerVoltage = 0.52;
+  //AUTO & trajectory
+  //we probably should put units on all of these variable names for clarity
+  public static final double gearboxRatio             = 7.25;                             //it probably is not this it just is the most accurate with this value
+  public static final double positionConversionFactor = 0.1524*Math.PI/gearboxRatio;      //changes rotations of motor to distance traveled in meters
+  public static final double velocityConversionFactor = Math.PI*0.1524/60/gearboxRatio;   //changes rpm of motor to m/s
+  public static final double kTrackwidth = 0.66; //idk if this is right lole
+  public static final DifferentialDriveKinematics kDriveKinematics = 
+    new DifferentialDriveKinematics(kTrackwidth);
+  public static final double kMaxVelocity        = 0.5;
+  public static final double kMaxAcceleration = 1.0;
+  public static final double kRamseteB    = 2.0;
+  public static final double kRamseteZeta = 0.7;
+  public static final double autoMaxVoltage = 8.0;
 
 
 
   // PID/FEEDFORWARD VALUES
-    // AUTO
-      public static final double ksAuto = 0.090934;
-      public static final double kvAuto = 1.918800;
-      public static final double kaAuto = 0.419780;
-      public static final double kpAuto = 2.648400;
-
-    // SHOOTER
-      public static final double kpShooter = 0.0;
-      public static final double kiShooter = 0.0;
-      public static final double kdShooter = 0.000000;
-      public static final double kfShooter = 1.0;
-      
-
-
-  //AUTO (trajectory!)
-  //we probably should put units on all of these variable names for clarity
-    public static final double gearboxRatio             = 7.25;                             //it probably is not this it just is the most accurate with this value
-    public static final double positionConversionFactor = 0.1524*Math.PI/gearboxRatio;      //changes rotations of motor to distance traveled in meters
-    public static final double velocityConversionFactor = Math.PI*0.1524/60/gearboxRatio;   //changes rpm of motor to m/s
-
-    public static final double kTrackwidth = 0.66; //idk if this is right lole
-    public static final DifferentialDriveKinematics kDriveKinematics = 
-      new DifferentialDriveKinematics(kTrackwidth);
-  
-    public static final double kMaxVelocity        = 0.5;
-    public static final double kMaxAcceleration = 1.0;
-
-    public static final double kRamseteB    = 2.0;
-    public static final double kRamseteZeta = 0.7;
-
-    public static final double autoMaxVoltage = 8.0;
+  // AUTO
+    public static final double ksAuto = 0.090934;
+    public static final double kvAuto = 1.918800;
+    public static final double kaAuto = 0.419780;
+    public static final double kpAuto = 2.648400;
+  // SHOOTER
+    public static final double kpShooter = 0.0;
+    public static final double kiShooter = 0.0;
+    public static final double kdShooter = 0.000000;
+    public static final double kfShooter = 1.0;
 
 
 
   // VISION
-    // Measurements for limelight
-      public static final double tapeHeight      = 81.0;
-      public static final double limelightHeight = 46.0;
-      public static final double limelightAngle  = 25.0;
-    // limelight PID values
-      public static final double lookToTargetP = 0.05;
-      public static final double lookToTargetI = 0.00;
-      public static final double lookToTargetD = 0.00;
+  // Measurements for limelight
+    public static final double tapeHeight      = 81.0;
+    public static final double limelightHeight = 46.0;
+    public static final double limelightAngle  = 25.0;
+    public static int visionCameraWidth =  160;
+    public static int visionCameraHeight = 120;
+  // limelight PID values
+    public static final double lookToTargetP = 0.05;
+    public static final double lookToTargetI = 0.00;
+    public static final double lookToTargetD = 0.00;
+  
+
+
+  // SHOOTER
+  public static double shooterDistanceThreshold = 99999;
+  public static double flywheelRPMToPercent = 1./4950;
+  public static double backspinnerRPMToPercent = 1./5050;
+  public static double flywheelRPMToVoltage = 12./5410;
+  public static double backspinnerRPMToVoltage = 12./5610;
+
+
+
+  // MOTOR VOLTAGE PERCCENTAGES
+  // Climb
+
+  // Drivetrain
+
+  // Intake
+    public static final double intakeMotorVoltage   = 1.0;
+    public static final double kowalskiMotorVoltage = 0.5;
+  // Shooter
+    public static final double indexerVoltage     = 0.20;
+    //make this always negative pls
+    public static final double flywheelVoltage = -0.52;
+    public static final double backspinnerVoltage = 0.52;
+
+
+
+  // MOTOR & SOLENOID IDs
+  // Drivetrain
+    public static final int l1MotorID = 1;
+    public static final int l2MotorID = 2;
+    public static final int r1MotorID = 3;
+    public static final int r2MotorID = 4;
+  // Intake
+    public static final int intakeMotorID   = 5; //change this later
+    public static final int kowalksiMotorID = 6; // da kowalksi :D
+  // Shooter
+    public static final int indexerMotorID     = 7;
+    public static final int flywheelMotorID = 8;
+    public static final int backspinnerMotorID = 9;
+  // Climb
+    public static final int armMotorID = 10;
+  // SOLENOIDS
+    public static final int armPistonFowardID  = 0;
+    public static final int armPistonReverseID = 1;
+    public static final int shooterPistonReverseID = 2;
+    public static final int shooterPistonForwardID = 3;
+    public static final int leftIntakePistonFowardID   = 4;
+    public static final int leftIntakePistonReverseID  = 5;
+
 
 
   // BUTTON IDS
     // Camera
-      public static final int toggleLimelightButtonID = 12;
+      public static final int toggleLimelightButtonID = 8;
       public static final int turnToTargetButtonID    = 90;
-
     // Climb
-      public static final int manualMoveArmButtonID = 9;
-      public static final int climbRoutineButtonID  = 8;
-      public static final int fullExtendButtonID    = 7;
-
+      public static final int manualMoveArmButtonID = 11;
+      public static final int climbRoutineButtonID  = 12;
+      //needs to be implemented
+      public static final int manualArmPneumaticID = 9;
+      //get rid of this also
+      public static final int fullExtendButtonID    = -7;
     // Drivetrain
 
     // Intake
       public static final int intakeBallsButtonID   = 1;
-      public static final int toggleIntakeButtonID  = 5;
-      public static final int reverseIntakeButtonID = 6;
-      public static final int raiseIntakeButtonID   = 5;
-
+      public static final int toggleIntakeButtonID  = 3;
+      public static final int reverseIntakeButtonID = 5;
+      //KILL THIS ONE i think VVVV (I made it negative)
+      public static final int raiseIntakeButtonID   = -5;
     // Shooter
       public static final int basicShootButtonID = 2;
-      public static final int smartShootButtonID = 3;
-      public static final int setShooterPositionButtonID = 4;
+      public static final int smartShootButtonID = 4; //drive team (na than) wants this to be shooter up/down toggle
+      public static final int shooterToggleID = 6;
 }

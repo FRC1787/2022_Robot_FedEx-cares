@@ -18,42 +18,42 @@ import frc.robot.Constants;
 public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
 
-  static CANSparkMax indexer     = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
-  public static CANSparkMax accelerator = new CANSparkMax(Constants.acceleratorMotorID, MotorType.kBrushless);
-  public static CANSparkMax backspinner = new CANSparkMax(Constants.backspinnerMotorID, MotorType.kBrushless);
+  private static CANSparkMax indexer     = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
+  private static CANSparkMax flywheel = new CANSparkMax(Constants.flywheelMotorID, MotorType.kBrushless);
+  private static CANSparkMax backspinner = new CANSparkMax(Constants.backspinnerMotorID, MotorType.kBrushless);
   
-  static RelativeEncoder acceleratorE = accelerator.getEncoder();
-  static RelativeEncoder backspinnerE = backspinner.getEncoder();
+  private static RelativeEncoder flywheelE = flywheel.getEncoder();
+  private static RelativeEncoder backspinnerE = backspinner.getEncoder();
 
   private static DoubleSolenoid leftPiston  = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.shooterPistonForwardID, Constants.shooterPistonReverseID);
 
 
   public Shooter() {
     indexer.setIdleMode(IdleMode.kBrake);
-    accelerator.setIdleMode(IdleMode.kCoast);
+    flywheel.setIdleMode(IdleMode.kCoast);
     backspinner.setIdleMode(IdleMode.kCoast);
-    acceleratorE.setVelocityConversionFactor(1.0);
+    flywheelE.setVelocityConversionFactor(1.0);
     backspinnerE.setVelocityConversionFactor(1.0);
-    accelerator.setInverted(true);
+    flywheel.setInverted(true);
   }
 
 
   /**
-   * Sets the speed of the backspinner and accelerator motors
+   * Sets the speed of the backspinner and flywheel motors
    * 
    * <p>
-   * To set the speed of the accelerator motor, input a double between 0 and -1.0. For example,
-   * {@code accelerateShooter(-0.5);}
+   * To set the speed of the flywheel motor, input a double between 0 and -1.0. For example,
+   * {@code flywheelShooter(-0.5);}
    * </p>
    * <p>
    * To set the speed of the backspinner motor, input a double between 0 and 1.0. For example,
-   * {@code accelerateShooter(0.5);}
+   * {@code flywheelShooter(0.5);}
    * </p>
-   * @param acceleratorSpeed - speed of accelerator motor. Value should be between 0 and -1.0
+   * @param flywheelSpeed - speed of flywheel motor. Value should be between 0 and -1.0
    * @param backspinnerSpeed - speed of backspinner motor. Value should be between 0 and -1.0
    */
-  public static void accelerateShooter(double acceleratorSpeed, double backspinnerSpeed) {
-    accelerator.set(acceleratorSpeed);
+  public static void flywheelShooter(double flywheelSpeed, double backspinnerSpeed) {
+    flywheel.set(flywheelSpeed);
     backspinner.set(backspinnerSpeed);
   }
 
@@ -89,16 +89,16 @@ public class Shooter extends SubsystemBase {
   }
 
   /**
-   * Sets the speed of the accelerator motor
+   * Sets the speed of the flywheel motor
    * 
    * <p>
    * To set the speed of the motor, input a double between 0 and -1.0. For example,
-   * {@code setAcceleratorSpeed(-0.5);}
+   * {@code setFlywheelSpeed(-0.5);}
    * </p>
    * @param speed - Speed to set for the motor. Value should be between 0 and -1.0
    */
-  public static void setAcceleratorSpeed(double speed) {
-    accelerator.set(speed);
+  public static void setFlywheelSpeed(double speed) {
+    flywheel.set(speed);
   }
 
   /**
@@ -126,13 +126,13 @@ public class Shooter extends SubsystemBase {
    * Get the velocity of the accelorator motor. This returns in RPM
    * @return Backspinner motor RPM
    */
-  public static double getAcceleratorSpeed() {
-    return acceleratorE.getVelocity();
+  public static double getFlywheelSpeed() {
+    return flywheelE.getVelocity();
   }
 
-  public static void setAcceleratorRPM(double rpm) {
-    //accelerator.set(rpm*Constants.acceleratorRPMToPercent);
-    accelerator.setVoltage(rpm*Constants.acceleratorRPMToVoltage);
+  public static void setFlywheelRPM(double rpm) {
+    //flywheel.set(rpm*Constants.flywheelRPMToPercent);
+    flywheel.setVoltage(rpm*Constants.flywheelRPMToVoltage);
   }
   
   public static void setBackspinnerRPM(double rpm) {
@@ -143,6 +143,6 @@ public class Shooter extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("backspinner speed", getBackspinnerSpeed());
-    SmartDashboard.putNumber("accelerator speed", getAcceleratorSpeed());
+    SmartDashboard.putNumber("flywheel speed", getFlywheelSpeed());
   }
 }

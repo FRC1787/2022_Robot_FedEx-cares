@@ -34,7 +34,7 @@ public class BasicShoot extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Shooter.setAcceleratorRPM(flywheelRPM);
+    Shooter.setFlywheelRPM(flywheelRPM);
     Shooter.setBackspinnerRPM(backspinnerRPM);
     
   }
@@ -42,7 +42,7 @@ public class BasicShoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Shooter.getAcceleratorSpeed() >= flywheelRPM && Shooter.getBackspinnerSpeed() >= backspinnerRPM) {
+    if (Shooter.getFlywheelSpeed() >= flywheelRPM && Shooter.getBackspinnerSpeed() >= backspinnerRPM) {
       Shooter.setIndexerSpeed(indexerSpeed);
       Intake.setKowalksiMotor(indexerSpeed);
     }
@@ -52,7 +52,7 @@ public class BasicShoot extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     Shooter.setIndexerSpeed(0);
-    Shooter.setAcceleratorSpeed(0);
+    Shooter.setFlywheelSpeed(0);
     Shooter.setBackspinnerSpeed(0);
     Intake.setKowalksiMotor(0);
   }

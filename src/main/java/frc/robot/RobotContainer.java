@@ -26,8 +26,8 @@ import frc.robot.commands.BasicShoot;
 import frc.robot.commands.DriveArcade;
 import frc.robot.commands.IntakeBalls;
 import frc.robot.commands.ReverseIntake;
-import frc.robot.commands.SetShooterPosition;
 import frc.robot.commands.ShootBalls;
+import frc.robot.commands.ShooterToggle;
 import frc.robot.commands.RaiseIntake;
 import frc.robot.commands.ToggleIntakePosition;
 import frc.robot.commands.ToggleLimelight;
@@ -83,7 +83,7 @@ public class RobotContainer {
     // Shooter
       private final Button smartShootButton = new JoystickButton(stick, Constants.smartShootButtonID);
       private final Button basicShootButton = new JoystickButton(stick, Constants.basicShootButtonID);
-      private final Button setShooterPositionButton = new JoystickButton(stick, Constants.setShooterPositionButtonID);
+      private final Button shooterToggle = new JoystickButton(stick, Constants.shooterToggleID);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -112,6 +112,7 @@ public class RobotContainer {
     toggleIntakeButton.whenPressed(new ToggleIntakePosition(intake));
 
     basicShootButton.whileHeld(new BasicShoot(shooter, intake, 0.4, 4000, 4000));
+    shooterToggle.whenPressed(new ShooterToggle(shooter, true));
     
     //smartShootButton.whileHeld(new ShootBalls(shooter, vision)); 
     smartShootButton.whileHeld(new ShootBalls(shooter, vision));

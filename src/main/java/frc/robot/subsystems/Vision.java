@@ -60,7 +60,7 @@ public class Vision extends SubsystemBase {
     return (int) table.getEntry("ledMode").getDouble(3);
   }
 
-  public static double calculateAcceleratorRPM() {
+  public static double calculateFlywheelRPM() {
     //find regression formula here
     return 3600;
   }

@@ -11,9 +11,9 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class SetShooterPosition extends InstantCommand {
+public class ShooterToggle extends InstantCommand {
   private boolean extended;
-  public SetShooterPosition(Shooter shooterSubsystem, boolean extended) {
+  public ShooterToggle(Shooter shooterSubsystem, boolean extended) {
     // Use addRequirements() here to declare subsystem dependencies.
     this.extended = extended;
   }
