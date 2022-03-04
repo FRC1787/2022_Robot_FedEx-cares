@@ -14,21 +14,16 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class SetClimbPiston extends InstantCommand {
   /** Creates a new SetClimbPiston. */
-  boolean up;
-  public SetClimbPiston(Climb climbSubsystem, boolean setPistonUp) {
+  boolean pistonUp;
+  public SetClimbPiston(Climb climbSubsystem, boolean pistonUpParam) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(climbSubsystem);
-    this.up = setPistonUp;
+    pistonUp = pistonUpParam;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (up) {
-      Climb.setPiston(Value.kReverse); //reverse == up position
-    }
-    else {
-      Climb.setPiston(Value.kForward);
-    }
+    Climb.setPiston(pistonUp ? Value.kReverse : Value.kForward); //reverse == up position
   }
 }

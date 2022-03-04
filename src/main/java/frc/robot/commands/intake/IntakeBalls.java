@@ -21,7 +21,7 @@ public class IntakeBalls extends CommandBase {
   public void initialize() {
     Intake.setIntake(Value.kForward); //depends on what the ids are
     Intake.setIntakeMotor(-Constants.intakeMotorVoltage); //tweak this value
-    Intake.setKowalksiMotor(Constants.kowalskiMotorVoltage);
+    Intake.setKowalskiMotor(Constants.kowalskiMotorVoltage);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -32,7 +32,7 @@ public class IntakeBalls extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     Intake.setIntakeMotor(0);
-    Intake.setKowalksiMotor(0);
+    Intake.setKowalskiMotor(0);
   }
 
   // Returns true when the command should end.

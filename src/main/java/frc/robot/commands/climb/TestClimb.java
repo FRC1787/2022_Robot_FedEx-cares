@@ -24,7 +24,8 @@ public class TestClimb extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double sliderValue = -RobotContainer.stick.getRawAxis(3)*2/3;
+    double sliderValue = -0.67*RobotContainer.stick.getRawAxis(3);
+
     if (sliderValue < 0) { //retracts arm
       if (!Climb.isRetracted()) Climb.setArm(sliderValue);
       else Climb.setArm(0);

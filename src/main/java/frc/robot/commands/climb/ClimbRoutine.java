@@ -23,7 +23,7 @@ public class ClimbRoutine extends SequentialCommandGroup {
       //assumes driver starts with arms attached to first bar and arms extended
       new MoveArm(climb, -0.8), //pull robot up by retracting arms
       new WaitCommand(0.25),
-      new PartialMoveArm(climb, 0.7, 0.3), //extend arm to clear bar
+      new TimedMoveArm(climb, 0.7, 0.3), //extend arm to clear bar
       new WaitCommand(0.25),
       new SetClimbPiston(climb, false), //lean arm back
       new WaitCommand(0.25),

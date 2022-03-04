@@ -110,7 +110,7 @@ public class Robot extends TimedRobot {
       m_autonomousCommand.cancel();
     }
 
-    Intake.toggleIntake();
+    Intake.togglePiston();
     Climb.setPiston(DoubleSolenoid.Value.kReverse);
     RobotContainer.drivetrain.resetEncoders();
     Shooter.setShooterPosition(DoubleSolenoid.Value.kReverse);

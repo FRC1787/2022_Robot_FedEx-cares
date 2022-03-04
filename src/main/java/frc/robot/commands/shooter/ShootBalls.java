@@ -54,11 +54,11 @@ public class ShootBalls extends CommandBase {
 
     if (flywheelPID.atSetpoint() && backspinnerPID.atSetpoint()) {
       Shooter.setIndexerSpeed(0.2);
-      Intake.setKowalksiMotor(0.4);
+      Intake.setKowalskiMotor(0.4);
     }
     else {
       Shooter.setIndexerSpeed(0);
-      Intake.setKowalksiMotor(0);
+      Intake.setKowalskiMotor(0);
     }
 
   }
@@ -69,7 +69,7 @@ public class ShootBalls extends CommandBase {
     Shooter.setFlywheelSpeed(0);
     Shooter.setIndexerSpeed(0);
     Shooter.setBackspinnerSpeed(0);
-    Intake.setKowalksiMotor(0);
+    Intake.setKowalskiMotor(0);
   }
 
   // Returns true when the command should end.

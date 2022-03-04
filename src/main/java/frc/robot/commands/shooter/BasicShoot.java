@@ -16,8 +16,8 @@ public class BasicShoot extends CommandBase {
 
 
   double indexerSpeed;
-  double flywheelRPM, backspinnerRPM;
-
+  double flywheelRPM;
+  double backspinnerRPM;
   Timer timer = new Timer();
 
   /**
@@ -36,8 +36,8 @@ public class BasicShoot extends CommandBase {
   @Override
   public void initialize() {
     
-    flywheelRPM=Vision.calculateFlywheelRPM();
-    backspinnerRPM=Vision.calculateBackspinnerRPM();
+    flywheelRPM = Vision.calculateFlywheelRPM();
+    backspinnerRPM = Vision.calculateBackspinnerRPM();
     Shooter.setFlywheelRPM(flywheelRPM);
     Shooter.setBackspinnerRPM(backspinnerRPM);
     timer.start();
@@ -48,8 +48,12 @@ public class BasicShoot extends CommandBase {
   @Override
   public void execute() {
     if (timer.get() > 1.0) {
-      Intake.setKowalksiMotor(0.4);
+      Intake.setKowalskiMotor(0.4);
       Shooter.setIndexerSpeed(0.2);
+    }
+    else {
+      Intake.setKowalskiMotor(0);
+      Shooter.setIndexerSpeed(0);
     }
   }
 
@@ -59,7 +63,7 @@ public class BasicShoot extends CommandBase {
     Shooter.setIndexerSpeed(0);
     Shooter.setFlywheelSpeed(0);
     Shooter.setBackspinnerSpeed(0);
-    Intake.setKowalksiMotor(0);
+    Intake.setKowalskiMotor(0);
   }
 
   // Returns true when the command should end.

@@ -9,7 +9,7 @@ import frc.robot.subsystems.Climb;
 
 public class MoveArm extends CommandBase {
   /** Creates a new moveArm. */
-  double val;
+  double speed;
 
 
   /**
@@ -19,16 +19,16 @@ public class MoveArm extends CommandBase {
    * @param speed - percentage of motor output: positive if extending, negative if retracting
    * 
    */
-  public MoveArm(Climb climbSubsystem, double speed) {
+  public MoveArm(Climb climbSubsystem, double speedParam) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(climbSubsystem);
-    val=speed;
+    speed = speedParam;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Climb.setArm(val);
+    Climb.setArm(speed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -44,8 +44,8 @@ public class MoveArm extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (val < 0) return Climb.isRetracted();
-    else if (val > 0) return Climb.isExtended();
+    if (speed < 0) return Climb.isRetracted();
+    else if (speed > 0) return Climb.isExtended();
     return false;
   }
 }

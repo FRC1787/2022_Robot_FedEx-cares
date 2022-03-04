@@ -34,6 +34,8 @@ public class DriveArcade extends CommandBase {
     double linearSpeed = Math.signum(y)*Math.pow(deadzone(y), 2);
     double angularSpeed = Math.signum(x)*Math.pow(deadzone(x), 2);
 
+    //try feedforward with this? idk
+
     Drivetrain.moveLeftSide(-linearSpeed + angularSpeed);
     Drivetrain.moveRightSide(-linearSpeed - angularSpeed);
     SmartDashboard.putNumber("left distance", Drivetrain.leftEncoderPosition());

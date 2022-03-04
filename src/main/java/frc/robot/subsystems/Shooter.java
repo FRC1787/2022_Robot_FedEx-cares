@@ -145,7 +145,7 @@ public class Shooter extends SubsystemBase {
    * @param rpm - RPM speed to set for the motor
    */
   public static void setFlywheelRPM(double rpm) {
-    flywheel.set((rpm)/5150);
+    flywheel.set(rpm*0.000196 + 0.00562); //obtained from testing
   }
 
   /**
@@ -153,7 +153,7 @@ public class Shooter extends SubsystemBase {
    * @param rpm - RPM speed to set for the motor
    */
   public static void setBackspinnerRPM(double rpm) {
-    backspinner.set((rpm-100)/5320);
+    backspinner.set(rpm*0.000187 - 0.00259);
   }
 
   @Override

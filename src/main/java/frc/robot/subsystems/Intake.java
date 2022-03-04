@@ -51,7 +51,7 @@ public class Intake extends SubsystemBase {
    * Equivalent to {@code solenoid.toggle()}
    */
 
-  public static void toggleIntake() {
+  public static void togglePiston() {
     intakePiston.toggle();
   }
 
@@ -68,7 +68,7 @@ public class Intake extends SubsystemBase {
     intakeMotor.set(speed);
   }
 
-  public static void setKowalksiMotor(double speed) {
+  public static void setKowalskiMotor(double speed) {
     kowalski.set(speed);
   }
 

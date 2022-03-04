@@ -8,17 +8,17 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Climb;
 
-public class PartialMoveArm extends CommandBase {
+public class TimedMoveArm extends CommandBase {
   /** Creates a new PartialMoveArm. */
   Timer timer = new Timer();
   double speed;
   double time;
   
-  public PartialMoveArm(Climb climbSubsystem, double speed, double time) {
+  public TimedMoveArm(Climb climbSubsystem, double speedParam, double timeParam) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(climbSubsystem);
-    this.speed=speed;
-    this.time=time;
+    speed=speedParam;
+    time=timeParam;
   }
 
   // Called when the command is initially scheduled.

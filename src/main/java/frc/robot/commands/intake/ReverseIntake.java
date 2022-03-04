@@ -19,7 +19,7 @@ public class ReverseIntake extends CommandBase {
   @Override
   public void initialize() {
     Shooter.setIndexerSpeed(-0.4);
-    Intake.setKowalksiMotor(-0.4);
+    Intake.setKowalskiMotor(-0.4);
     Intake.setIntakeMotor(0.7);
   }
 
@@ -30,7 +30,7 @@ public class ReverseIntake extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Intake.setKowalksiMotor(0);
+    Intake.setKowalskiMotor(0);
     Intake.setIntakeMotor(0);
     Shooter.setIndexerSpeed(0);
   }

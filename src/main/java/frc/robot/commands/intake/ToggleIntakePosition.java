@@ -19,6 +19,6 @@ public class ToggleIntakePosition extends InstantCommand {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Intake.toggleIntake();
+    Intake.togglePiston();
   }
 }
