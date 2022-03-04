@@ -43,6 +43,7 @@ public class Intake extends SubsystemBase {
   */
   public static void setIntake(DoubleSolenoid.Value state) {
     intakePiston.set(state);
+    setRampRate(0);
   }
 
 

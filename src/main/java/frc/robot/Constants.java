@@ -48,7 +48,7 @@ public final class Constants {
   // SHOOTER
     public static final double kpShooter = 0.3;
     public static final double kiShooter = 0.4;
-    public static final double kdShooter = 0.000000;
+    public static final double kdShooter = 0.000;
     public static final double kfShooter = 1.0;
 
 
@@ -135,7 +135,7 @@ public final class Constants {
       public static final int toggleIntakeButtonID  = 3;
       public static final int reverseIntakeButtonID = 5;
     // Shooter
-      public static final int basicShootButtonID    = 2;
-      public static final int smartShootButtonID    = 4; //drive team (na than) wants this to be shooter up/down toggle
+      public static final int basicShootButtonID    = 4;
+      public static final int smartShootButtonID    = 2; //drive team (na than) wants this to be shooter up/down toggle
       public static final int shooterToggleButtonID = 6;
 }

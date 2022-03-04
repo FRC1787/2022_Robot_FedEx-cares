@@ -60,7 +60,7 @@ public class Drivetrain extends SubsystemBase {
     odometry = new DifferentialDriveOdometry(gyro.getRotation2d());
     
     // Sets the ramp rate of the drivetrain motors to 1 second
-    setRampRate(1);
+    setRampRate(0.1);
     setAmpLimit(50);
   }
 
