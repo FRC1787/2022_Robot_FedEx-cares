@@ -20,12 +20,13 @@ public class ShootBalls extends CommandBase {
   private double flywheelSetpoint;
   private double backspinnerSetpoint;
 
-  public ShootBalls(Shooter shootSubsystem, Vision cameraSubsystem) {
+  public ShootBalls(Shooter shootSubsystem, Vision cameraSubsystem, Intake intakeSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shootSubsystem);
     addRequirements(cameraSubsystem);
-    flywheelPID.setTolerance(100);
-    backspinnerPID.setTolerance(100);
+    addRequirements(intakeSubsystem);
+    flywheelPID.setTolerance(50);
+    backspinnerPID.setTolerance(50);
   }
 
   // Called when the command is initially scheduled.
@@ -52,8 +53,12 @@ public class ShootBalls extends CommandBase {
 
 
     if (flywheelPID.atSetpoint() && backspinnerPID.atSetpoint()) {
-      Shooter.setIndexerSpeed(0.3);
+      Shooter.setIndexerSpeed(0.2);
       Intake.setKowalksiMotor(0.4);
+    }
+    else {
+      Shooter.setIndexerSpeed(0);
+      Intake.setKowalksiMotor(0);
     }
 
   }
