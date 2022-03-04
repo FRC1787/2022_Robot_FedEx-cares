@@ -58,9 +58,11 @@ public final class Constants {
     public static final double tapeHeight      = 81.0;
     public static final double limelightHeight = 46.0;
     public static final double limelightAngle  = 25.0;
+
     public static int visionCameraWidth =  160;
     public static int visionCameraHeight = 120;
-  // limelight PID values
+  
+    // limelight PID values
     public static final double lookToTargetP = 0.05;
     public static final double lookToTargetI = 0.00;
     public static final double lookToTargetD = 0.00;
@@ -84,10 +86,10 @@ public final class Constants {
     public static final double intakeMotorVoltage   = 1.0;
     public static final double kowalskiMotorVoltage = 0.5;
   // Shooter
-    public static final double indexerVoltage     = 0.20;
+    public static final double indexerVoltage      =  0.20;
     //make this always negative pls
-    public static final double flywheelVoltage = -0.52;
-    public static final double backspinnerVoltage = 0.52;
+    public static final double flywheelVoltage     = -0.52;
+    public static final double backspinnerVoltage  =  0.52;
 
 
 
@@ -98,19 +100,19 @@ public final class Constants {
     public static final int r1MotorID = 3;
     public static final int r2MotorID = 4;
   // Intake
-    public static final int intakeMotorID   = 5; //change this later
+    public static final int intakeMotorID   = 5;
     public static final int kowalksiMotorID = 6; // da kowalksi :D
   // Shooter
     public static final int indexerMotorID     = 7;
-    public static final int flywheelMotorID = 8;
+    public static final int flywheelMotorID    = 8;
     public static final int backspinnerMotorID = 9;
   // Climb
     public static final int armMotorID = 10;
   // SOLENOIDS
-    public static final int armPistonFowardID  = 0;
-    public static final int armPistonReverseID = 1;
-    public static final int shooterPistonReverseID = 2;
-    public static final int shooterPistonForwardID = 3;
+    public static final int armPistonFowardID          = 0;
+    public static final int armPistonReverseID         = 1;
+    public static final int shooterPistonReverseID     = 2;
+    public static final int shooterPistonForwardID     = 3;
     public static final int leftIntakePistonFowardID   = 4;
     public static final int leftIntakePistonReverseID  = 5;
 
@@ -124,9 +126,8 @@ public final class Constants {
       public static final int manualMoveArmButtonID = 11;
       public static final int climbRoutineButtonID  = 12;
       //needs to be implemented
-      public static final int manualArmPneumaticID = 9;
-      //get rid of this also
-      public static final int fullExtendButtonID    = -7;
+      public static final int manualArmPneumaticButtonID = 9;
+      public static final int fullExtendButtonID         = -7;
     // Drivetrain
 
     // Intake
@@ -134,7 +135,7 @@ public final class Constants {
       public static final int toggleIntakeButtonID  = 3;
       public static final int reverseIntakeButtonID = 5;
     // Shooter
-      public static final int basicShootButtonID = 2;
-      public static final int smartShootButtonID = 4; //drive team (na than) wants this to be shooter up/down toggle
-      public static final int shooterToggleID = 6;
+      public static final int basicShootButtonID    = 2;
+      public static final int smartShootButtonID    = 4; //drive team (na than) wants this to be shooter up/down toggle
+      public static final int shooterToggleButtonID = 6;
 }

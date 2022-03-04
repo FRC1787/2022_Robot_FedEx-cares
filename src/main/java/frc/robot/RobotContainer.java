@@ -81,7 +81,7 @@ public class RobotContainer {
     // Shooter
       private final Button smartShootButton = new JoystickButton(stick, Constants.smartShootButtonID);
       private final Button basicShootButton = new JoystickButton(stick, Constants.basicShootButtonID);
-      private final Button shooterToggle = new JoystickButton(stick, Constants.shooterToggleID);
+      private final Button shooterToggle = new JoystickButton(stick, Constants.shooterToggleButtonID);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -108,7 +108,7 @@ public class RobotContainer {
     reverseIntakeButton.whileHeld(new ReverseIntake(intake, shooter));
     toggleIntakeButton.whenPressed(new ToggleIntakePosition(intake));
 
-    basicShootButton.whileHeld(new BasicShoot(shooter, intake, 0.4, 2000, 2000));
+    basicShootButton.whileHeld(new BasicShoot(shooter, intake, 0.4, 5150, 2000));
     shooterToggle.whenPressed(new ToggleShooterPosition(shooter));
     
     //smartShootButton.whileHeld(new ShootBalls(shooter, vision)); 

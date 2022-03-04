@@ -17,17 +17,18 @@ public class TurnToTarget extends PIDCommand {
   /** Creates a new TurnToTarget. */
   public TurnToTarget(Drivetrain drivetrainSubsystem, Vision cameraSubsystem) {
     super(
-        // The controller that the command will use
-        new PIDController(Constants.lookToTargetP, Constants.lookToTargetI, Constants.lookToTargetD),
-        // This should return the measurement
-        Vision::getLimelightX,
-        // This should return the setpoint (can also be a constant)
-        0,
-        // This uses the output
-        output -> {
-          Drivetrain.moveLeftSide(-output);
-          Drivetrain.moveRightSide(output); //TODO: add feedforward
-        });
+      // The controller that the command will use
+      new PIDController(Constants.lookToTargetP, Constants.lookToTargetI, Constants.lookToTargetD),
+      // This should return the measurement
+      Vision::getLimelightX,
+      // This should return the setpoint (can also be a constant)
+      0,
+      // This uses the output
+      output -> {
+        Drivetrain.moveLeftSide(-output);
+        Drivetrain.moveRightSide(output); //TODO: add feedforward
+      }
+    );
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
     addRequirements(drivetrainSubsystem);

@@ -76,6 +76,9 @@ public class Shooter extends SubsystemBase {
     piston.set(position);
   }
 
+  /**
+   * Toggles the position of the shooter's pneumatic cylinder
+   */
   public static void toggleShooterPosition() {
     piston.toggle();
   }
@@ -128,17 +131,25 @@ public class Shooter extends SubsystemBase {
   }
 
   /**
-   * Get the velocity of the accelorator motor. This returns in RPM
+   * Get the velocity of the flywheel motor. This returns in RPM
    * @return Backspinner motor RPM
    */
   public static double getFlywheelSpeed() {
     return flywheelE.getVelocity();
   }
 
+  /**
+   * Sets the speed of the flywheel motor using an RPM value
+   * @param rpm - RPM speed to set for the motor
+   */
   public static void setFlywheelRPM(double rpm) {
     flywheel.set((rpm)/5150);
   }
-  
+
+  /**
+   * Sets the speed of the backspinner motor using an RPM value
+   * @param rpm - RPM speed to set for the motor
+   */
   public static void setBackspinnerRPM(double rpm) {
     backspinner.set((rpm-100)/5320);
   }
