@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.Constants;
 import frc.robot.subsystems.Vision;
@@ -15,8 +16,8 @@ import frc.robot.subsystems.Drivetrain;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class TurnToTarget extends PIDCommand {
   /** Creates a new TurnToTarget. */
+  SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.ksAuto, Constants.kvAuto, Constants.kaAuto);
   public TurnToTarget(Drivetrain drivetrainSubsystem, Vision cameraSubsystem) {
-    //TODO: make feedforward with ks kv and ka from characterization
     super(
       // The controller that the command will use
       new PIDController(Constants.lookToTargetP, Constants.lookToTargetI, Constants.lookToTargetD),
@@ -27,7 +28,7 @@ public class TurnToTarget extends PIDCommand {
       // This uses the output
       output -> {
         Drivetrain.moveLeftSide(-output);
-        Drivetrain.moveRightSide(output); //TODO: add feedforward
+        Drivetrain.moveRightSide(output);
       }
     );
     // Use addRequirements() here to declare subsystem dependencies.

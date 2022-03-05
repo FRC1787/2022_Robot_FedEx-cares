@@ -28,7 +28,7 @@ public final class Constants {
   public static final double gearboxRatio             = 7.25;                             //it probably is not this it just is the most accurate with this value
   public static final double positionConversionFactor = 0.1524*Math.PI/gearboxRatio;      //changes rotations of motor to distance traveled in meters
   public static final double velocityConversionFactor = Math.PI*0.1524/60/gearboxRatio;   //changes rpm of motor to m/s
-  public static final double kTrackwidth = 0.66; //idk if this is right lole
+  public static final double kTrackwidth = 0.724; //idk if this is right lole
   public static final DifferentialDriveKinematics kDriveKinematics = 
     new DifferentialDriveKinematics(kTrackwidth);
   public static final double kMaxVelocity        = 0.5;
@@ -41,10 +41,10 @@ public final class Constants {
 
   // PID/FEEDFORWARD VALUES
   // AUTO
-    public static final double ksAuto = 0.090934;
-    public static final double kvAuto = 1.918800;
-    public static final double kaAuto = 0.419780;
-    public static final double kpAuto = 2.648400;
+    public static final double ksAuto = 0.18734;
+    public static final double kvAuto = 2.1245;
+    public static final double kaAuto = 0.48883;
+    public static final double kpAuto = 2.945;
   // SHOOTER
     public static final double kpShooter = 0.3;
     public static final double kiShooter = 0.4;

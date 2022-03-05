@@ -115,6 +115,38 @@ public class RobotContainer {
     smartShootButton.whileHeld(new ShootBalls(shooter, vision, intake));
   }
 
+
+  private RamseteCommand getRamseteCommand(Trajectory trajectory) {
+
+    var leftController = new PIDController(Constants.kpAuto, 0, 0);
+    var rightController = new PIDController(Constants.kpAuto, 0, 0);
+
+    return new RamseteCommand(
+      trajectory,  
+      drivetrain::getPose,
+      new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
+      new SimpleMotorFeedforward(
+        Constants.ksAuto,
+        Constants.kvAuto,
+        Constants.kaAuto
+      ),
+      Constants.kDriveKinematics,
+      drivetrain::getWheelSpeeds,
+      leftController,
+      rightController,
+      (leftVolts, rightVolts) -> {
+        drivetrain.tankDrive(leftVolts, rightVolts);
+
+        SmartDashboard.putNumber("left measurement", drivetrain.leftEncoderSpeed());
+        SmartDashboard.putNumber("left reference", leftController.getSetpoint());
+
+        SmartDashboard.putNumber("right measurement", drivetrain.rightEncoderSpeed());
+        SmartDashboard.putNumber("right reference", rightController.getSetpoint());
+      },
+      drivetrain
+    );
+  }
+
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -144,55 +176,30 @@ public class RobotContainer {
     
     Trajectory trajectory;
     
-    trajectory = TrajectoryGenerator.generateTrajectory(
-      new Pose2d(0, 0, new Rotation2d(0)),
+    // trajectory = TrajectoryGenerator.generateTrajectory(
+    //   new Pose2d(0, 0, new Rotation2d(0)),
 
       
-      List.of(
-        new Translation2d(1/3.281, -1/3.281),
-        new Translation2d(2/3.281, 1/3.281)
-      ),
+    //   List.of(
+    //     new Translation2d(1., -1),
+    //     new Translation2d(2, 1)
+    //   ),
 
-      //drives 3 feet forward
-      new Pose2d(3/3.281, 0, new Rotation2d(Math.toRadians(0))),
+    //   //drives 3 feet forward
+    //   new Pose2d(3, 0, new Rotation2d(Math.toRadians(0))),
 
 
-      //pass config to trajectory
-      config
-    );
+    //   //pass config to trajectory
+    //   config
+    // );
 
-    //trajectory = Robot.getPathweaverTrajectory();
-
-    var leftController = new PIDController(Constants.kpAuto, 0, 0);
-    var rightController = new PIDController(Constants.kpAuto, 0, 0);
+    trajectory = Robot.getPathweaverTrajectory();
     
 
-    RamseteCommand ramseteCommand = new RamseteCommand(
-      trajectory,  
-      drivetrain::getPose,
-      new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
-      new SimpleMotorFeedforward(
-        Constants.ksAuto,
-        Constants.kvAuto,
-        Constants.kaAuto
-      ),
-      Constants.kDriveKinematics,
-      drivetrain::getWheelSpeeds,
-      leftController,
-      rightController,
-      (leftVolts, rightVolts) -> {
-        drivetrain.tankDrive(leftVolts, rightVolts);
+    var ramseteCommand = getRamseteCommand(trajectory);
 
-        SmartDashboard.putNumber("left measurement", drivetrain.leftEncoderSpeed());
-        SmartDashboard.putNumber("left reference", leftController.getSetpoint());
-
-        SmartDashboard.putNumber("right measurement", drivetrain.rightEncoderSpeed());
-        SmartDashboard.putNumber("right reference", rightController.getSetpoint());
-      },
-      drivetrain
-    );
-
-    drivetrain.resetGyro(); //robot always assumes it is facing degree angle 0
+    drivetrain.resetGyro();
+    
     drivetrain.resetOdometry(trajectory.getInitialPose());
 
     return ramseteCommand.andThen(() -> drivetrain.tankDrive(0, 0));

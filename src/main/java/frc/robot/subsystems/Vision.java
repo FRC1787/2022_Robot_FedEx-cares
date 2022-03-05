@@ -69,6 +69,10 @@ public class Vision extends SubsystemBase {
     return 3200;
   }
 
+  // public static double calculateShooterPosition() {
+  //   // if ()
+  // }
+
   @Override
   public void periodic() {
 

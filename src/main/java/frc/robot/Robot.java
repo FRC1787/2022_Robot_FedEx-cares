@@ -16,11 +16,13 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Climb;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import java.nio.file.Paths;
 
 
 /**
@@ -31,14 +33,14 @@ import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-
+     
   private RobotContainer m_robotContainer;
 
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
   */
-  String trajectoryJSON = "paths/output/loop.wpilib.json";
+  String trajectoryJSON = "paths/output/Route1Initial.wpilib.json";
   public static Trajectory trajectory = new Trajectory();
   private PowerDistribution PDH;
   
@@ -47,6 +49,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    Drivetrain.calibrateGyro();
     try {
       Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
       trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
@@ -55,6 +58,24 @@ public class Robot extends TimedRobot {
     }
     PDH = new PowerDistribution(1, ModuleType.kRev);
     PDH.clearStickyFaults();
+  }
+
+  protected static Trajectory loadTrajectory(String trajectoryName) throws IOException {
+    return TrajectoryUtil.fromPathweaverJson(
+        Filesystem.getDeployDirectory().toPath().resolve(Paths.get("output", trajectoryName + ".wpilib.json")));
+  }
+
+  public Trajectory loadTrajectoryFromFile(String filename) {
+    try {
+      return loadTrajectory(filename);
+    } catch (IOException e) {
+      DriverStation.reportError("Failed to load auto trajectory: " + filename, false);
+      return new Trajectory();
+    }
+  }
+
+  public static Trajectory getPathweaverTrajectory() {
+    return trajectory;
   }
 
   /**
@@ -83,6 +104,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
     m_robotContainer.drivetrain.resetEncoders();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();

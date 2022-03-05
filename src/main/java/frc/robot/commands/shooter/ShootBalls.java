@@ -35,6 +35,8 @@ public class ShootBalls extends CommandBase {
     flywheelSetpoint = Vision.calculateFlywheelRPM(); //function will change depending on threshold
     backspinnerSetpoint = Vision.calculateBackspinnerRPM();
     //TODO: have vision function to return shooter position
+
+    // if ()
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -55,10 +57,12 @@ public class ShootBalls extends CommandBase {
     if (flywheelPID.atSetpoint() && backspinnerPID.atSetpoint()) {
       Shooter.setIndexerSpeed(0.2);
       Intake.setKowalskiMotor(0.4);
+      Intake.setIntakeMotor(0.6);
     }
     else {
       Shooter.setIndexerSpeed(0);
       Intake.setKowalskiMotor(0);
+      Intake.setIntakeMotor(0);
     }
 
   }
@@ -70,6 +74,7 @@ public class ShootBalls extends CommandBase {
     Shooter.setIndexerSpeed(0);
     Shooter.setBackspinnerSpeed(0);
     Intake.setKowalskiMotor(0);
+    Intake.setIntakeMotor(0);
   }
 
   // Returns true when the command should end.

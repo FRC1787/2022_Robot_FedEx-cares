@@ -4,11 +4,22 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+
+import java.io.IOException;
+import java.nio.file.Paths;
 
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
@@ -219,12 +230,50 @@ public class Drivetrain extends SubsystemBase {
    */
   public static void resetGyro() {
     gyro.reset();
+    
   }
+
+  public static void calibrateGyro() {
+    gyro.calibrate();
+  }
+
+  protected static Trajectory loadTrajectory(String trajectoryName) throws IOException {
+    return TrajectoryUtil.fromPathweaverJson(
+      Filesystem.getDeployDirectory().toPath().resolve(Paths.get("output", trajectoryName + ".wpilib.json")));
+  }
+
+  public Trajectory loadTrajectoryFromFile(String filename) {
+    try {
+      return loadTrajectory(filename);
+    } catch (IOException e) {
+      DriverStation.reportError("Failed to load auto trajectory: " + filename, false);
+      return new Trajectory();
+    }
+  }
+
+  // public Command createCommandForTrajectory(Trajectory trajectory, Boolean initPose) {
+  //   resetEncoders();
+  //   RamseteCommand ramseteCommand =  new RamseteCommand(
+  //     trajectory,
+  //     this::getCurrentPose,
+  //     new RamseteController(DriveConstants.RAMSETE_B, DriveConstants.RAMSETE_ZETA),
+  //     DriveConstants.kDriveKinematics,
+  //     this::tankDriveVelocity,
+  //     this);
+  //   if (initPose) {
+  //     var reset =  new InstantCommand(() -> this.resetOdometry(trajectory.getInitialPose()));
+  //     return reset.andThen(ramseteCommand.andThen(() -> stopmotors()));
+  //   }
+  //   else {
+  //     return ramseteCommand.andThen(() -> stopmotors());
+  //   }
+  // }
+  
 
   @Override
   public void periodic() {
     // Update odometry
     odometry.update(gyro.getRotation2d(), leftEncoderPosition(), rightEncoderPosition());
-
+    SmartDashboard.putNumber("gyro", getHeading());
   }
 }
