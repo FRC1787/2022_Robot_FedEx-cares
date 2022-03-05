@@ -4,7 +4,9 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
@@ -17,6 +19,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Robot;
+import frc.robot.RobotContainer;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -237,38 +241,6 @@ public class Drivetrain extends SubsystemBase {
     gyro.calibrate();
   }
 
-  protected static Trajectory loadTrajectory(String trajectoryName) throws IOException {
-    return TrajectoryUtil.fromPathweaverJson(
-      Filesystem.getDeployDirectory().toPath().resolve(Paths.get("output", trajectoryName + ".wpilib.json")));
-  }
-
-  public Trajectory loadTrajectoryFromFile(String filename) {
-    try {
-      return loadTrajectory(filename);
-    } catch (IOException e) {
-      DriverStation.reportError("Failed to load auto trajectory: " + filename, false);
-      return new Trajectory();
-    }
-  }
-
-  // public Command createCommandForTrajectory(Trajectory trajectory, Boolean initPose) {
-  //   resetEncoders();
-  //   RamseteCommand ramseteCommand =  new RamseteCommand(
-  //     trajectory,
-  //     this::getCurrentPose,
-  //     new RamseteController(DriveConstants.RAMSETE_B, DriveConstants.RAMSETE_ZETA),
-  //     DriveConstants.kDriveKinematics,
-  //     this::tankDriveVelocity,
-  //     this);
-  //   if (initPose) {
-  //     var reset =  new InstantCommand(() -> this.resetOdometry(trajectory.getInitialPose()));
-  //     return reset.andThen(ramseteCommand.andThen(() -> stopmotors()));
-  //   }
-  //   else {
-  //     return ramseteCommand.andThen(() -> stopmotors());
-  //   }
-  // }
-  
 
   @Override
   public void periodic() {

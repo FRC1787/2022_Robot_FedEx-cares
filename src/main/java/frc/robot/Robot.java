@@ -60,19 +60,7 @@ public class Robot extends TimedRobot {
     PDH.clearStickyFaults();
   }
 
-  protected static Trajectory loadTrajectory(String trajectoryName) throws IOException {
-    return TrajectoryUtil.fromPathweaverJson(
-        Filesystem.getDeployDirectory().toPath().resolve(Paths.get("output", trajectoryName + ".wpilib.json")));
-  }
 
-  public Trajectory loadTrajectoryFromFile(String filename) {
-    try {
-      return loadTrajectory(filename);
-    } catch (IOException e) {
-      DriverStation.reportError("Failed to load auto trajectory: " + filename, false);
-      return new Trajectory();
-    }
-  }
 
   public static Trajectory getPathweaverTrajectory() {
     return trajectory;
