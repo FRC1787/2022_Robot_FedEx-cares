@@ -10,7 +10,6 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public class ShootBalls extends CommandBase {
   /** Creates a new ShootBalls. */

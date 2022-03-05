@@ -4,27 +4,15 @@
 
 package frc.robot;
 
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.List;
-
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.TrajectoryGenerator;
-import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -211,31 +199,15 @@ public class RobotContainer {
     return ramseteCommand.andThen(() -> drivetrain.tankDrive(0, 0));
   }
 
-
-
-
-
-
-
-
-
-
-  
-  protected static Trajectory loadTrajectory(String trajectoryName) throws IOException {
-    return TrajectoryUtil.fromPathweaverJson(
-      Filesystem.getDeployDirectory().toPath().resolve(Paths.get("output", trajectoryName + ".wpilib.json")));
-  }
-
-  public static Trajectory loadTrajectoryFromFile(String filename) {
-    try {
-      return loadTrajectory(filename);
-    } catch (IOException e) {
-      DriverStation.reportError("Failed to load auto trajectory: " + filename, false);
-      return new Trajectory();
-    }
-  }
-
-  public static Command createCommandForTrajectory(Trajectory trajectory, Boolean initPose) {
+  /**
+   * Creates a command that controls the drivetrain to follow a given trajectory during autonomous
+   * 
+   * @param trajectory - The trajectory to follow
+   * 
+   * @return command that will have the robot follow the given trajectory
+   */
+  public static Command createCommandForTrajectory(Trajectory trajectory) {
+    drivetrain.resetEncoders();
     var leftController = new PIDController(Constants.kpAuto, 0, 0);
     var rightController = new PIDController(Constants.kpAuto, 0, 0);
 
@@ -263,21 +235,6 @@ public class RobotContainer {
       },
       drivetrain
     );
-
-    if (initPose) {
-      var reset =  new InstantCommand(() -> drivetrain.resetOdometry(trajectory.getInitialPose()));
-      return reset.andThen(ramseteCommand);
-    }
-    else {
-      return ramseteCommand;
-    }
+    return ramseteCommand.andThen(() -> drivetrain.tankDrive(0, 0));
   }
-  
-
-
-
-
-
-
-
 }
