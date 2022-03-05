@@ -48,7 +48,7 @@ public final class Constants {
   // SHOOTER
     public static final double kpShooter = 0.3;
     public static final double kiShooter = 0.4;
-    public static final double kdShooter = 0.000;
+    public static final double kdShooter = 0.00001;
     public static final double kfShooter = 1.0;
 
 
@@ -120,8 +120,8 @@ public final class Constants {
 
   // BUTTON IDS
     // Camera
-      public static final int toggleLimelightButtonID = 8;
-      public static final int turnToTargetButtonID    = 90;
+      public static final int toggleLimelightButtonID = 80;
+      public static final int turnToTargetButtonID    = 8;
     // Climb
       public static final int manualMoveArmButtonID = 11;
       public static final int climbRoutineButtonID  = 12;
