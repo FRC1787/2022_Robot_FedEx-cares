@@ -14,7 +14,7 @@ import frc.robot.subsystems.Vision;
 public class TurnToTarget extends CommandBase {
   /** Creates a new TurnToTarget. */
 
-  PIDController controller = new PIDController(0.05, 0, 0);
+  PIDController controller = new PIDController(0.06, 0, 0);
   SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.ksAuto, Constants.kvAuto, Constants.kaAuto);
   public TurnToTarget(Drivetrain drivetrain, Vision visionSubsystem) {
     controller.setTolerance(0.5);
@@ -32,13 +32,17 @@ public class TurnToTarget extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
+    Drivetrain.tankDrive(
+    -controller.calculate(Vision.getLimelightX(), 0),
+    controller.calculate(Vision.getLimelightX(), 0)
+    );
+    /*
     Drivetrain.tankDrive(
     controller.calculate(Vision.getLimelightX(), 0)
     +feedforward.calculate(6, 0.5), //volts/second, and volts/second^2
     controller.calculate(Vision.getLimelightX(), 0)
     +feedforward.calculate(6, 0.5)
-    );
+    );*/
   }
 
   // Called once the command ends or is interrupted.
