@@ -55,6 +55,10 @@ public class Climb extends SubsystemBase {
     return !bottomLimitSwitch.get();
   }
 
+  public static void toggleClimbSolenoid() {
+    piston.toggle();
+  }
+
   /**
    * Sets the speed of the climb arm
    * 

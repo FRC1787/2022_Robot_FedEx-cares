@@ -141,7 +141,7 @@ public class Robot extends TimedRobot {
     Climb.setPiston(DoubleSolenoid.Value.kReverse);
     RobotContainer.drivetrain.resetEncoders();
     Shooter.setShooterPosition(DoubleSolenoid.Value.kReverse);
-    m_robotContainer.drivetrain.setRampRate(1);
+    m_robotContainer.drivetrain.setRampRate(0.1);
 
 
   }

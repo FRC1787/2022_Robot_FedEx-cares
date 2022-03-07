@@ -6,42 +6,50 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.wpilibj2.command.PIDCommand;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Vision;
 
-// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
-// information, see:
-// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class TurnToTarget extends PIDCommand {
+public class TurnToTarget extends CommandBase {
   /** Creates a new TurnToTarget. */
+
+  PIDController controller = new PIDController(0.05, 0, 0);
   SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.ksAuto, Constants.kvAuto, Constants.kaAuto);
-  public TurnToTarget(Drivetrain drivetrainSubsystem, Vision cameraSubsystem) {
-    super(
-      // The controller that the command will use
-      new PIDController(Constants.lookToTargetP, Constants.lookToTargetI, Constants.lookToTargetD),
-      // This should return the measurement
-      Vision::getLimelightX,
-      // This should return the setpoint (can also be a constant)
-      0,
-      // This uses the output
-      output -> {
-        Drivetrain.moveLeftSide(-output);
-        Drivetrain.moveRightSide(output);
-      }
+  public TurnToTarget(Drivetrain drivetrain, Vision visionSubsystem) {
+    controller.setTolerance(0.5);
+    addRequirements(drivetrain);
+    addRequirements(visionSubsystem);
+  }
+
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {
+    
+
+  }
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
+    
+    Drivetrain.tankDrive(
+    controller.calculate(Vision.getLimelightX(), 0)
+    +feedforward.calculate(6, 0.5), //volts/second, and volts/second^2
+    controller.calculate(Vision.getLimelightX(), 0)
+    +feedforward.calculate(6, 0.5)
     );
-    // Use addRequirements() here to declare subsystem dependencies.
-    // Configure additional PID options by calling `getController` here.
-    addRequirements(drivetrainSubsystem);
-    addRequirements(cameraSubsystem);
-    //getController().enableContinuousInput(-180, 180);
-    getController().setTolerance(0.5);
+  }
+
+  // Called once the command ends or is interrupted.
+  @Override
+  public void end(boolean interrupted) {
+    Drivetrain.tankDrive(0, 0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return getController().atSetpoint();
+    return controller.atSetpoint();
   }
 }

@@ -46,7 +46,7 @@ public class BasicShoot extends CommandBase {
   @Override
   public void execute() {
     if (timer.get() > 1.0) {
-      Intake.setKowalskiMotor(0.4);
+      Intake.setKowalskiMotor(-0.4);
       Shooter.setIndexerSpeed(0.2);
     }
     else {

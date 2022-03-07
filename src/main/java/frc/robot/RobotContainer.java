@@ -36,6 +36,7 @@ import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Climb;
 import frc.robot.commands.autonomous.TestRoutine;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 
 /**
@@ -72,7 +73,10 @@ public class RobotContainer {
       private final Button manualMoveArmButton = new JoystickButton(stick, Constants.manualMoveArmButtonID);
       private final Button climbRoutineButton = new JoystickButton(stick, Constants.climbRoutineButtonID);
       private final Button fullExtendButton = new JoystickButton(stick, Constants.fullExtendButtonID);
-    // Drivetrain
+      private final Button fullRetractButton = new JoystickButton(stick, Constants.fullRetractButtonID);
+      private final Button toggleClimbButton = new JoystickButton(stick, Constants.manualArmPneumaticButtonID);
+    
+      // Drivetrain
 
     // Intake
       private final Button intakeBallsButton = new JoystickButton(stick, Constants.intakeBallsButtonID);
@@ -109,7 +113,9 @@ public class RobotContainer {
 
     manualMoveArmButton.toggleWhenPressed(new TestClimb(climb));
     climbRoutineButton.whileHeld(new ClimbRoutine(climb));
-    fullExtendButton.whenPressed(new MoveArm(climb, .5));
+    fullExtendButton.whenPressed(new MoveArm(climb, .8));
+    fullRetractButton.whenPressed(new MoveArm(climb, -.8));
+    toggleClimbButton.whenPressed(new InstantCommand(Climb::toggleClimbSolenoid, climb));
 
     intakeBallsButton.whileHeld(new IntakeBalls(intake));
     reverseIntakeButton.whileHeld(new ReverseIntake(intake, shooter));
@@ -222,7 +228,9 @@ public class RobotContainer {
    * @return command that will have the robot follow the given trajectory
    */
   public static Command createCommandForTrajectory(Trajectory trajectory) {
-    drivetrain.resetEncoders();
+    //drivetrain.resetEncoders();
+
+    drivetrain.resetOdometry(trajectory.getInitialPose());
     var leftController = new PIDController(Constants.kpAuto, 0, 0);
     var rightController = new PIDController(Constants.kpAuto, 0, 0);
 

@@ -126,8 +126,9 @@ public final class Constants {
       public static final int manualMoveArmButtonID = 11;
       public static final int climbRoutineButtonID  = 12;
       //needs to be implemented
-      public static final int manualArmPneumaticButtonID = 9;
-      public static final int fullExtendButtonID         = -7;
+      public static final int manualArmPneumaticButtonID = 7;
+      public static final int fullExtendButtonID         = 10;
+      public static final int fullRetractButtonID = 9;
     // Drivetrain
 
     // Intake

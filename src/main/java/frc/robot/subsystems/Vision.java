@@ -62,11 +62,11 @@ public class Vision extends SubsystemBase {
 
   public static double calculateFlywheelRPM() {
     //find regression formula here
-    return 3000;
+    return 3100;
   }
 
   public static double calculateBackspinnerRPM() {
-    return 3200;
+    return 3300;
   }
 
   // public static double calculateShooterPosition() {

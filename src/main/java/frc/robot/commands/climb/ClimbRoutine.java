@@ -31,8 +31,8 @@ public class ClimbRoutine extends SequentialCommandGroup {
       new WaitCommand(0.25),
       new SetClimbPiston(climb, true), //push arm up against bar
       new WaitCommand(0.75),
-      new MoveArm(climb, -0.9), //retract arm to pull robot to second bar
-      new WaitCommand(0.75) //wait time to account for swinging (can be lowered)
+      new MoveArm(climb, -0.7), //retract arm to pull robot to second bar
+      new WaitCommand(1.0) //wait time to account for swinging (can be lowered)
 
     );
   }
