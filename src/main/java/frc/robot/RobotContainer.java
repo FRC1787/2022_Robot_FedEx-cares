@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -33,6 +34,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Climb;
+import frc.robot.commands.autonomous.TestRoutine;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 
@@ -43,6 +45,10 @@ import edu.wpi.first.wpilibj2.command.RamseteCommand;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+
+  private final SendableChooser<Command> autoChooser = new SendableChooser<>();
+
+
   // SUBSYSTEMS
   public final static Vision     vision     = new Vision();
   public final static Climb      climb      = new Climb();
@@ -82,6 +88,13 @@ public class RobotContainer {
     configureButtonBindings();
     // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html#perpetualcommand do this instead
     drivetrain.setDefaultCommand(driveArcade);
+
+    // A chooser for autonomous commands
+
+    autoChooser.addOption("test", new TestRoutine(drivetrain, intake, shooter, vision));
+
+    // Put the chooser on the dashboard
+    SmartDashboard.putData(autoChooser);
   }
 
   /**
@@ -148,55 +161,57 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
 
-    var autoVoltageConstraint =
-      new DifferentialDriveVoltageConstraint(
-        new SimpleMotorFeedforward(
-            Constants.ksAuto,
-            Constants.kvAuto,
-            Constants.kaAuto
-          ),
-          Constants.kDriveKinematics,
-          Constants.autoMaxVoltage
-        );
+    return autoChooser.getSelected();
+
+    // var autoVoltageConstraint =
+    //   new DifferentialDriveVoltageConstraint(
+    //     new SimpleMotorFeedforward(
+    //         Constants.ksAuto,
+    //         Constants.kvAuto,
+    //         Constants.kaAuto
+    //       ),
+    //       Constants.kDriveKinematics,
+    //       Constants.autoMaxVoltage
+    //     );
       
-    TrajectoryConfig config = 
-      new TrajectoryConfig(
-        Constants.kMaxVelocity,
-        Constants.kMaxAcceleration
-        )
-        .setKinematics(Constants.kDriveKinematics)
-        .addConstraint(autoVoltageConstraint);
+    // TrajectoryConfig config = 
+    //   new TrajectoryConfig(
+    //     Constants.kMaxVelocity,
+    //     Constants.kMaxAcceleration
+    //     )
+    //     .setKinematics(Constants.kDriveKinematics)
+    //     .addConstraint(autoVoltageConstraint);
   
     
-    Trajectory trajectory;
+    // Trajectory trajectory;
     
-    // trajectory = TrajectoryGenerator.generateTrajectory(
-    //   new Pose2d(0, 0, new Rotation2d(0)),
+    // // trajectory = TrajectoryGenerator.generateTrajectory(
+    // //   new Pose2d(0, 0, new Rotation2d(0)),
 
       
-    //   List.of(
-    //     new Translation2d(1., -1),
-    //     new Translation2d(2, 1)
-    //   ),
+    // //   List.of(
+    // //     new Translation2d(1., -1),
+    // //     new Translation2d(2, 1)
+    // //   ),
 
-    //   //drives 3 feet forward
-    //   new Pose2d(3, 0, new Rotation2d(Math.toRadians(0))),
+    // //   //drives 3 feet forward
+    // //   new Pose2d(3, 0, new Rotation2d(Math.toRadians(0))),
 
 
-    //   //pass config to trajectory
-    //   config
-    // );
+    // //   //pass config to trajectory
+    // //   config
+    // // );
 
-    trajectory = Robot.getPathweaverTrajectory();
+    // trajectory = Robot.getPathweaverTrajectory();
     
 
-    var ramseteCommand = getRamseteCommand(trajectory);
+    // var ramseteCommand = getRamseteCommand(trajectory);
 
-    drivetrain.resetGyro();
+    // drivetrain.resetGyro();
     
-    drivetrain.resetOdometry(trajectory.getInitialPose());
+    // drivetrain.resetOdometry(trajectory.getInitialPose());
 
-    return ramseteCommand.andThen(() -> drivetrain.tankDrive(0, 0));
+    // return ramseteCommand.andThen(() -> drivetrain.tankDrive(0, 0));
   }
 
   /**
@@ -237,4 +252,7 @@ public class RobotContainer {
     );
     return ramseteCommand.andThen(() -> drivetrain.tankDrive(0, 0));
   }
+
+
+
 }

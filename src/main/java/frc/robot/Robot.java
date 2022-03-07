@@ -23,6 +23,7 @@ import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PowerDistribution;
 import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
+import frc.robot.commands.autonomous.TestRoutine;
 
 
 /**
@@ -62,7 +63,7 @@ public class Robot extends TimedRobot {
 
   protected static Trajectory loadTrajectory(String trajectoryName) throws IOException {
     return TrajectoryUtil.fromPathweaverJson(
-      Filesystem.getDeployDirectory().toPath().resolve(Paths.get("output", trajectoryName + ".wpilib.json")));
+      Filesystem.getDeployDirectory().toPath().resolve("paths/output/" + trajectoryName + ".wpilib.json"));
   }
   
   public static Trajectory loadTrajectoryFromFile(String filename) {
@@ -110,10 +111,13 @@ public class Robot extends TimedRobot {
     
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
+    m_robotContainer.drivetrain.setRampRate(0.5);
+
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     }
+
   }
 
   /** This function is called periodically during autonomous. */
@@ -137,6 +141,8 @@ public class Robot extends TimedRobot {
     Climb.setPiston(DoubleSolenoid.Value.kReverse);
     RobotContainer.drivetrain.resetEncoders();
     Shooter.setShooterPosition(DoubleSolenoid.Value.kReverse);
+    m_robotContainer.drivetrain.setRampRate(1);
+
 
   }
 

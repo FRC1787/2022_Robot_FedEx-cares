@@ -1,11 +1,13 @@
-package frc.robot.commands.autonomous.Routines;
+package frc.robot.commands.autonomous;
 
 import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.commands.intake.IntakeBalls;
+import frc.robot.commands.intake.ToggleIntakePosition;
 import frc.robot.commands.shooter.ShootBalls;
+import frc.robot.commands.shooter.ToggleShooterPosition;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -25,9 +27,11 @@ public class TestRoutine extends SequentialCommandGroup {
 
     addCommands(
       // Drives to cargo on field
+      new ToggleShooterPosition(shooter),
       RobotContainer.createCommandForTrajectory(trajectory1).withTimeout(8).withName("Test1"),
       // Intakes cargo for 2 seconds
-      new IntakeBalls(intake).withTimeout(2),
+      new IntakeBalls(intake).withTimeout(3),
+      new ToggleIntakePosition(intake),
       // Turns to face the hub
       RobotContainer.createCommandForTrajectory(trajectory2).withTimeout(8).withName("Test2"),
       // Shoots the cargo for 5 seconds to shoot both cargo balls
