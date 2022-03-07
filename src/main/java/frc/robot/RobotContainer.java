@@ -7,8 +7,6 @@ package frc.robot;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.TrajectoryConfig;
-import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.math.controller.PIDController;
@@ -34,6 +32,8 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Climb;
+import frc.robot.commands.autonomous.NonPathweaver;
+import frc.robot.commands.autonomous.RouteOne;
 import frc.robot.commands.autonomous.TestRoutine;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -67,7 +67,7 @@ public class RobotContainer {
 
   // Button Bindings
     // Camera
-      private final Button toggleLimelightButton = new JoystickButton(stick, Constants.toggleLimelightButtonID);
+        private final Button toggleLimelightButton = new JoystickButton(stick, Constants.toggleLimelightButtonID);
       private final Button turnToTargetButton = new JoystickButton(stick, Constants.turnToTargetButtonID);
     // Climb
       private final Button manualMoveArmButton = new JoystickButton(stick, Constants.manualMoveArmButtonID);
@@ -93,11 +93,11 @@ public class RobotContainer {
     // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html#perpetualcommand do this instead
     drivetrain.setDefaultCommand(driveArcade);
 
-    // A chooser for autonomous commands
-
+    // Adds autonomous routine options :D
     autoChooser.addOption("test", new TestRoutine(drivetrain, intake, shooter, vision));
-
-    // Put the chooser on the dashboard
+    autoChooser.addOption("Routine 1", new RouteOne(drivetrain, intake, shooter, vision));
+    autoChooser.addOption("Test :D", new NonPathweaver(drivetrain, intake, shooter, vision));
+    // Sends the routine options to SmartDashboard
     SmartDashboard.putData(autoChooser);
   }
 
@@ -228,9 +228,9 @@ public class RobotContainer {
    * @return command that will have the robot follow the given trajectory
    */
   public static Command createCommandForTrajectory(Trajectory trajectory) {
-    //drivetrain.resetEncoders();
-
+    // drivetrain.resetEncoders();
     drivetrain.resetOdometry(trajectory.getInitialPose());
+
     var leftController = new PIDController(Constants.kpAuto, 0, 0);
     var rightController = new PIDController(Constants.kpAuto, 0, 0);
 

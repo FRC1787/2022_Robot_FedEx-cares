@@ -27,7 +27,6 @@ public class TestRoutine extends SequentialCommandGroup {
 
     addCommands(
       // Drives to cargo on field
-      new ToggleShooterPosition(shooter),
       RobotContainer.createCommandForTrajectory(trajectory1).withTimeout(8).withName("Test1"),
       // Intakes cargo for 2 seconds
       new IntakeBalls(intake).withTimeout(3),

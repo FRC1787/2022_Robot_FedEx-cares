@@ -28,16 +28,14 @@ public final class Constants {
   public static final double gearboxRatio             = 7.25;                             //it probably is not this it just is the most accurate with this value
   public static final double positionConversionFactor = 0.1524*Math.PI/gearboxRatio;      //changes rotations of motor to distance traveled in meters
   public static final double velocityConversionFactor = Math.PI*0.1524/60/gearboxRatio;   //changes rpm of motor to m/s
-  public static final double kTrackwidth = 0.724; //idk if this is right lole
+  public static final double kTrackwidth              = 0.724; //idk if this is right lole
   public static final DifferentialDriveKinematics kDriveKinematics = 
     new DifferentialDriveKinematics(kTrackwidth);
-  public static final double kMaxVelocity        = 0.5;
+  public static final double kMaxVelocity     = 0.5;
   public static final double kMaxAcceleration = 1.0;
-  public static final double kRamseteB    = 2.0;
-  public static final double kRamseteZeta = 0.7;
-  public static final double autoMaxVoltage = 8.0;
-
-
+  public static final double kRamseteB        = 2.0;
+  public static final double kRamseteZeta     = 0.7;
+  public static final double autoMaxVoltage   = 8.0;
 
   // PID/FEEDFORWARD VALUES
   // AUTO
@@ -59,7 +57,7 @@ public final class Constants {
     public static final double limelightHeight = 46.0;
     public static final double limelightAngle  = 25.0;
 
-    public static int visionCameraWidth =  160;
+    public static int visionCameraWidth  = 160;
     public static int visionCameraHeight = 120;
   
     // limelight PID values
@@ -67,8 +65,6 @@ public final class Constants {
     public static final double lookToTargetI = 0.00;
     public static final double lookToTargetD = 0.00;
   
-
-
   // SHOOTER
   // public static double flywheelRPMToPercent = 1./4950;
   // public static double backspinnerRPMToPercent = 1./5050;
@@ -77,7 +73,7 @@ public final class Constants {
 
 
 
-  // MOTOR VOLTAGE PERCCENTAGES
+  // MOTOR VOLTAGE PERCENTAGES
   // Climb
 
   // Drivetrain
@@ -95,19 +91,19 @@ public final class Constants {
 
   // MOTOR & SOLENOID IDs
   // Drivetrain
-    public static final int l1MotorID = 1;
-    public static final int l2MotorID = 2;
-    public static final int r1MotorID = 3;
-    public static final int r2MotorID = 4;
+    public static final int l1MotorID          = 1;
+    public static final int l2MotorID          = 2;
+    public static final int r1MotorID          = 3;
+    public static final int r2MotorID          = 4;
   // Intake
-    public static final int intakeMotorID   = 5;
-    public static final int kowalksiMotorID = 6; // da kowalksi :D
+    public static final int intakeMotorID      = 5;
+    public static final int kowalksiMotorID    = 6; // da kowalksi :D
   // Shooter
     public static final int indexerMotorID     = 7;
     public static final int flywheelMotorID    = 8;
     public static final int backspinnerMotorID = 9;
   // Climb
-    public static final int armMotorID = 10;
+    public static final int armMotorID         = 10;
   // SOLENOIDS
     public static final int armPistonFowardID          = 0;
     public static final int armPistonReverseID         = 1;
@@ -120,11 +116,11 @@ public final class Constants {
 
   // BUTTON IDS
     // Camera
-      public static final int toggleLimelightButtonID = 80;
-      public static final int turnToTargetButtonID    = 8;
+      public static final int toggleLimelightButtonID    = 80;
+      public static final int turnToTargetButtonID       = 8;
     // Climb
-      public static final int manualMoveArmButtonID = 11;
-      public static final int climbRoutineButtonID  = 12;
+      public static final int manualMoveArmButtonID      = 11;
+      public static final int climbRoutineButtonID       = 12;
       //needs to be implemented
       public static final int manualArmPneumaticButtonID = 7;
       public static final int fullExtendButtonID         = 10;
@@ -132,11 +128,11 @@ public final class Constants {
     // Drivetrain
 
     // Intake
-      public static final int intakeBallsButtonID   = 1;
-      public static final int toggleIntakeButtonID  = 3;
-      public static final int reverseIntakeButtonID = 5;
-    // Shooter
-      public static final int basicShootButtonID    = 4;
-      public static final int smartShootButtonID    = 2; //drive team (na than) wants this to be shooter up/down toggle
-      public static final int shooterToggleButtonID = 6;
+      public static final int intakeBallsButtonID        = 1;
+      public static final int toggleIntakeButtonID       = 3;
+      public static final int reverseIntakeButtonID      = 5;
+    // Shooter     
+      public static final int basicShootButtonID         = 4;
+      public static final int smartShootButtonID         = 2; //drive team (na than) wants this to be shooter up/down toggle
+      public static final int shooterToggleButtonID      = 6;
 }

@@ -14,6 +14,7 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Climb;
@@ -108,11 +109,11 @@ public class Robot extends TimedRobot {
     
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
     m_robotContainer.drivetrain.resetEncoders();
-    
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-
+    m_robotContainer.intake.setIntake(Value.kReverse);
     m_robotContainer.drivetrain.setRampRate(0.5);
 
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
