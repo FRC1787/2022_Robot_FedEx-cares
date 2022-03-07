@@ -36,12 +36,6 @@ public class OneEighty extends CommandBase {
   @Override
   public void execute() {
 
-    Drivetrain.tankDrive(
-      controller.calculate(Drivetrain.getHeading(), tx)+
-      feedforward.calculate(2, 0.5),
-      controller.calculate(Drivetrain.getHeading(), tx)+
-      feedforward.calculate(-2, 0.5)
-    );
   }
 
 
