@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.math.controller.PIDController;
@@ -172,13 +173,13 @@ public class RobotContainer {
     // var autoVoltageConstraint =
     //   new DifferentialDriveVoltageConstraint(
     //     new SimpleMotorFeedforward(
-    //         Constants.ksAuto,
-    //         Constants.kvAuto,
-    //         Constants.kaAuto
-    //       ),
-    //       Constants.kDriveKinematics,
-    //       Constants.autoMaxVoltage
-    //     );
+    //       Constants.ksAuto,
+    //       Constants.kvAuto,
+    //       Constants.kaAuto
+    //     ),
+    //     Constants.kDriveKinematics,
+    //     Constants.autoMaxVoltage
+    //   );
       
     // TrajectoryConfig config = 
     //   new TrajectoryConfig(
@@ -238,11 +239,11 @@ public class RobotContainer {
       trajectory,  
       drivetrain::getPose,
       new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
-      new SimpleMotorFeedforward(
-        Constants.ksAuto,
-        Constants.kvAuto,
-        Constants.kaAuto
-      ),
+        new SimpleMotorFeedforward(
+          Constants.ksAuto,
+          Constants.kvAuto,
+          Constants.kaAuto
+        ),
       Constants.kDriveKinematics,
       drivetrain::getWheelSpeeds,
       leftController,
