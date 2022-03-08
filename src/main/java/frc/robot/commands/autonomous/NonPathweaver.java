@@ -5,12 +5,15 @@
 package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.DriveForward;
 import frc.robot.commands.drivetrain.OneEighty;
 import frc.robot.commands.intake.IntakeBalls;
 import frc.robot.commands.intake.ToggleIntakePosition;
+import frc.robot.commands.shooter.RaiseShooter;
 import frc.robot.commands.shooter.ShootBalls;
+import frc.robot.commands.shooter.ToggleShooterPosition;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -26,14 +29,16 @@ public class NonPathweaver extends SequentialCommandGroup {
     drivetrain.resetGyro();
     
     addCommands(
-      new SequentialCommandGroup(
-        new IntakeBalls(intake).withTimeout(3),
-        new DriveForward(drivetrain).withTimeout(.5) 
-        ),
+      new ParallelCommandGroup(
+        new IntakeBalls(intake),
+        new DriveForward(drivetrain) 
+        ).withTimeout(2),
       new WaitCommand(.25),
-      new OneEighty(drivetrain, vision).withTimeout(.85),
+      new OneEighty(drivetrain, vision).withTimeout(.7),
+      new DriveForward(drivetrain).withTimeout(1.5),
       new ToggleIntakePosition(intake),
-      new ShootBalls(shooter, vision, intake).withTimeout(5)
+      new RaiseShooter(shooter),
+      new ShootBalls(shooter, vision, intake).withTimeout(3)
     );
   }
 }

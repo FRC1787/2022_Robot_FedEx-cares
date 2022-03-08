@@ -51,9 +51,6 @@ public class Vision extends SubsystemBase {
     return table.getEntry("tx").getDouble(0.0);
   }
 
-  public static double getLimelightY() {
-    return table.getEntry("ty").getDouble(0.0);
-  }
   /**
    * Returns the current mode of the Limelight's LEDs
    * 
