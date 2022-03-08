@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.DriveForward;
 import frc.robot.commands.drivetrain.OneEighty;
 import frc.robot.commands.intake.IntakeBalls;
+import frc.robot.commands.intake.ToggleIntakePosition;
 import frc.robot.commands.shooter.ShootBalls;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
@@ -31,6 +32,7 @@ public class NonPathweaver extends SequentialCommandGroup {
         ),
       new WaitCommand(.25),
       new OneEighty(drivetrain, vision).withTimeout(.85),
+      new ToggleIntakePosition(intake),
       new ShootBalls(shooter, vision, intake).withTimeout(5)
     );
   }
