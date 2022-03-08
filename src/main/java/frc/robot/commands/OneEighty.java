@@ -35,7 +35,12 @@ public class OneEighty extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
+    Drivetrain.tankDrive(
+    controller.calculate(Drivetrain.getHeading(), tx)
+    +feedforward.calculate(6, 0.5), //volts/second, and volts/second^2
+    controller.calculate(Drivetrain.getHeading(), tx)
+    +feedforward.calculate(6, 0.5)
+    );
   }
 
 
