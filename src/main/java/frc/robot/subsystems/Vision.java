@@ -5,11 +5,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.CvSink;
-import edu.wpi.first.cscore.CvSource;
-import edu.wpi.first.cscore.UsbCamera;
-import edu.wpi.first.cscore.VideoCamera.WhiteBalance;
 import frc.robot.Constants;
 
 public class Vision extends SubsystemBase {
@@ -18,29 +13,8 @@ public class Vision extends SubsystemBase {
   private static NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
   public static double distToTarget = 0;
-
-  private static CvSink usbCameraFrameGrabber;
-  private static UsbCamera usbCamera;
-  private static CvSource outputStream;
   
-  public Vision() {
-
-    usbCamera = CameraServer.startAutomaticCapture("Camera", 0);
-    configureCamera(usbCamera);
-
-    usbCameraFrameGrabber = CameraServer.getVideo(usbCamera);
-
-    //Push processed or unprocessed frames
-    outputStream = CameraServer.putVideo("Processed Video", Constants.visionCameraWidth, Constants.visionCameraHeight);
-  }
-
-  public void configureCamera(UsbCamera camera) {
-    camera.setResolution(Constants.visionCameraWidth, Constants.visionCameraHeight);
-    camera.setFPS(15);
-    camera.setExposureManual(50);
-    camera.setBrightness(75);
-    camera.setWhiteBalanceManual(WhiteBalance.kFixedIndoor);
-  }
+  public Vision() {}
 
   /**
    * Returns the x value of any target seen by the Limelight

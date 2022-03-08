@@ -95,9 +95,7 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(driveArcade);
 
     // Adds autonomous routine options :D
-    autoChooser.addOption("test", new TestRoutine(drivetrain, intake, shooter, vision));
-    autoChooser.addOption("Routine 1", new RouteOne(drivetrain, intake, shooter, vision));
-    autoChooser.addOption("Test :D", new NonPathweaver(drivetrain, intake, shooter, vision));
+    autoChooser.setDefaultOption("Non-Pathweaver", new NonPathweaver(drivetrain, intake, shooter, vision));
     // Sends the routine options to SmartDashboard
     SmartDashboard.putData(autoChooser);
   }

@@ -4,11 +4,8 @@
 
 package frc.robot.commands.drivetrain;
 
-import java.time.temporal.ValueRange;
-
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -38,10 +35,11 @@ public class OneEighty extends CommandBase {
   }
 
   // Called every time the scheduler runs while the command is scheduled.
+  // a .70 to .80 timeout is ideal
   @Override
   public void execute() {   
     Drivetrain.tankDrive(
-      3,
+       3,
       -3
     );
    }
