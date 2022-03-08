@@ -4,13 +4,16 @@
 
 package frc.robot.commands.autonomous;
 
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.OneEighty;
+import frc.robot.commands.drivetrain.DriveForward;
+import frc.robot.commands.drivetrain.OneEighty;
+import frc.robot.commands.intake.IntakeBalls;
+import frc.robot.commands.shooter.ShootBalls;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
-
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
@@ -19,8 +22,16 @@ public class NonPathweaver extends SequentialCommandGroup {
   public NonPathweaver(Drivetrain drivetrain, Intake intake, Shooter shooter, Vision vision) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+    drivetrain.resetGyro();
+    
     addCommands(
-      new OneEighty(drivetrain, vision).withTimeout(.2)
+      new SequentialCommandGroup(
+        new IntakeBalls(intake).withTimeout(3),
+        new DriveForward(drivetrain).withTimeout(.5) 
+        ),
+      new WaitCommand(.25),
+      new OneEighty(drivetrain, vision).withTimeout(.85),
+      new ShootBalls(shooter, vision, intake).withTimeout(5)
     );
   }
 }

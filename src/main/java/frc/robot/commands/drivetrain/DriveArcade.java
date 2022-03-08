@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -37,6 +37,9 @@ public class DriveArcade extends CommandBase {
 
     Drivetrain.moveLeftSide(-linearSpeed + angularSpeed);
     Drivetrain.moveRightSide(-linearSpeed - angularSpeed);
+    SmartDashboard.putNumber("linear speed", linearSpeed);
+    SmartDashboard.putNumber("angular speed", angularSpeed);
+    
     SmartDashboard.putNumber("left distance", Drivetrain.leftEncoderPosition());
     SmartDashboard.putNumber("right distance", Drivetrain.rightEncoderPosition());
     SmartDashboard.putNumber("left speed", Drivetrain.leftEncoderSpeed());

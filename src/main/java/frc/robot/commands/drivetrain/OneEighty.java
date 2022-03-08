@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.drivetrain;
 
 import java.time.temporal.ValueRange;
 
@@ -24,24 +24,27 @@ public class OneEighty extends CommandBase {
     controller.setTolerance(0.5);
     addRequirements(drivetrain);
     addRequirements(vision);
+
   }
+  boolean finished = false;
   double tx = 0.0;
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    // Drivetrain.resetGyro();
     tx = Drivetrain.getHeading() * -1;
+    SmartDashboard.putNumber("gyroInital", Drivetrain.getHeading());
+    SmartDashboard.putNumber("gyroTX", tx);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
+  public void execute() {   
     Drivetrain.tankDrive(
-    controller.calculate(Drivetrain.getHeading(), tx)
-    +feedforward.calculate(6, 0.5), //volts/second, and volts/second^2
-    controller.calculate(Drivetrain.getHeading(), tx)
-    +feedforward.calculate(6, 0.5)
+      3,
+      -3
     );
-  }
+   }
 
 
   // Called once the command ends or is interrupted.
@@ -53,6 +56,6 @@ public class OneEighty extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return finished;
   }
 }

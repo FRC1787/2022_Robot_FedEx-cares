@@ -217,7 +217,7 @@ public class Drivetrain extends SubsystemBase {
   /**
    * Resets the gyro's Z (Yaw) axis to a heading of 0
    */
-  public void resetGyro() {
+  public static void resetGyro() {
     gyro.reset();
     
   }
