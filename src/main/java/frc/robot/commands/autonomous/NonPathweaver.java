@@ -9,8 +9,10 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.DriveForward;
 import frc.robot.commands.drivetrain.OneEighty;
+import frc.robot.commands.drivetrain.TurnToTarget;
 import frc.robot.commands.intake.IntakeBalls;
 import frc.robot.commands.intake.ToggleIntakePosition;
+import frc.robot.commands.shooter.LowerShooter;
 import frc.robot.commands.shooter.RaiseShooter;
 import frc.robot.commands.shooter.ShootBalls;
 import frc.robot.commands.shooter.ToggleShooterPosition;
@@ -29,15 +31,19 @@ public class NonPathweaver extends SequentialCommandGroup {
     drivetrain.resetGyro();
     
     addCommands(
+      new IntakeBalls(intake).withTimeout(0.5),
+      
       new ParallelCommandGroup(
         new IntakeBalls(intake),
         new DriveForward(drivetrain) 
         ).withTimeout(2),
+      new LowerShooter(shooter),
       new WaitCommand(.25),
-      new OneEighty(drivetrain, vision).withTimeout(.7),
+      new OneEighty(drivetrain, vision).withTimeout(0.76531787),
       new DriveForward(drivetrain).withTimeout(1.5),
-      new ToggleIntakePosition(intake),
+      new TurnToTarget(drivetrain, vision),
       new RaiseShooter(shooter),
+      new ToggleIntakePosition(intake),
       new ShootBalls(shooter, vision, intake).withTimeout(3)
     );
   }

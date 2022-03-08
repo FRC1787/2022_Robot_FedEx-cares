@@ -6,6 +6,7 @@ package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
@@ -14,10 +15,10 @@ import frc.robot.subsystems.Vision;
 public class TurnToTarget extends CommandBase {
   /** Creates a new TurnToTarget. */
 
-  PIDController controller = new PIDController(0.06, 0, 0);
+  PIDController controller = new PIDController(0.10, 0, 0.02);
   SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.ksAuto, Constants.kvAuto, Constants.kaAuto);
   public TurnToTarget(Drivetrain drivetrain, Vision visionSubsystem) {
-    controller.setTolerance(0.5);
+    controller.setTolerance(1.5);
     addRequirements(drivetrain);
     addRequirements(visionSubsystem);
   }
@@ -36,13 +37,6 @@ public class TurnToTarget extends CommandBase {
     -controller.calculate(Vision.getLimelightX(), 0),
     controller.calculate(Vision.getLimelightX(), 0)
     );
-    /*
-    Drivetrain.tankDrive(
-    controller.calculate(Vision.getLimelightX(), 0)
-    +feedforward.calculate(6, 0.5), //volts/second, and volts/second^2
-    controller.calculate(Vision.getLimelightX(), 0)
-    +feedforward.calculate(6, 0.5)
-    );*/
   }
 
   // Called once the command ends or is interrupted.

@@ -110,7 +110,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     toggleLimelightButton.whenPressed(new ToggleLimelight(vision));
-    turnToTargetButton.whileHeld(new TurnToTarget(drivetrain, vision));
+    turnToTargetButton.whenActive(new TurnToTarget(drivetrain, vision));
 
     manualMoveArmButton.toggleWhenPressed(new TestClimb(climb));
     climbRoutineButton.whileHeld(new ClimbRoutine(climb));
