@@ -10,7 +10,6 @@ import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.commands.intake.IntakeBalls;
 import frc.robot.commands.shooter.ShootBalls;
-import frc.robot.commands.shooter.ToggleShooterPosition;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;

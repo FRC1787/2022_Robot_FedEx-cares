@@ -15,7 +15,6 @@ import frc.robot.commands.intake.ToggleIntakePosition;
 import frc.robot.commands.shooter.LowerShooter;
 import frc.robot.commands.shooter.RaiseShooter;
 import frc.robot.commands.shooter.ShootBalls;
-import frc.robot.commands.shooter.ToggleShooterPosition;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -28,7 +27,7 @@ public class NonPathweaver extends SequentialCommandGroup {
   public NonPathweaver(Drivetrain drivetrain, Intake intake, Shooter shooter, Vision vision) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    drivetrain.resetGyro();
+    Drivetrain.resetGyro();
     
     addCommands(
       new IntakeBalls(intake).withTimeout(0.5),

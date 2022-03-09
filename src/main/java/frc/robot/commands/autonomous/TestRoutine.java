@@ -7,7 +7,6 @@ import frc.robot.RobotContainer;
 import frc.robot.commands.intake.IntakeBalls;
 import frc.robot.commands.intake.ToggleIntakePosition;
 import frc.robot.commands.shooter.ShootBalls;
-import frc.robot.commands.shooter.ToggleShooterPosition;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -22,7 +21,7 @@ public class TestRoutine extends SequentialCommandGroup {
     Trajectory trajectory1 = Robot.loadTrajectoryFromFile("Test1");
     Trajectory trajectory2 = Robot.loadTrajectoryFromFile("Test2");
 
-    drivetrain.resetGyro();
+    Drivetrain.resetGyro();
     drivetrain.resetOdometry(trajectory1.getInitialPose());
 
     addCommands(

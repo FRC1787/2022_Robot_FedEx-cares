@@ -129,95 +129,13 @@ public class RobotContainer {
   }
 
 
-  private RamseteCommand getRamseteCommand(Trajectory trajectory) {
-
-    var leftController = new PIDController(Constants.kpAuto, 0, 0);
-    var rightController = new PIDController(Constants.kpAuto, 0, 0);
-
-    return new RamseteCommand(
-      trajectory,  
-      drivetrain::getPose,
-      new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
-      new SimpleMotorFeedforward(
-        Constants.ksAuto,
-        Constants.kvAuto,
-        Constants.kaAuto
-      ),
-      Constants.kDriveKinematics,
-      drivetrain::getWheelSpeeds,
-      leftController,
-      rightController,
-      (leftVolts, rightVolts) -> {
-        drivetrain.tankDrive(leftVolts, rightVolts);
-
-        SmartDashboard.putNumber("left measurement", drivetrain.leftEncoderSpeed());
-        SmartDashboard.putNumber("left reference", leftController.getSetpoint());
-
-        SmartDashboard.putNumber("right measurement", drivetrain.rightEncoderSpeed());
-        SmartDashboard.putNumber("right reference", rightController.getSetpoint());
-      },
-      drivetrain
-    );
-  }
-
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-
     return autoChooser.getSelected();
-
-    // var autoVoltageConstraint =
-    //   new DifferentialDriveVoltageConstraint(
-    //     new SimpleMotorFeedforward(
-    //       Constants.ksAuto,
-    //       Constants.kvAuto,
-    //       Constants.kaAuto
-    //     ),
-    //     Constants.kDriveKinematics,
-    //     Constants.autoMaxVoltage
-    //   );
-      
-    // TrajectoryConfig config = 
-    //   new TrajectoryConfig(
-    //     Constants.kMaxVelocity,
-    //     Constants.kMaxAcceleration
-    //     )
-    //     .setKinematics(Constants.kDriveKinematics)
-    //     .addConstraint(autoVoltageConstraint);
-  
-    
-    // Trajectory trajectory;
-    
-    // // trajectory = TrajectoryGenerator.generateTrajectory(
-    // //   new Pose2d(0, 0, new Rotation2d(0)),
-
-      
-    // //   List.of(
-    // //     new Translation2d(1., -1),
-    // //     new Translation2d(2, 1)
-    // //   ),
-
-    // //   //drives 3 feet forward
-    // //   new Pose2d(3, 0, new Rotation2d(Math.toRadians(0))),
-
-
-    // //   //pass config to trajectory
-    // //   config
-    // // );
-
-    // trajectory = Robot.getPathweaverTrajectory();
-    
-
-    // var ramseteCommand = getRamseteCommand(trajectory);
-
-    // drivetrain.resetGyro();
-    
-    // drivetrain.resetOdometry(trajectory.getInitialPose());
-
-    // return ramseteCommand.andThen(() -> drivetrain.tankDrive(0, 0));
   }
 
   /**
