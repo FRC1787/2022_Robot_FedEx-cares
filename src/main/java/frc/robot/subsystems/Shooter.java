@@ -18,6 +18,8 @@ import frc.robot.Constants;
 public class Shooter extends SubsystemBase {
   /** Creates a new Shooter. */
 
+  public static boolean isRaised;
+
   private static CANSparkMax indexer     = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
   private static CANSparkMax flywheel = new CANSparkMax(Constants.flywheelMotorID, MotorType.kBrushless);
   private static CANSparkMax backspinner = new CANSparkMax(Constants.backspinnerMotorID, MotorType.kBrushless);
@@ -38,6 +40,7 @@ public class Shooter extends SubsystemBase {
     backspinnerE.setVelocityConversionFactor(1.0);
     flywheel.setInverted(true);
     piston.set(DoubleSolenoid.Value.kForward);
+    isRaised=true;
   }
 
 
@@ -76,6 +79,8 @@ public class Shooter extends SubsystemBase {
    */
   public static void setShooterPosition(DoubleSolenoid.Value position) {
     piston.set(position);
+    if (position == DoubleSolenoid.Value.kForward) isRaised = true;
+    else isRaised = false;
   }
 
   /**
@@ -83,6 +88,7 @@ public class Shooter extends SubsystemBase {
    */
   public static void toggleShooterPosition() {
     piston.toggle();
+  
   }
 
   /**
