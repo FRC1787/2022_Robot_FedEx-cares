@@ -17,8 +17,8 @@ import frc.robot.Constants;
 public class Climb extends SubsystemBase {
   /** Creates a new Climb. */
   private static CANSparkMax arm = new CANSparkMax(Constants.armMotorID, MotorType.kBrushless);
-  private static DigitalInput bottomLimitSwitch = new DigitalInput(0);
-  private static DigitalInput topLimitSwitch    = new DigitalInput(1);
+  private static DigitalInput topLimitSwitch    = new DigitalInput(2);
+  private static DigitalInput bottomLimitSwitch = new DigitalInput(3);
   private static DoubleSolenoid piston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.armPistonFowardID, Constants.armPistonReverseID);
 
   public Climb() {

@@ -116,7 +116,7 @@ public final class Constants {
 
   // BUTTON IDS
     // Camera
-      public static final int toggleLimelightButtonID    = 80;
+      //public static final int toggleLimelightButtonID    = 80;
       public static final int turnToTargetButtonID       = 8;
     // Climb
       public static final int manualMoveArmButtonID      = 11;

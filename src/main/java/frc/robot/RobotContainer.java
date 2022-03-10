@@ -69,7 +69,7 @@ public class RobotContainer {
 
   // Button Bindings
     // Camera
-        private final Button toggleLimelightButton = new JoystickButton(stick, Constants.toggleLimelightButtonID);
+      //private final Button toggleLimelightButton = new JoystickButton(stick, Constants.toggleLimelightButtonID);
       private final Button turnToTargetButton = new JoystickButton(stick, Constants.turnToTargetButtonID);
     // Climb
       private final Button manualMoveArmButton = new JoystickButton(stick, Constants.manualMoveArmButtonID);
@@ -109,7 +109,7 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    toggleLimelightButton.whenPressed(new ToggleLimelight(vision));
+    //toggleLimelightButton.whenPressed(new ToggleLimelight(vision));
     turnToTargetButton.whenActive(new TurnToTarget(drivetrain, vision));
 
     manualMoveArmButton.toggleWhenPressed(new TestClimb(climb));

@@ -2,6 +2,11 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.CvSink;
+import edu.wpi.first.cscore.CvSource;
+import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.cscore.VideoCamera.WhiteBalance;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -13,8 +18,36 @@ public class Vision extends SubsystemBase {
   private static NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
   public static double distToTarget = 0;
+
+  private UsbCamera powerCellCam;
+
+  private CvSource outputStream;
+
+  private CvSink powerCellFrameGrabber;
+
+  public Vision() {
+
+    //Initialize each camera with a channel and name, pushes non-processed images
+    powerCellCam = CameraServer.startAutomaticCapture("Camera", 0);
+
+    //Configure resoltuion, FPS, exposure, brightness and white-balance
+    configureCamera(powerCellCam, false);
+
+    //Initialize frame grabber used to grab individual frames from video stream to be processed later
+    powerCellFrameGrabber = CameraServer.getVideo(powerCellCam);
+
+    //Push processed or unprocessed frames
+    outputStream = CameraServer.putVideo("Processed Video", 160, 120);
   
-  public Vision() {}
+  }
+
+  public void configureCamera(UsbCamera camera, boolean targetingCamera) {
+    camera.setResolution(160, 120);
+    camera.setFPS(15);
+    camera.setExposureAuto();
+    camera.setBrightness(40);
+    camera.setWhiteBalanceManual(WhiteBalance.kFixedIndoor);
+  }
 
   /**
    * Returns the x value of any target seen by the Limelight
@@ -36,13 +69,13 @@ public class Vision extends SubsystemBase {
 
   public static double calculateFlywheelRPM() {
     //find regression formula here
-    if (Shooter.isRaised) return 3100;
-    else return 3000;
+    if (Shooter.isRaised) return 2900;
+    else return 2800;
   }
 
   public static double calculateBackspinnerRPM() {
-    if (Shooter.isRaised) return 3300;
-    else return 3200;
+    if (Shooter.isRaised) return 3100;
+    else return 3000;
   }
 
   // public static double calculateShooterPosition() {
