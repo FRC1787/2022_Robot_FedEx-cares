@@ -88,6 +88,7 @@ public class Shooter extends SubsystemBase {
    */
   public static void toggleShooterPosition() {
     piston.toggle();
+    isRaised = !isRaised;
   
   }
 
@@ -167,5 +168,6 @@ public class Shooter extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("backspinner speed", getBackspinnerSpeed());
     SmartDashboard.putNumber("flywheel speed", getFlywheelSpeed());
+    SmartDashboard.putBoolean("isRaised", isRaised);
   }
 }
