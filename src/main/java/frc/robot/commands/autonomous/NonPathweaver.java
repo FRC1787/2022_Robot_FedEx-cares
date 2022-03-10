@@ -36,12 +36,11 @@ public class NonPathweaver extends SequentialCommandGroup {
         new IntakeBalls(intake),
         new DriveForward(drivetrain) 
         ).withTimeout(2),
-      new LowerShooter(shooter),
       new WaitCommand(.25),
       new OneEighty(drivetrain, vision).withTimeout(0.76531787),
       new DriveForward(drivetrain).withTimeout(1.5),
-      new TurnToTarget(drivetrain, vision),
       new RaiseShooter(shooter),
+      new TurnToTarget(drivetrain, vision),
       new ToggleIntakePosition(intake),
       new ShootBalls(shooter, vision, intake).withTimeout(3)
     );

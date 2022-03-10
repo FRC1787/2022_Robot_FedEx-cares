@@ -97,7 +97,7 @@ public class RobotContainer {
 
     // Adds autonomous routine options :D
     autoChooser.setDefaultOption("Non-Pathweaver", new NonPathweaver(drivetrain, intake, shooter, vision));
-    autoChooser.addOption("Three Ball Auto", new ThreeBallNonPathweaver(drivetrain, intake, shooter, vision));
+    //autoChooser.addOption("Three Ball Auto", new ThreeBallNonPathweaver(drivetrain, intake, shooter, vision));
     // Sends the routine options to SmartDashboard
     SmartDashboard.putData(autoChooser);
   }
@@ -118,13 +118,12 @@ public class RobotContainer {
     fullRetractButton.whenPressed(new MoveArm(climb, -.8));
     toggleClimbButton.whenPressed(new InstantCommand(Climb::toggleClimbSolenoid, climb));
 
-    intakeBallsButton.whenPressed(new IntakeBalls(intake));
-    reverseIntakeButton.whenPressed(new ReverseIntake(intake, shooter));
+    intakeBallsButton.whileHeld(new IntakeBalls(intake));
+    reverseIntakeButton.whileHeld(new ReverseIntake(intake, shooter));
     toggleIntakeButton.whenPressed(new ToggleIntakePosition(intake));
 
     //basicShootButton.whileHeld(new BasicShoot(shooter, intake));
     shooterToggle.whenPressed(new ToggleShooterPosition(shooter));
-    
     smartShootButton.whileHeld(new TurnToTarget(drivetrain, vision).withTimeout(2).andThen(new ShootBalls(shooter, vision, intake)));
   }
 
