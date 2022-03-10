@@ -124,7 +124,7 @@ public class RobotContainer {
 
     //basicShootButton.whileHeld(new BasicShoot(shooter, intake));
     shooterToggle.whenPressed(new ToggleShooterPosition(shooter));
-    smartShootButton.whileHeld(new TurnToTarget(drivetrain, vision).withTimeout(2).andThen(new ShootBalls(shooter, vision, intake)));
+    smartShootButton.whileHeld(new TurnToTarget(drivetrain, vision).andThen(new ShootBalls(shooter, vision, intake)));
   }
 
 
