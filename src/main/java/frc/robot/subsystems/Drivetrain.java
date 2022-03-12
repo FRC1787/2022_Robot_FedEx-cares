@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -15,6 +16,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
+import frc.robot.Robot;
 
 public class Drivetrain extends SubsystemBase {
    /*Spark Max Motor Controller Objects*/
@@ -31,6 +33,8 @@ public class Drivetrain extends SubsystemBase {
    private static RelativeEncoder right2E = right2.getEncoder();
 
    private static AHRS gyro = new AHRS();
+
+   private static final Spark blinkin = new Spark(9);
   
   private final DifferentialDriveOdometry odometry;
 
@@ -226,11 +230,16 @@ public class Drivetrain extends SubsystemBase {
     gyro.calibrate();
   }
 
+  public static void setBlinkin(double value) {
+    blinkin.set(value);
+  }
 
   @Override
   public void periodic() {
     // Update odometry
     odometry.update(gyro.getRotation2d(), leftEncoderPosition(), rightEncoderPosition());
     SmartDashboard.putNumber("gyro", getHeading());
+    setBlinkin(0.81-Math.abs(leftEncoderSpeed()+rightEncoderSpeed()/30));
+    SmartDashboard.putBoolean("inAuto", Robot.inAuto);
   }
 }

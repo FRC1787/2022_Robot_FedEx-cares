@@ -11,6 +11,7 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.Constants;
+import frc.robot.Robot;
 
 public class Vision extends SubsystemBase {
 
@@ -69,12 +70,18 @@ public class Vision extends SubsystemBase {
 
   public static double calculateFlywheelRPM() {
     //find regression formula here
-    if (Shooter.isRaised) return 2900;
+    if (Shooter.isRaised) {
+      if (Robot.inAuto) return 3000;
+      return 2900;
+    }
     else return 2800;
   }
 
   public static double calculateBackspinnerRPM() {
-    if (Shooter.isRaised) return 3100;
+    if (Shooter.isRaised) {
+      if (Robot.inAuto) return 3200;
+      return 3100;
+    }
     else return 3000;
   }
 

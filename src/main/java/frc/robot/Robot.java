@@ -36,6 +36,7 @@ public class Robot extends TimedRobot {
      
   private RobotContainer m_robotContainer;
 
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -43,9 +44,12 @@ public class Robot extends TimedRobot {
   String trajectoryJSON = "paths/output/Route1Initial.wpilib.json";
   public static Trajectory trajectory = new Trajectory();
   private PowerDistribution PDH;
+  public static boolean inAuto;
   
   @Override
   public void robotInit() {
+    
+    inAuto=false;
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
@@ -96,7 +100,10 @@ public class Robot extends TimedRobot {
 
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
-  public void disabledInit() {}
+  public void disabledInit() {
+    
+    inAuto=false;
+  }
 
   @Override
   public void disabledPeriodic() {}
@@ -105,6 +112,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     
+    inAuto=true;
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
     m_robotContainer.drivetrain.resetEncoders();
     m_robotContainer.intake.setIntake(Value.kReverse);
@@ -129,6 +137,9 @@ public class Robot extends TimedRobot {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
+
+    inAuto=false;
+
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
     m_robotContainer.drivetrain.resetEncoders();
 
@@ -151,6 +162,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testInit() {
+    
+    inAuto=false;
     // Cancels all running commands at the start of test mode.
     CommandScheduler.getInstance().cancelAll();
   }

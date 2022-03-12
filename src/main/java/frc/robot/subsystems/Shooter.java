@@ -27,7 +27,6 @@ public class Shooter extends SubsystemBase {
 
   private static DoubleSolenoid piston  = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.shooterPistonForwardID, Constants.shooterPistonReverseID);
 
-
   public Shooter() {
     indexer.setIdleMode(IdleMode.kBrake);
     flywheel.setIdleMode(IdleMode.kCoast);

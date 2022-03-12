@@ -24,8 +24,8 @@ public class ShootBalls extends CommandBase {
     addRequirements(shootSubsystem);
     addRequirements(cameraSubsystem);
     addRequirements(intakeSubsystem);
-    flywheelPID.setTolerance(200);
-    backspinnerPID.setTolerance(200);
+    flywheelPID.setTolerance(150);
+    backspinnerPID.setTolerance(150);
   }
 
   // Called when the command is initially scheduled.
