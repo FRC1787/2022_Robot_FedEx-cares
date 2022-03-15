@@ -21,8 +21,6 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.PowerDistribution;
-import edu.wpi.first.wpilibj.PowerDistribution.ModuleType;
 
 
 /**
@@ -43,7 +41,6 @@ public class Robot extends TimedRobot {
   */
   String trajectoryJSON = "paths/output/Route1Initial.wpilib.json";
   public static Trajectory trajectory = new Trajectory();
-  private PowerDistribution PDH;
   public static boolean inAuto;
   
   @Override
@@ -60,8 +57,6 @@ public class Robot extends TimedRobot {
     } catch (IOException ex) {
       DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
     }
-    PDH = new PowerDistribution(1, ModuleType.kRev);
-    PDH.clearStickyFaults();
   }
 
   protected static Trajectory loadTrajectory(String trajectoryName) throws IOException {

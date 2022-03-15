@@ -24,7 +24,6 @@ import frc.robot.commands.drivetrain.DriveArcade;
 import frc.robot.commands.drivetrain.TurnToTarget;
 import frc.robot.commands.intake.IntakeBalls;
 import frc.robot.commands.intake.ReverseIntake;
-import frc.robot.commands.intake.ToggleIntakePosition;
 import frc.robot.commands.shooter.BasicShoot;
 import frc.robot.commands.shooter.ShootBalls;
 import frc.robot.commands.shooter.ToggleShooterPosition;
@@ -83,10 +82,8 @@ public class RobotContainer {
     // Intake
       private final Button intakeBallsButton = new JoystickButton(stick, Constants.intakeBallsButtonID);
       private final Button reverseIntakeButton = new JoystickButton(stick, Constants.reverseIntakeButtonID);
-      private final Button toggleIntakeButton = new JoystickButton(stick, Constants.toggleIntakeButtonID);
     // Shooter
       private final Button smartShootButton = new JoystickButton(stick, Constants.smartShootButtonID);
-      private final Button basicShootButton = new JoystickButton(stick, Constants.basicShootButtonID);
       private final Button shooterToggle = new JoystickButton(stick, Constants.shooterToggleButtonID);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -112,6 +109,7 @@ public class RobotContainer {
     //toggleLimelightButton.whenPressed(new ToggleLimelight(vision));
     turnToTargetButton.whenActive(new TurnToTarget(drivetrain, vision));
 
+    
     manualMoveArmButton.toggleWhenPressed(new TestClimb(climb));
     climbRoutineButton.whileHeld(new ClimbRoutine(climb));
     fullExtendButton.whenPressed(new MoveArm(climb, .8));
@@ -120,7 +118,6 @@ public class RobotContainer {
 
     intakeBallsButton.whileHeld(new IntakeBalls(intake));
     reverseIntakeButton.whileHeld(new ReverseIntake(intake, shooter));
-    toggleIntakeButton.whenPressed(new ToggleIntakePosition(intake));
 
     //basicShootButton.whileHeld(new BasicShoot(shooter, intake));
     shooterToggle.whenPressed(new ToggleShooterPosition(shooter));

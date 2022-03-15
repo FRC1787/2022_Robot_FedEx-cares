@@ -20,34 +20,34 @@ public class Vision extends SubsystemBase {
 
   public static double distToTarget = 0;
 
-  private UsbCamera powerCellCam;
+  // private UsbCamera powerCellCam;
 
-  private CvSource outputStream;
+  // private CvSource outputStream;
 
-  private CvSink powerCellFrameGrabber;
+  // private CvSink powerCellFrameGrabber;
 
   public Vision() {
 
-    //Initialize each camera with a channel and name, pushes non-processed images
-    powerCellCam = CameraServer.startAutomaticCapture("Camera", 0);
+  //   //Initialize each camera with a channel and name, pushes non-processed images
+  //   powerCellCam = CameraServer.startAutomaticCapture("Camera", 0);
 
-    //Configure resoltuion, FPS, exposure, brightness and white-balance
-    configureCamera(powerCellCam, false);
+  //   //Configure resoltuion, FPS, exposure, brightness and white-balance
+  //   configureCamera(powerCellCam, false);
 
-    //Initialize frame grabber used to grab individual frames from video stream to be processed later
-    powerCellFrameGrabber = CameraServer.getVideo(powerCellCam);
+  //   //Initialize frame grabber used to grab individual frames from video stream to be processed later
+  //   powerCellFrameGrabber = CameraServer.getVideo(powerCellCam);
 
-    //Push processed or unprocessed frames
-    outputStream = CameraServer.putVideo("Processed Video", 160, 120);
+  //   //Push processed or unprocessed frames
+  //   outputStream = CameraServer.putVideo("Processed Video", 160, 120);
   
-  }
+  // }
 
-  public void configureCamera(UsbCamera camera, boolean targetingCamera) {
-    camera.setResolution(160, 120);
-    camera.setFPS(15);
-    camera.setExposureAuto();
-    camera.setBrightness(40);
-    camera.setWhiteBalanceManual(WhiteBalance.kFixedIndoor);
+  // public void configureCamera(UsbCamera camera, boolean targetingCamera) {
+  //   camera.setResolution(160, 120);
+  //   camera.setFPS(15);
+  //   camera.setExposureAuto();
+  //   camera.setBrightness(40);
+  //   camera.setWhiteBalanceManual(WhiteBalance.kFixedIndoor);
   }
 
   /**

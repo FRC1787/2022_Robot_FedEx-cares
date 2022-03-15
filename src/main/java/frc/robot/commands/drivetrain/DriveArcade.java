@@ -40,10 +40,7 @@ public class DriveArcade extends CommandBase {
     SmartDashboard.putNumber("linear speed", linearSpeed);
     SmartDashboard.putNumber("angular speed", angularSpeed);
     
-    SmartDashboard.putNumber("left distance", Drivetrain.leftEncoderPosition());
-    SmartDashboard.putNumber("right distance", Drivetrain.rightEncoderPosition());
-    SmartDashboard.putNumber("left speed", Drivetrain.leftEncoderSpeed());
-    SmartDashboard.putNumber("right speed", Drivetrain.rightEncoderSpeed());
+    
   }
 
   // Called once the command ends or is interrupted.

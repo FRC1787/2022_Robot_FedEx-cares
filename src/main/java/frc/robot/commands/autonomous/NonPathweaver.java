@@ -11,7 +11,6 @@ import frc.robot.commands.drivetrain.DriveForward;
 import frc.robot.commands.drivetrain.OneEighty;
 import frc.robot.commands.drivetrain.TurnToTarget;
 import frc.robot.commands.intake.IntakeBalls;
-import frc.robot.commands.intake.ToggleIntakePosition;
 import frc.robot.commands.shooter.LowerShooter;
 import frc.robot.commands.shooter.RaiseShooter;
 import frc.robot.commands.shooter.ShootBalls;
@@ -41,7 +40,6 @@ public class NonPathweaver extends SequentialCommandGroup {
       new DriveForward(drivetrain).withTimeout(1.5),
       new RaiseShooter(shooter),
       new TurnToTarget(drivetrain, vision),
-      new ToggleIntakePosition(intake),
       new ShootBalls(shooter, vision, intake).withTimeout(3)
     );
   }
