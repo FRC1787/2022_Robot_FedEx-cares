@@ -25,7 +25,7 @@ public class ThreeBallNonPathweaver extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new ShootBalls(shooter, vision, intake).withTimeout(3),
+      new ShootBalls(shooter, intake).withTimeout(3),
       new OneEighty(drivetrain, vision).withTimeout(.75),
       new ParallelCommandGroup(
         new DriveForward(drivetrain),
@@ -39,7 +39,7 @@ public class ThreeBallNonPathweaver extends SequentialCommandGroup {
       new OneEighty(drivetrain, vision).withTimeout(.35),
       new DriveForward(drivetrain).withTimeout(.1),
       new TurnToTarget(drivetrain, vision).withTimeout(.5),
-      new ShootBalls(shooter, vision, intake).withTimeout(3)
+      new ShootBalls(shooter, intake).withTimeout(3)
 
     );
   }

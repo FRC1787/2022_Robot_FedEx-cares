@@ -19,6 +19,7 @@ public class Vision extends SubsystemBase {
   private static NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
   public static double distToTarget = 0;
+  public static double x, y;
 
   // private UsbCamera powerCellCam;
 
@@ -71,16 +72,18 @@ public class Vision extends SubsystemBase {
   public static double calculateFlywheelRPM() {
     //find regression formula here
     if (Shooter.isRaised) {
-      if (Robot.inAuto) return 3000;
-      return 2900;
+      if (y < -17) return 3600; //launchpad shot
+      if (Robot.inAuto) return 3000; //auto shot
+      else return 2900; //tarmac shot
     }
-    else return 2800;
+    else return 2800; //up close shot
   }
 
   public static double calculateBackspinnerRPM() {
     if (Shooter.isRaised) {
+      if (y < -17) return 3600;
       if (Robot.inAuto) return 3200;
-      return 3100;
+      else return 3100;
     }
     else return 3000;
   }
@@ -96,8 +99,8 @@ public class Vision extends SubsystemBase {
     NetworkTableEntry ty = table.getEntry("ty");
     NetworkTableEntry ta = table.getEntry("ta");
 
-    double x = tx.getDouble(0.0);
-    double y = ty.getDouble(0.0);
+    x = tx.getDouble(0.0);
+    y = ty.getDouble(0.0);
     double area = ta.getDouble(0.0);
     distToTarget = ((Constants.tapeHeight - Constants.limelightHeight)/(Math.tan(Math.toRadians(y + Constants.limelightAngle))));
 

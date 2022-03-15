@@ -17,7 +17,7 @@ public class TurnToTarget extends CommandBase {
   PIDController controller = new PIDController(0.10, 0, 0.02);
   SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.ksAuto, Constants.kvAuto, Constants.kaAuto);
   public TurnToTarget(Drivetrain drivetrain, Vision visionSubsystem) {
-    controller.setTolerance(1.5);
+    controller.setTolerance(0.5);
     addRequirements(drivetrain);
     addRequirements(visionSubsystem);
   }

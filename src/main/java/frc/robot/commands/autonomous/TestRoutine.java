@@ -31,7 +31,7 @@ public class TestRoutine extends SequentialCommandGroup {
       // Turns to face the hub
       RobotContainer.createCommandForTrajectory(trajectory2).withTimeout(8).withName("Test2"),
       // Shoots the cargo for 5 seconds to shoot both cargo balls
-      new ShootBalls(shooter, vision, intake).withTimeout(5)
+      new ShootBalls(shooter, intake).withTimeout(5)
     );
   }
 }

@@ -38,6 +38,7 @@ import frc.robot.commands.autonomous.TestRoutine;
 import frc.robot.commands.autonomous.ThreeBallNonPathweaver;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 
 /**
@@ -121,7 +122,8 @@ public class RobotContainer {
 
     //basicShootButton.whileHeld(new BasicShoot(shooter, intake));
     shooterToggle.whenPressed(new ToggleShooterPosition(shooter));
-    smartShootButton.whileHeld(new TurnToTarget(drivetrain, vision).andThen(new ShootBalls(shooter, vision, intake)));
+    smartShootButton.whileHeld(new ShootBalls(shooter, intake));
+    //smartShootButton.whileHeld(new TurnToTarget(drivetrain, vision).andThen(new ShootBalls(shooter, intake)));
   }
 
 

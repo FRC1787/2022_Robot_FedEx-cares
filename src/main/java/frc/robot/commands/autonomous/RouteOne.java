@@ -29,7 +29,7 @@ public class RouteOne extends SequentialCommandGroup {
       RobotContainer.createCommandForTrajectory(trajectory1).withTimeout(3).withName("Trajectory1"),
       new IntakeBalls(intake).withTimeout(3),
       RobotContainer.createCommandForTrajectory(trajectory2).withTimeout(2).withName("Trajectory2"),
-      new ShootBalls(shooter, vision, intake).withTimeout(5)
+      new ShootBalls(shooter, intake).withTimeout(5)
     );
   }
 }

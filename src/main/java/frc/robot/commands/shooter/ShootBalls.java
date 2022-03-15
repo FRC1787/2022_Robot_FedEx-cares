@@ -19,10 +19,9 @@ public class ShootBalls extends CommandBase {
   private double flywheelSetpoint;
   private double backspinnerSetpoint;
 
-  public ShootBalls(Shooter shootSubsystem, Vision cameraSubsystem, Intake intakeSubsystem) {
+  public ShootBalls(Shooter shootSubsystem, Intake intakeSubsystem) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shootSubsystem);
-    addRequirements(cameraSubsystem);
     addRequirements(intakeSubsystem);
     flywheelPID.setTolerance(150);
     backspinnerPID.setTolerance(150);
