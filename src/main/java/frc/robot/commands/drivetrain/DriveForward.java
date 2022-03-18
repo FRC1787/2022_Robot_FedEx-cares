@@ -9,6 +9,9 @@ import frc.robot.subsystems.Drivetrain;
 
 public class DriveForward extends CommandBase {
   /** Creates a new DriveForward. */
+
+  //TODO: fix this this is horrible use encoders
+
   public DriveForward(Drivetrain drivetrain) {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);

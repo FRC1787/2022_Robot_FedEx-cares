@@ -55,6 +55,10 @@ public class Vision extends SubsystemBase {
     return table.getEntry("tx").getDouble(0.0);
   }
 
+  public static double getLimelightA() {
+    return table.getEntry("ta").getDouble(0.0);
+  }
+
   /**
    * Returns the current mode of the Limelight's LEDs
    * 
@@ -67,20 +71,20 @@ public class Vision extends SubsystemBase {
   public static double calculateFlywheelRPM() {
     //find regression formula here
     if (Shooter.isRaised) {
-      if (y < -15) return 3600; //launchpad shot
       if (Robot.inAuto) return 2950; //auto shot
-      else return 3100; //tarmac shot
+      return 3600; //launchpad shot
+      //else return 3100; //tarmac shot
     }
-    else return 2850; //up close shot
+    return 2850; //up close shot
   }
 
   public static double calculateBackspinnerRPM() {
     if (Shooter.isRaised) {
-      if (y < -15) return 3750;
       if (Robot.inAuto) return 3150;
-      else return 3200;
+      return 3750;
+      //else return 3200;
     }
-    else return 3000;
+    return 3000;
   }
 
   @Override

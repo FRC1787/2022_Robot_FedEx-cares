@@ -22,10 +22,7 @@ import frc.robot.commands.drivetrain.DriveArcade;
 import frc.robot.commands.drivetrain.TurnToTarget;
 import frc.robot.commands.intake.IntakeBalls;
 import frc.robot.commands.intake.ReverseIntake;
-import frc.robot.commands.shooter.LowerShooter;
-import frc.robot.commands.shooter.RaiseShooter;
 import frc.robot.commands.shooter.ShootBalls;
-import frc.robot.commands.shooter.ToggleShooterPosition;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -117,16 +114,17 @@ public class RobotContainer {
     intakeBallsButton.whileHeld(new IntakeBalls(intake));
     reverseIntakeButton.whileHeld(new ReverseIntake(intake, shooter));
 
-    //basicShootButton.whileHeld(new BasicShoot(shooter, intake));
-    shooterToggle.whenPressed(new ToggleShooterPosition(shooter));
-    closeShootButton.whenHeld(new LowerShooter(shooter).andThen(new ShootBalls(shooter, intake)));
-    farShootButton.whenHeld(new RaiseShooter(shooter).andThen(
+    shooterToggle.whenPressed(new InstantCommand(Shooter::toggleShooterPosition, shooter));
+    closeShootButton.whenHeld(
+      new InstantCommand(Shooter::lowerShooter, shooter)
+      .andThen(
+        new ShootBalls(shooter, intake)));
+    farShootButton.whenHeld(
+      new InstantCommand(Shooter::raiseShooter, shooter)
+      .andThen(
         new ParallelCommandGroup(
           new ShootBalls(shooter, intake),
-          new TurnToTarget(drivetrain, vision)
-        )
-      )
-    );
+          new TurnToTarget(drivetrain, vision))));
   }
 
 

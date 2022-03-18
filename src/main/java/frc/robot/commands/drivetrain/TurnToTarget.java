@@ -12,10 +12,10 @@ import frc.robot.subsystems.Vision;
 public class TurnToTarget extends CommandBase {
   /** Creates a new TurnToTarget. */
 
-  PIDController controller = new PIDController(0.10, 0, 0.02);
+  PIDController controller = new PIDController(0.15, 0, 0.02);
   
   public TurnToTarget(Drivetrain drivetrain, Vision visionSubsystem) {
-    controller.setTolerance(1.5);
+    controller.setTolerance(1.5); //TODO: try lowering this and tuning pid
     addRequirements(drivetrain);
     addRequirements(visionSubsystem);
   }

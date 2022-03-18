@@ -30,8 +30,7 @@ public class ReverseIntake extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Intake.setKowalskiMotor(0);
-    Intake.setIntakeMotor(0);
+    Intake.stopAllMotors();
     Shooter.setIndexerSpeed(0);
   }
 

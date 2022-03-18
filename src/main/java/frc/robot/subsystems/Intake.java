@@ -22,6 +22,7 @@ public class Intake extends SubsystemBase {
 
   public Intake() {
     setRampRate(1);
+    //kowalski.setIdleMode(IdleMode.kCoast); test this
     setIntake(DoubleSolenoid.Value.kReverse);
 
   }
@@ -75,6 +76,11 @@ public class Intake extends SubsystemBase {
   public static void setRampRate(double rate) {
     intakeMotor.setOpenLoopRampRate(rate);
     kowalski.setOpenLoopRampRate(rate);
+  }
+
+  public static void stopAllMotors() {
+    Intake.setKowalskiMotor(0);
+    Intake.setIntakeMotor(0);
   }
 
   @Override

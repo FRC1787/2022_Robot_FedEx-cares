@@ -18,8 +18,9 @@ public final class Constants {
   // MEMES
   public static final boolean botMostLikelyToGetPHD        = true;
   public static final boolean botWithWorstPathweaverSystem = true;
-  public static final boolean FedEx_cares                  = true;
+  public static final boolean FedEx_cares                  = true; // can confirm tho
   public static final boolean bestSchoolTeamAtOrange       = true;
+  public static final boolean floppyDiskIsACoolRobot       = true;
 
 
 
@@ -64,13 +65,6 @@ public final class Constants {
     public static final double lookToTargetP = 0.05;
     public static final double lookToTargetI = 0.00;
     public static final double lookToTargetD = 0.00;
-  
-  // SHOOTER
-  // public static double flywheelRPMToPercent = 1./4950;
-  // public static double backspinnerRPMToPercent = 1./5050;
-  // public static double flywheelRPMToVoltage = 12./5410;
-  // public static double backspinnerRPMToVoltage = 12./5610;
-
 
 
   // MOTOR VOLTAGE PERCENTAGES
@@ -82,10 +76,7 @@ public final class Constants {
     public static final double intakeMotorVoltage   = 1.0;
     public static final double kowalskiMotorVoltage = 0.5;
   // Shooter
-    public static final double indexerVoltage      =  0.20;
-    //make this always negative pls
-    public static final double flywheelVoltage     = -0.52;
-    public static final double backspinnerVoltage  =  0.52;
+    
 
 
 

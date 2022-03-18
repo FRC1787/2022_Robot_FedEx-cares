@@ -39,16 +39,33 @@ public class Drivetrain extends SubsystemBase {
   private final DifferentialDriveOdometry odometry;
 
   public Drivetrain() {
-    left1.setIdleMode(IdleMode.kBrake); //sets drive motors to brake mode
+    setMotorInversions();
+    
+    setEncoderConversionFactors();
+    
+    resetEncoders();
+
+    //assumes position of 0, 0
+    odometry = new DifferentialDriveOdometry(gyro.getRotation2d());
+
+    setAmpLimit(50);
+  }
+
+  public static void setMotorIdleModes() {
+    left1.setIdleMode(IdleMode.kBrake);
     right1.setIdleMode(IdleMode.kBrake);
     left2.setIdleMode(IdleMode.kBrake);
     right2.setIdleMode(IdleMode.kBrake);
+  }
 
+  public static void setMotorInversions() {
     right1.setInverted(false); 
     right2.setInverted(false);
     left1.setInverted(true);
     left2.setInverted(true);
+  }
 
+  public static void setEncoderConversionFactors() {
     left1E.setPositionConversionFactor(Constants.positionConversionFactor);
     left1E.setVelocityConversionFactor(Constants.velocityConversionFactor);
     left2E.setPositionConversionFactor(Constants.positionConversionFactor);
@@ -57,13 +74,6 @@ public class Drivetrain extends SubsystemBase {
     right1E.setVelocityConversionFactor(Constants.velocityConversionFactor);
     right2E.setPositionConversionFactor(Constants.positionConversionFactor);
     right2E.setVelocityConversionFactor(Constants.velocityConversionFactor);
-    
-    resetEncoders();
-
-    //assumes position of 0, 0
-    odometry = new DifferentialDriveOdometry(gyro.getRotation2d());
-
-    setAmpLimit(50);
   }
 
   /**

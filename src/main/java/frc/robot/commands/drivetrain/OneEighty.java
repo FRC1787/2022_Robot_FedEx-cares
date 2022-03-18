@@ -15,6 +15,8 @@ import frc.robot.subsystems.Vision;
 public class OneEighty extends CommandBase {
   /** Creates a new OneEighty. */
 
+  //TODO: make this use gyro this is horrible and the worst
+
   PIDController controller = new PIDController(0.05, 0, 0);
   SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.ksAuto, Constants.kvAuto, Constants.kaAuto);
   public OneEighty(Drivetrain drivetrain, Vision vision) {

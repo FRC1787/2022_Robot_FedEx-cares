@@ -5,7 +5,6 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -39,6 +38,7 @@ public class ShootBalls extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    
     SmartDashboard.putNumber("flywheel lower bound", flywheelSetpoint-150);
     SmartDashboard.putNumber("flywheel upper bound", flywheelSetpoint+150);
     SmartDashboard.putNumber("flywheel error", flywheelPID.getPositionError());
@@ -57,12 +57,11 @@ public class ShootBalls extends CommandBase {
     if (flywheelPID.atSetpoint() && backspinnerPID.atSetpoint()) {
       Shooter.setIndexerSpeed(0.3);
       Intake.setKowalskiMotor(0.6);
-      Intake.setIntakeMotor(-0.7);
+      Intake.setIntakeMotor(-0.6);
     }
     else {
       Shooter.setIndexerSpeed(0);
-      Intake.setKowalskiMotor(0);
-      Intake.setIntakeMotor(0);
+      Intake.stopAllMotors();
     }
 
   }
@@ -70,17 +69,14 @@ public class ShootBalls extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Shooter.setFlywheelSpeed(0);
-    Shooter.setIndexerSpeed(0);
-    Shooter.setBackspinnerSpeed(0);
-    Intake.setKowalskiMotor(0);
-    Intake.setIntakeMotor(0);
-    Shooter.setShooterPosition(Value.kForward);
+    Shooter.stopAllMotors();
+    Intake.stopAllMotors();
+    Shooter.raiseShooter();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return (Shooter.isRaised && Vision.getLimelightA() == 0);
   }
 }

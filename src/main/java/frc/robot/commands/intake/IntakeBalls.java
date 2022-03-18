@@ -31,8 +31,7 @@ public class IntakeBalls extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    Intake.setIntakeMotor(0);
-    Intake.setKowalskiMotor(0);
+    Intake.stopAllMotors();
     Intake.setIntake(Value.kReverse);
   }
 

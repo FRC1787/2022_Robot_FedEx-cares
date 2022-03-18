@@ -11,9 +11,9 @@ import frc.robot.subsystems.Drivetrain;
 
 public class DriveArcade extends CommandBase {
   /** Creates a new DriveArcade. */
-  public DriveArcade(Drivetrain ggug) {
+  public DriveArcade(Drivetrain drivetrain) {
     // Use addRequirements() here to declare sub   dependencies.
-    addRequirements(ggug);
+    addRequirements(drivetrain);
   }
 
   // Called when the command is initially scheduled.

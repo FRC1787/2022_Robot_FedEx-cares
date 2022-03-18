@@ -11,13 +11,13 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
   public static boolean isRaised;
-  public static boolean farShot;
 
   private static CANSparkMax indexer = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
   private static CANSparkMax flywheel = new CANSparkMax(Constants.flywheelMotorID, MotorType.kBrushless);
@@ -39,7 +39,6 @@ public class Shooter extends SubsystemBase {
     flywheel.setInverted(true);
     piston.set(DoubleSolenoid.Value.kForward);
     isRaised=true;
-    farShot = false;
   }
 
 
@@ -89,9 +88,6 @@ public class Shooter extends SubsystemBase {
     piston.toggle();
     isRaised = !isRaised;
   
-  }
-  public static void toggleFarShot() {
-    farShot = !farShot;
   }
 
   /**
@@ -163,6 +159,20 @@ public class Shooter extends SubsystemBase {
    */
   public static void setBackspinnerRPM(double rpm) {
     backspinner.set(rpm*0.000187 - 0.00259);
+  }
+
+  public static void stopAllMotors() {
+    setFlywheelSpeed(0);
+    setIndexerSpeed(0);
+    setBackspinnerSpeed(0);
+  }
+
+  public static void raiseShooter() {
+    setShooterPosition(Value.kForward);
+  }
+
+  public static void lowerShooter() {
+    setShooterPosition(Value.kReverse);
   }
 
   @Override
