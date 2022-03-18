@@ -120,7 +120,6 @@ public class RobotContainer {
     //basicShootButton.whileHeld(new BasicShoot(shooter, intake));
     shooterToggle.whenPressed(new ToggleShooterPosition(shooter));
     closeShootButton.whenHeld(new LowerShooter(shooter).andThen(new ShootBalls(shooter, intake)));
-    closeShootButton.whenReleased(new RaiseShooter(shooter));
     farShootButton.whenHeld(new RaiseShooter(shooter).andThen(
         new ParallelCommandGroup(
           new ShootBalls(shooter, intake),

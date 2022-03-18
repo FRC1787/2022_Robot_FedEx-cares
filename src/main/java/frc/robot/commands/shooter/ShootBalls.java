@@ -5,6 +5,7 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
@@ -74,6 +75,7 @@ public class ShootBalls extends CommandBase {
     Shooter.setBackspinnerSpeed(0);
     Intake.setKowalskiMotor(0);
     Intake.setIntakeMotor(0);
+    Shooter.setShooterPosition(Value.kForward);
   }
 
   // Returns true when the command should end.
