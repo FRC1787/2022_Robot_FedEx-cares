@@ -25,7 +25,6 @@ public class RouteOne extends SequentialCommandGroup {
     Trajectory trajectory2 = Robot.loadTrajectoryFromFile("Route1Cycle");
 
     addCommands(
-
       RobotContainer.createCommandForTrajectory(trajectory1).withTimeout(3).withName("Trajectory1"),
       new IntakeBalls(intake).withTimeout(3),
       RobotContainer.createCommandForTrajectory(trajectory2).withTimeout(2).withName("Trajectory2"),

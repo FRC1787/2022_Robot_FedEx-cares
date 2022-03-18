@@ -5,6 +5,7 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Vision;
@@ -32,14 +33,14 @@ public class ShootBalls extends CommandBase {
   public void initialize() {
     flywheelSetpoint = Vision.calculateFlywheelRPM(); //function will change depending on threshold
     backspinnerSetpoint = Vision.calculateBackspinnerRPM();
-    //TODO: have vision function to return shooter position
-
-    // if ()
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    SmartDashboard.putNumber("flywheel lower bound", flywheelSetpoint-150);
+    SmartDashboard.putNumber("flywheel upper bound", flywheelSetpoint+150);
+    SmartDashboard.putNumber("flywheel error", flywheelPID.getPositionError());
 
     Shooter.setFlywheelRPM(
       (flywheelPID.calculate(Shooter.getFlywheelSpeed(), flywheelSetpoint)
@@ -53,9 +54,9 @@ public class ShootBalls extends CommandBase {
 
 
     if (flywheelPID.atSetpoint() && backspinnerPID.atSetpoint()) {
-      Shooter.setIndexerSpeed(0.2);
-      Intake.setKowalskiMotor(0.4);
-      Intake.setIntakeMotor(-0.6);
+      Shooter.setIndexerSpeed(0.3);
+      Intake.setKowalskiMotor(0.6);
+      Intake.setIntakeMotor(-0.7);
     }
     else {
       Shooter.setIndexerSpeed(0);

@@ -24,6 +24,8 @@ public class Climb extends SubsystemBase {
   public Climb() {
     arm.setIdleMode(IdleMode.kBrake);
     piston.set(DoubleSolenoid.Value.kReverse); //reverse channel pushes up
+    
+    // remove this if you want the arm motor to smell funny 🔥
     setAmpLimit(90);
   }
 

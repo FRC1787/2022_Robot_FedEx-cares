@@ -5,9 +5,7 @@
 package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Vision;
 
@@ -15,9 +13,9 @@ public class TurnToTarget extends CommandBase {
   /** Creates a new TurnToTarget. */
 
   PIDController controller = new PIDController(0.10, 0, 0.02);
-  SimpleMotorFeedforward feedforward = new SimpleMotorFeedforward(Constants.ksAuto, Constants.kvAuto, Constants.kaAuto);
+  
   public TurnToTarget(Drivetrain drivetrain, Vision visionSubsystem) {
-    controller.setTolerance(0.5);
+    controller.setTolerance(1.5);
     addRequirements(drivetrain);
     addRequirements(visionSubsystem);
   }

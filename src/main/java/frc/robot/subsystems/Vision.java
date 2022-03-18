@@ -2,11 +2,6 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.cscore.CvSink;
-import edu.wpi.first.cscore.CvSource;
-import edu.wpi.first.cscore.UsbCamera;
-import edu.wpi.first.cscore.VideoCamera.WhiteBalance;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -72,25 +67,21 @@ public class Vision extends SubsystemBase {
   public static double calculateFlywheelRPM() {
     //find regression formula here
     if (Shooter.isRaised) {
-      if (y < -17) return 3600; //launchpad shot
-      if (Robot.inAuto) return 3000; //auto shot
-      else return 2900; //tarmac shot
+      if (y < -15) return 3600; //launchpad shot
+      if (Robot.inAuto) return 2950; //auto shot
+      else return 3100; //tarmac shot
     }
-    else return 2800; //up close shot
+    else return 2850; //up close shot
   }
 
   public static double calculateBackspinnerRPM() {
     if (Shooter.isRaised) {
-      if (y < -17) return 3600;
-      if (Robot.inAuto) return 3200;
-      else return 3100;
+      if (y < -15) return 3750;
+      if (Robot.inAuto) return 3150;
+      else return 3200;
     }
     else return 3000;
   }
-
-  // public static double calculateShooterPosition() {
-  //   // if ()
-  // }
 
   @Override
   public void periodic() {

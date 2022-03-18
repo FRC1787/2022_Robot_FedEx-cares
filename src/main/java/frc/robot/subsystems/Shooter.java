@@ -19,14 +19,14 @@ public class Shooter extends SubsystemBase {
   public static boolean isRaised;
   public static boolean farShot;
 
-  private static CANSparkMax indexer     = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
+  private static CANSparkMax indexer = new CANSparkMax(Constants.indexerMotorID, MotorType.kBrushless);
   private static CANSparkMax flywheel = new CANSparkMax(Constants.flywheelMotorID, MotorType.kBrushless);
   private static CANSparkMax backspinner = new CANSparkMax(Constants.backspinnerMotorID, MotorType.kBrushless);
   
   private static RelativeEncoder flywheelE = flywheel.getEncoder();
   private static RelativeEncoder backspinnerE = backspinner.getEncoder();
 
-  private static DoubleSolenoid piston  = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.shooterPistonForwardID, Constants.shooterPistonReverseID);
+  private static DoubleSolenoid piston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.shooterPistonForwardID, Constants.shooterPistonReverseID);
 
   public Shooter() {
     indexer.setIdleMode(IdleMode.kBrake);
@@ -143,7 +143,7 @@ public class Shooter extends SubsystemBase {
 
   /**
    * Get the velocity of the flywheel motor. This returns in RPM
-   * @return Backspinner motor RPM
+   * @return Flywheel motor RPM
    */
   public static double getFlywheelSpeed() {
     return flywheelE.getVelocity();

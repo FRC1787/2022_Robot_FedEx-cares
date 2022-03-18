@@ -7,7 +7,6 @@ package frc.robot;
 import edu.wpi.first.math.controller.RamseteController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.trajectory.Trajectory;
-import edu.wpi.first.math.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.math.controller.PIDController;
@@ -16,7 +15,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.ToggleLimelight;
 import frc.robot.commands.climb.ClimbRoutine;
 import frc.robot.commands.climb.MoveArm;
 import frc.robot.commands.climb.TestClimb;
@@ -24,7 +22,8 @@ import frc.robot.commands.drivetrain.DriveArcade;
 import frc.robot.commands.drivetrain.TurnToTarget;
 import frc.robot.commands.intake.IntakeBalls;
 import frc.robot.commands.intake.ReverseIntake;
-import frc.robot.commands.shooter.BasicShoot;
+import frc.robot.commands.shooter.LowerShooter;
+import frc.robot.commands.shooter.RaiseShooter;
 import frc.robot.commands.shooter.ShootBalls;
 import frc.robot.commands.shooter.ToggleShooterPosition;
 import frc.robot.subsystems.Drivetrain;
@@ -33,9 +32,6 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Climb;
 import frc.robot.commands.autonomous.NonPathweaver;
-import frc.robot.commands.autonomous.RouteOne;
-import frc.robot.commands.autonomous.TestRoutine;
-import frc.robot.commands.autonomous.ThreeBallNonPathweaver;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -84,7 +80,8 @@ public class RobotContainer {
       private final Button intakeBallsButton = new JoystickButton(stick, Constants.intakeBallsButtonID);
       private final Button reverseIntakeButton = new JoystickButton(stick, Constants.reverseIntakeButtonID);
     // Shooter
-      private final Button smartShootButton = new JoystickButton(stick, Constants.smartShootButtonID);
+      private final Button farShootButton = new JoystickButton(stick, Constants.farShootButtonID);
+      private final Button closeShootButton = new JoystickButton(stick, Constants.closeShootButtonID);
       private final Button shooterToggle = new JoystickButton(stick, Constants.shooterToggleButtonID);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -122,8 +119,15 @@ public class RobotContainer {
 
     //basicShootButton.whileHeld(new BasicShoot(shooter, intake));
     shooterToggle.whenPressed(new ToggleShooterPosition(shooter));
-    smartShootButton.whileHeld(new ShootBalls(shooter, intake));
-    //smartShootButton.whileHeld(new TurnToTarget(drivetrain, vision).andThen(new ShootBalls(shooter, intake)));
+    closeShootButton.whenHeld(new LowerShooter(shooter).andThen(new ShootBalls(shooter, intake)));
+    closeShootButton.whenReleased(new RaiseShooter(shooter));
+    farShootButton.whenHeld(new RaiseShooter(shooter).andThen(
+        new ParallelCommandGroup(
+          new ShootBalls(shooter, intake),
+          new TurnToTarget(drivetrain, vision)
+        )
+      )
+    );
   }
 
 
@@ -164,17 +168,17 @@ public class RobotContainer {
       leftController,
       rightController,
       (leftVolts, rightVolts) -> {
-        drivetrain.tankDrive(leftVolts, rightVolts);
+        Drivetrain.tankDrive(leftVolts, rightVolts);
 
-        SmartDashboard.putNumber("left measurement", drivetrain.leftEncoderSpeed());
+        SmartDashboard.putNumber("left measurement", Drivetrain.leftEncoderSpeed());
         SmartDashboard.putNumber("left reference", leftController.getSetpoint());
 
-        SmartDashboard.putNumber("right measurement", drivetrain.rightEncoderSpeed());
+        SmartDashboard.putNumber("right measurement", Drivetrain.rightEncoderSpeed());
         SmartDashboard.putNumber("right reference", rightController.getSetpoint());
       },
       drivetrain
     );
-    return ramseteCommand.andThen(() -> drivetrain.tankDrive(0, 0));
+    return ramseteCommand.andThen(() -> Drivetrain.tankDrive(0, 0));
   }
 
 

@@ -62,8 +62,6 @@ public class Drivetrain extends SubsystemBase {
 
     //assumes position of 0, 0
     odometry = new DifferentialDriveOdometry(gyro.getRotation2d());
-    
-    // Sets the ramp rate of the drivetrain motors to 1 second
 
     setAmpLimit(50);
   }
@@ -187,6 +185,9 @@ public class Drivetrain extends SubsystemBase {
     return (right1E.getVelocity()+right2E.getVelocity())/2.0;
   }
 
+  /**
+   * @return RPM of wheel speeds in DifferentialDriveWheelSpeeds object
+   */
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
     return new DifferentialDriveWheelSpeeds(leftEncoderSpeed(), rightEncoderSpeed());
   }

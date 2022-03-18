@@ -109,9 +109,9 @@ public class Robot extends TimedRobot {
     
     inAuto=true;
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
-    m_robotContainer.drivetrain.resetEncoders();
-    m_robotContainer.intake.setIntake(Value.kReverse);
-    m_robotContainer.drivetrain.setRampRate(0.5);
+    Drivetrain.resetEncoders();
+    Intake.setIntake(Value.kReverse);
+    Drivetrain.setRampRate(0.5);
 
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     
@@ -136,17 +136,17 @@ public class Robot extends TimedRobot {
     inAuto=false;
 
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
-    m_robotContainer.drivetrain.resetEncoders();
+    Drivetrain.resetEncoders();
 
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
 
-    Intake.togglePiston();
+    Intake.setIntake(Value.kReverse);
     Climb.setPiston(DoubleSolenoid.Value.kReverse);
-    RobotContainer.drivetrain.resetEncoders();
-    Shooter.setShooterPosition(DoubleSolenoid.Value.kReverse);
-    m_robotContainer.drivetrain.setRampRate(0.1);
+    Drivetrain.resetEncoders();
+    Shooter.setShooterPosition(DoubleSolenoid.Value.kForward);
+    Drivetrain.setRampRate(0.1);
 
 
   }

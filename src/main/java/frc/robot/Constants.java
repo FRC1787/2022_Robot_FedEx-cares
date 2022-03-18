@@ -44,10 +44,10 @@ public final class Constants {
     public static final double kaAuto = 0.48883;
     public static final double kpAuto = 2.945;
   // SHOOTER
-    public static final double kpShooter = 0.3;
+    public static final double kpShooter = 0.2;
     public static final double kiShooter = 0.5;
-    public static final double kdShooter = 0.00001;
-    public static final double kfShooter = 0.985; //heheheha
+    public static final double kdShooter = 0.05;
+    public static final double kfShooter = 1.0;//0.985;
 
 
 
@@ -116,7 +116,6 @@ public final class Constants {
 
   // BUTTON IDS
     // Camera
-      //public static final int toggleLimelightButtonID    = 80;
       public static final int turnToTargetButtonID       = 8;
     // Climb
       public static final int manualMoveArmButtonID      = 11;
@@ -124,15 +123,14 @@ public final class Constants {
       //needs to be implemented
       public static final int manualArmPneumaticButtonID = 7;
       public static final int fullExtendButtonID         = 10;
-      public static final int fullRetractButtonID = 9;
+      public static final int fullRetractButtonID        = 9;
     // Drivetrain
 
     // Intake
       public static final int intakeBallsButtonID        = 1;
-      public static final int toggleIntakeButtonID       = 3;
       public static final int reverseIntakeButtonID      = 5;
     // Shooter     
-      public static final int basicShootButtonID         = 4;
-      public static final int smartShootButtonID         = 2; //drive team (na than) wants this to be shooter up/down toggle
+      public static final int closeShootButtonID         = 2;
+      public static final int farShootButtonID           = 3;
       public static final int shooterToggleButtonID      = 6;
 }
