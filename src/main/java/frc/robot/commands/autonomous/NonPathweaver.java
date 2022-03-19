@@ -33,7 +33,7 @@ public class NonPathweaver extends SequentialCommandGroup {
       new ParallelCommandGroup(
         new IntakeBalls(intake).withTimeout(1.5),
         new DriveForward(drivetrain) 
-        ).withTimeout(2),
+      ).withTimeout(2),
       new WaitCommand(.25),
       new OneEighty(drivetrain, vision).withTimeout(0.76531787),
       new DriveForward(drivetrain).withTimeout(1.5),
