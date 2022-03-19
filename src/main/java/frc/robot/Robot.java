@@ -41,7 +41,7 @@ public class Robot extends TimedRobot {
   */
   String trajectoryJSON = "paths/output/Route1Initial.wpilib.json";
   public static Trajectory trajectory = new Trajectory();
-  public static boolean inAuto;
+  public static boolean inAuto=false;
   
   @Override
   public void robotInit() {

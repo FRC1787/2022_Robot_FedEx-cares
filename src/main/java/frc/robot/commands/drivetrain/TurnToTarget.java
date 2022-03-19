@@ -6,18 +6,26 @@ package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Robot;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Vision;
 
 public class TurnToTarget extends CommandBase {
   /** Creates a new TurnToTarget. */
 
-  PIDController controller = new PIDController(0.10, 0, 0.02);
+  PIDController controller = new PIDController(0.085, 0, 0.045);
   
+
   public TurnToTarget(Drivetrain drivetrain, Vision visionSubsystem) {
-    controller.setTolerance(1.5); //TODO: try lowering this and tuning pid
+    controller.setTolerance(0.75); //TODO: try lowering this and tuning pid
     addRequirements(drivetrain);
     addRequirements(visionSubsystem);
+    // if (Robot.inAuto) {
+    //   controller = new PIDController(0.10, 0, 0.02);
+    // }
+    // else {
+      // controller = new PIDController(0.05, 0, 0.03);
+    // }
   }
 
   // Called when the command is initially scheduled.
