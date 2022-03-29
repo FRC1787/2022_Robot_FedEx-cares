@@ -4,6 +4,7 @@
 
 package frc.robot.commands.shooter;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -24,9 +25,9 @@ public class ShootBalls extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shootSubsystem);
     addRequirements(intakeSubsystem);
-    flywheelPID.setTolerance(150); //TODO: adjust this for better 2nd shot
-    backspinnerPID.setTolerance(150);
-    //flywheelPID.setIntegratorRange(0, 200);
+    flywheelPID.setTolerance(100); //TODO: adjust this for better 2nd shot
+    backspinnerPID.setTolerance(100);
+    flywheelPID.setIntegratorRange(0, 200);
   }
 
   // Called when the command is initially scheduled.
@@ -40,18 +41,19 @@ public class ShootBalls extends CommandBase {
   @Override
   public void execute() {
     
-    SmartDashboard.putNumber("flywheel lower bound", flywheelSetpoint-150);
-    SmartDashboard.putNumber("flywheel upper bound", flywheelSetpoint+150);
-    SmartDashboard.putNumber("flywheel error", flywheelPID.getPositionError());
+    SmartDashboard.putNumber("flywheel lower bound", flywheelSetpoint-100);
+    SmartDashboard.putNumber("flywheel upper bound", flywheelSetpoint+100);
+    SmartDashboard.putNumber("flywheel setpoint", flywheelSetpoint);
 
     Shooter.setFlywheelRPM(
-      (flywheelPID.calculate(Shooter.getFlywheelSpeed(), flywheelSetpoint)
-      + Constants.kfShooter*flywheelSetpoint) //basic feedforward
+      MathUtil.clamp(flywheelPID.calculate(Shooter.getFlywheelSpeed(), flywheelSetpoint), 0, 200)
+      + Constants.kfShooter*flywheelSetpoint
     );
+    
 
     Shooter.setBackspinnerRPM(
-      (backspinnerPID.calculate(Shooter.getBackspinnerSpeed(), backspinnerSetpoint)
-      + Constants.kfShooter*backspinnerSetpoint) //basic feedforward
+      MathUtil.clamp(backspinnerPID.calculate(Shooter.getBackspinnerSpeed(), backspinnerSetpoint), 0, 200)
+      + Constants.kfShooter*backspinnerSetpoint
     );
 
 
