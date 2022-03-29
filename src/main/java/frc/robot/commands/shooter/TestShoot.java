@@ -5,45 +5,37 @@
 package frc.robot.commands.shooter;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
-public class ShootBalls extends CommandBase {
-  /** Creates a new ShootBalls. */
+public class TestShoot extends CommandBase {
+  /** Creates a new TestShoot. */
   PIDController flywheelPID = new PIDController(Constants.kpShooter, Constants.kiShooter, Constants.kdShooter);
   PIDController backspinnerPID = new PIDController(Constants.kpShooter, Constants.kiShooter, Constants.kdShooter);
 
   private double flywheelSetpoint;
   private double backspinnerSetpoint;
-
-  public ShootBalls(Shooter shootSubsystem, Intake intakeSubsystem) {
+  
+  public TestShoot(Shooter shooter, Intake intake) {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(shootSubsystem);
-    addRequirements(intakeSubsystem);
+    addRequirements(shooter);
+    addRequirements(intake);
     flywheelPID.setTolerance(150); //TODO: adjust this for better 2nd shot
     backspinnerPID.setTolerance(150);
-    //flywheelPID.setIntegratorRange(0, 200);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    flywheelSetpoint = Vision.calculateFlywheelRPM(); //function will change depending on threshold
-    backspinnerSetpoint = Vision.calculateBackspinnerRPM();
+    flywheelSetpoint = Shooter.flywheelCustom();
+    backspinnerSetpoint = Shooter.backspinnerCustom();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-    SmartDashboard.putNumber("flywheel lower bound", flywheelSetpoint-150);
-    SmartDashboard.putNumber("flywheel upper bound", flywheelSetpoint+150);
-    SmartDashboard.putNumber("flywheel error", flywheelPID.getPositionError());
-
     Shooter.setFlywheelRPM(
       (flywheelPID.calculate(Shooter.getFlywheelSpeed(), flywheelSetpoint)
       + Constants.kfShooter*flywheelSetpoint) //basic feedforward
@@ -64,7 +56,6 @@ public class ShootBalls extends CommandBase {
       Shooter.setIndexerSpeed(0);
       Intake.stopAllMotors();
     }
-
   }
 
   // Called once the command ends or is interrupted.
@@ -78,7 +69,6 @@ public class ShootBalls extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    //return (Shooter.isRaised && Vision.getLimelightA() == 0);
     return false;
   }
 }

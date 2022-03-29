@@ -4,14 +4,20 @@
 
 package frc.robot.subsystems;
 
+import java.util.Map;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -39,7 +45,29 @@ public class Shooter extends SubsystemBase {
     flywheel.setInverted(true);
     piston.set(DoubleSolenoid.Value.kForward);
     isRaised=true;
+
   }
+
+  private static NetworkTableEntry flywheelSpeed = Shuffleboard.getTab("AllShot")
+    .add("FlywheelRPM", 3600)
+    .withWidget(BuiltInWidgets.kNumberSlider)
+    .withProperties(Map.of("min", 2850, "max", 3600))
+    .getEntry();
+
+  private static NetworkTableEntry backspinnerSpeed = Shuffleboard.getTab("AllShot")
+    .add("BackspinnerRPM", 3750)
+    .withWidget(BuiltInWidgets.kNumberSlider)
+    .withProperties(Map.of("min", 3000, "max", 3750))
+    .getEntry();
+
+  public static double flywheelCustom() {
+    return Math.ceil(flywheelSpeed.getDouble(0));
+  }
+
+  public static double backspinnerCustom() {
+    return Math.ceil(backspinnerSpeed.getDouble(0));
+  }
+
 
 
   /**
@@ -175,11 +203,17 @@ public class Shooter extends SubsystemBase {
     setShooterPosition(Value.kReverse);
   }
 
+
+
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("backspinner speed", getBackspinnerSpeed());
     SmartDashboard.putNumber("flywheel speed", getFlywheelSpeed());
     SmartDashboard.putBoolean("isRaised", isRaised);
+    // System.out.println(backspinnerCustom());
+    // System.out.println(flywheelCustom());
+
   }
 }

@@ -45,7 +45,7 @@ public final class Constants {
     public static final double kaAuto = 0.48883;
     public static final double kpAuto = 2.945;
   // SHOOTER
-    public static final double kpShooter = 0.2;
+    public static final double kpShooter = 0.4;
     public static final double kiShooter = 0.5;
     public static final double kdShooter = 0.05;
     public static final double kfShooter = 1.0;//0.985;

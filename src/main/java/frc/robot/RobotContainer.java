@@ -23,6 +23,7 @@ import frc.robot.commands.drivetrain.TurnToTarget;
 import frc.robot.commands.intake.IntakeBalls;
 import frc.robot.commands.intake.ReverseIntake;
 import frc.robot.commands.shooter.ShootBalls;
+import frc.robot.commands.shooter.TestShoot;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -80,6 +81,7 @@ public class RobotContainer {
       private final Button farShootButton = new JoystickButton(stick, Constants.farShootButtonID);
       private final Button closeShootButton = new JoystickButton(stick, Constants.closeShootButtonID);
       private final Button shooterToggle = new JoystickButton(stick, Constants.shooterToggleButtonID);
+      private final Button testShootButton = new JoystickButton(stick, 4);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -125,8 +127,11 @@ public class RobotContainer {
         new ParallelCommandGroup(
           new ShootBalls(shooter, intake),
           new TurnToTarget(drivetrain, vision))));
+    
+    testShootButton.whileHeld(new TestShoot(shooter, intake));
   }
 
+    
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
