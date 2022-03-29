@@ -25,8 +25,8 @@ public class ShootBalls extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shootSubsystem);
     addRequirements(intakeSubsystem);
-    flywheelPID.setTolerance(100); //TODO: adjust this for better 2nd shot
-    backspinnerPID.setTolerance(100);
+    flywheelPID.setTolerance(200); //TODO: adjust this for better 2nd shot
+    backspinnerPID.setTolerance(200);
     flywheelPID.setIntegratorRange(0, 200);
   }
 
@@ -46,13 +46,13 @@ public class ShootBalls extends CommandBase {
     SmartDashboard.putNumber("flywheel setpoint", flywheelSetpoint);
 
     Shooter.setFlywheelRPM(
-      MathUtil.clamp(flywheelPID.calculate(Shooter.getFlywheelSpeed(), flywheelSetpoint), 0, 200)
+      MathUtil.clamp(flywheelPID.calculate(Shooter.getFlywheelSpeed(), flywheelSetpoint), 0, 100)
       + Constants.kfShooter*flywheelSetpoint
     );
     
 
     Shooter.setBackspinnerRPM(
-      MathUtil.clamp(backspinnerPID.calculate(Shooter.getBackspinnerSpeed(), backspinnerSetpoint), 0, 200)
+      MathUtil.clamp(backspinnerPID.calculate(Shooter.getBackspinnerSpeed(), backspinnerSetpoint), 0, 100)
       + Constants.kfShooter*backspinnerSetpoint
     );
 

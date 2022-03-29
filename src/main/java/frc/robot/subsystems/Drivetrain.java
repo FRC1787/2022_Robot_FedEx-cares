@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
@@ -49,6 +50,10 @@ public class Drivetrain extends SubsystemBase {
     odometry = new DifferentialDriveOdometry(gyro.getRotation2d());
 
     setAmpLimit(50);
+  }
+
+  public static double getAngle() {
+    return gyro.getAngle();
   }
 
   public static void setMotorIdleModes() {
@@ -249,7 +254,7 @@ public class Drivetrain extends SubsystemBase {
   public void periodic() {
     // Update odometry
     odometry.update(gyro.getRotation2d(), leftEncoderPosition(), rightEncoderPosition());
-    SmartDashboard.putNumber("gyro", getHeading());
+    SmartDashboard.putNumber("gyro", getAngle());
     setBlinkin(0.81-Math.abs(leftEncoderSpeed()+rightEncoderSpeed()/30));
     SmartDashboard.putBoolean("inAuto", Robot.inAuto);
   }

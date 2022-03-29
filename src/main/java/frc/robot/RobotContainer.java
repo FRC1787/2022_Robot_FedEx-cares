@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.climb.ClimbRoutine;
 import frc.robot.commands.climb.MoveArm;
 import frc.robot.commands.climb.TestClimb;
+import frc.robot.commands.drivetrain.AngleTurn;
 import frc.robot.commands.drivetrain.DriveArcade;
 import frc.robot.commands.drivetrain.TurnToTarget;
 import frc.robot.commands.intake.IntakeBalls;
@@ -30,6 +31,7 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Climb;
 import frc.robot.commands.autonomous.NonPathweaver;
+import frc.robot.commands.autonomous.ThreeBallNonPathweaver;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -56,7 +58,8 @@ public class RobotContainer {
 
   // COMMANDS
       public final static DriveArcade   driveArcade = new DriveArcade(drivetrain);
-
+  // public final static Command autoCommand = new ThreeBallNonPathweaver(drivetrain, intake, shooter, vision);
+     public final static Command autoCommand = new NonPathweaver(drivetrain, intake, shooter, vision);
   // Controllers
     public static Joystick stick = new Joystick(0);
     // public static XboxController stick = new XboxController(0);
@@ -128,7 +131,7 @@ public class RobotContainer {
           new ShootBalls(shooter, intake),
           new TurnToTarget(drivetrain, vision))));
     
-    testShootButton.whileHeld(new TestShoot(shooter, intake));
+    testShootButton.whenHeld(new AngleTurn(drivetrain, 180));
   }
 
     
@@ -139,7 +142,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return autoChooser.getSelected();
+    return autoCommand;
+    //return autoChooser.getSelected();
   }
 
   /**

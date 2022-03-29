@@ -8,6 +8,7 @@ import edu.wpi.first.math.trajectory.Trajectory;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Robot;
 import frc.robot.RobotContainer;
+import frc.robot.commands.drivetrain.AngleTurn;
 import frc.robot.commands.intake.IntakeBalls;
 import frc.robot.commands.shooter.ShootBalls;
 import frc.robot.subsystems.Drivetrain;
@@ -25,10 +26,7 @@ public class RouteOne extends SequentialCommandGroup {
     Trajectory trajectory2 = Robot.loadTrajectoryFromFile("Route1Cycle");
 
     addCommands(
-      RobotContainer.createCommandForTrajectory(trajectory1).withTimeout(3).withName("Trajectory1"),
-      new IntakeBalls(intake).withTimeout(3),
-      RobotContainer.createCommandForTrajectory(trajectory2).withTimeout(2).withName("Trajectory2"),
-      new ShootBalls(shooter, intake).withTimeout(5)
+      new AngleTurn(drivetrain, 180)
     );
   }
 }
