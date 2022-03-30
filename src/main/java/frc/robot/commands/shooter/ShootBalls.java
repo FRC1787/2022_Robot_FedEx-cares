@@ -25,9 +25,9 @@ public class ShootBalls extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shootSubsystem);
     addRequirements(intakeSubsystem);
-    flywheelPID.setTolerance(200); //TODO: adjust this for better 2nd shot
-    backspinnerPID.setTolerance(200);
-    flywheelPID.setIntegratorRange(0, 200);
+    flywheelPID.setTolerance(175); //TODO: adjust this for better 2nd shot
+    backspinnerPID.setTolerance(175);
+    flywheelPID.setIntegratorRange(0, 175);
   }
 
   // Called when the command is initially scheduled.

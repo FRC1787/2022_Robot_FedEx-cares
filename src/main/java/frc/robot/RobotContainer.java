@@ -58,8 +58,8 @@ public class RobotContainer {
 
   // COMMANDS
       public final static DriveArcade   driveArcade = new DriveArcade(drivetrain);
-  // public final static Command autoCommand = new ThreeBallNonPathweaver(drivetrain, intake, shooter, vision);
-     public final static Command autoCommand = new NonPathweaver(drivetrain, intake, shooter, vision);
+  public final static Command autoCommand = new ThreeBallNonPathweaver(drivetrain, intake, shooter, vision);
+    //  public final static Command autoCommand = new NonPathweaver(drivetrain, intake, shooter, vision);
   // Controllers
     public static Joystick stick = new Joystick(0);
     // public static XboxController stick = new XboxController(0);

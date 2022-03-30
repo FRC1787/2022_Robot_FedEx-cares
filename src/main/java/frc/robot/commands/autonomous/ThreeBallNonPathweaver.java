@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.AngleTurn;
 import frc.robot.commands.drivetrain.DriveForward;
-import frc.robot.commands.drivetrain.OneEighty;
 import frc.robot.commands.drivetrain.TurnToTarget;
 import frc.robot.commands.intake.IntakeBalls;
 import frc.robot.commands.shooter.ShootBalls;
@@ -29,20 +28,21 @@ public class ThreeBallNonPathweaver extends SequentialCommandGroup {
 
       new ParallelCommandGroup(
         new DriveForward(drivetrain).withTimeout(0.8),
-        new IntakeBalls(intake).withTimeout(1.75)
-      ),
-      new AngleTurn(drivetrain, -120),
-      new DriveForward(drivetrain).withTimeout(0.25),
+        new IntakeBalls(intake)
+      ).withTimeout(1.5),
+      new AngleTurn(drivetrain, -115),
+      new DriveForward(drivetrain).withTimeout(0.8),
       new ParallelCommandGroup(
         new ShootBalls(shooter, intake),
         new TurnToTarget(drivetrain, vision)
       ).withTimeout(2.5),
-      new AngleTurn(drivetrain, -17),
+      new AngleTurn(drivetrain, -28),
       new ParallelCommandGroup(
         new DriveForward(drivetrain),
         new IntakeBalls(intake)
-      ).withTimeout(2.25),
-      new AngleTurn(drivetrain, 65),
+      ).withTimeout(2.5),
+      new AngleTurn(drivetrain, 100),
+      new DriveForward(drivetrain).withTimeout(.8),
       new ParallelCommandGroup(
         new ShootBalls(shooter, intake),
         new TurnToTarget(drivetrain, vision)
