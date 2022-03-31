@@ -39,15 +39,47 @@ public class AllShot extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    
+    SmartDashboard.putNumber("flywheel lower bound", flywheelSetpoint-100);
+    SmartDashboard.putNumber("flywheel upper bound", flywheelSetpoint+100);
+    SmartDashboard.putNumber("flywheel setpoint", flywheelSetpoint);
+
+    Shooter.setFlywheelRPM(
+      MathUtil.clamp(flywheelPID.calculate(Shooter.getFlywheelSpeed(), flywheelSetpoint), 0, 100)
+      + Constants.kfShooter*flywheelSetpoint
+    );
+    
+
+    Shooter.setBackspinnerRPM(
+      MathUtil.clamp(backspinnerPID.calculate(Shooter.getBackspinnerSpeed(), backspinnerSetpoint), 0, 100)
+      + Constants.kfShooter*backspinnerSetpoint
+    );
+
+
+    if (flywheelPID.atSetpoint() && backspinnerPID.atSetpoint()) {
+      Shooter.setIndexerSpeed(0.4);
+      Intake.setKowalskiMotor(0.6);
+      Intake.setIntakeMotor(-0.6);
+    }
+    else {
+      Shooter.setIndexerSpeed(0);
+      Intake.stopAllMotors();
+    }
+
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    Shooter.stopAllMotors();
+    Intake.stopAllMotors();
+    Shooter.raiseShooter();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    //return (Shooter.isRaised && Vision.getLimelightA() == 0);
     return false;
   }
-}
