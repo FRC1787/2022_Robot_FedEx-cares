@@ -39,7 +39,7 @@ public class NonPathweaver extends SequentialCommandGroup {
       new DriveForward(drivetrain).withTimeout(1.5),
       new RaiseShooter(shooter),
       new ParallelCommandGroup(
-        new TurnToTarget(drivetrain, vision),
+        new TurnToTarget(drivetrain),
         new ShootBalls(shooter, intake).withTimeout(3)       
       )
     );

@@ -4,7 +4,9 @@
 
 package frc.robot.commands.shooter;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
@@ -20,12 +22,12 @@ public class AllShot extends CommandBase {
   private double flywheelSetpoint;
   private double backspinnerSetpoint;
   
-  public AllShot(Shooter shooter, Intake intake, Vision vision) {
+  public AllShot(Shooter shooter, Intake intake) {
     addRequirements(shooter);
     addRequirements(intake);
-    addRequirements(vision);
-    flywheelPID.setTolerance(175);
-    backspinnerPID.setTolerance(175);
+    
+    flywheelPID.setTolerance(100);
+    backspinnerPID.setTolerance(100);
 
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -46,13 +48,13 @@ public class AllShot extends CommandBase {
     SmartDashboard.putNumber("flywheel setpoint", flywheelSetpoint);
 
     Shooter.setFlywheelRPM(
-      MathUtil.clamp(flywheelPID.calculate(Shooter.getFlywheelSpeed(), flywheelSetpoint), 0, 100)
+      MathUtil.clamp(flywheelPID.calculate(Shooter.getFlywheelSpeed(), flywheelSetpoint), -75, 75)
       + Constants.kfShooter*flywheelSetpoint
     );
     
 
     Shooter.setBackspinnerRPM(
-      MathUtil.clamp(backspinnerPID.calculate(Shooter.getBackspinnerSpeed(), backspinnerSetpoint), 0, 100)
+      MathUtil.clamp(backspinnerPID.calculate(Shooter.getBackspinnerSpeed(), backspinnerSetpoint), -75, 75)
       + Constants.kfShooter*backspinnerSetpoint
     );
 
@@ -83,3 +85,4 @@ public class AllShot extends CommandBase {
     //return (Shooter.isRaised && Vision.getLimelightA() == 0);
     return false;
   }
+}

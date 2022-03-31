@@ -107,7 +107,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     //toggleLimelightButton.whenPressed(new ToggleLimelight(vision));
-    turnToTargetButton.whenActive(new TurnToTarget(drivetrain, vision));
+    turnToTargetButton.whenActive(new TurnToTarget(drivetrain));
 
     
     manualMoveArmButton.toggleWhenPressed(new TestClimb(climb));
@@ -129,9 +129,16 @@ public class RobotContainer {
       .andThen(
         new ParallelCommandGroup(
           new ShootBalls(shooter, intake),
-          new TurnToTarget(drivetrain, vision))));
+          new TurnToTarget(drivetrain))));
     
-    testShootButton.whenHeld(new AllShot(shooter, intake, vision));
+    testShootButton.whenHeld(
+      new InstantCommand(Shooter::raiseShooter, shooter)
+      .andThen(
+        new ParallelCommandGroup(
+          new TurnToTarget(drivetrain),
+          new AllShot(shooter, intake)
+        )
+      ));
   }
 
     

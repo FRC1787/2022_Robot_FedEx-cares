@@ -16,10 +16,9 @@ public class TurnToTarget extends CommandBase {
   PIDController controller = new PIDController(0.085, 0, 0.045);
   
 
-  public TurnToTarget(Drivetrain drivetrain, Vision visionSubsystem) {
+  public TurnToTarget(Drivetrain drivetrain) {
     controller.setTolerance(0.75); //TODO: try lowering this and tuning pid
     addRequirements(drivetrain);
-    addRequirements(visionSubsystem);
     // if (Robot.inAuto) {
     //   controller = new PIDController(0.10, 0, 0.02);
     // }
