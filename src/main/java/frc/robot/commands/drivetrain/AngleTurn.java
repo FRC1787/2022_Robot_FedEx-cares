@@ -9,6 +9,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
+
+/**
+ * Pass in an angle and the robot will turn there.
+ * HORRIBLY TUNED, ROBOT WILL WAY OVERSHOOT REAL ANGLE
+ * @param angle - Make this positive to turn right
+ */
 public class AngleTurn extends CommandBase {
   /** Creates a new AngleTurn. */
 

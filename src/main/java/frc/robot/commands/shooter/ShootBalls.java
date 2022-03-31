@@ -58,7 +58,7 @@ public class ShootBalls extends CommandBase {
 
 
     if (flywheelPID.atSetpoint() && backspinnerPID.atSetpoint()) {
-      Shooter.setIndexerSpeed(0.3);
+      Shooter.setIndexerSpeed(0.4);
       Intake.setKowalskiMotor(0.6);
       Intake.setIntakeMotor(-0.6);
     }

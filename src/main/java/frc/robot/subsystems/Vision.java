@@ -97,7 +97,7 @@ public class Vision extends SubsystemBase {
     x = tx.getDouble(0.0);
     y = ty.getDouble(0.0);
     double area = ta.getDouble(0.0);
-    distToTarget = ((Constants.tapeHeight - Constants.limelightHeight)/(Math.tan(Math.toRadians(y + Constants.limelightAngle))));
+    distToTarget = (Constants.targetHeight - Constants.limelightHeight)/(Math.tan(Math.toRadians(y + Constants.limelightAngle)))-Constants.limelightDistToFront;
 
     SmartDashboard.putNumber("Limelight Distance", distToTarget);
     SmartDashboard.putNumber("LimelightX", x);

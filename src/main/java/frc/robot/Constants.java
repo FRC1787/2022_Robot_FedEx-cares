@@ -54,9 +54,10 @@ public final class Constants {
 
   // VISION
   // Measurements for limelight
-    public static final double tapeHeight      = 81.0;
-    public static final double limelightHeight = 46.0;
+    public static final double targetHeight = 107.0; //TODO: CHANGE THIS TO 104 AT COMPETITION
+    public static final double limelightHeight = 32.0; //estimate
     public static final double limelightAngle  = 25.0;
+    public static final double limelightDistToFront = 18.0;
 
     public static int visionCameraWidth  = 160;
     public static int visionCameraHeight = 120;

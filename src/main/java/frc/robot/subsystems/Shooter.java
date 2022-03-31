@@ -61,11 +61,13 @@ public class Shooter extends SubsystemBase {
     .getEntry();
 
   public static double flywheelCustom() {
-    return Math.ceil(flywheelSpeed.getDouble(0));
+    //return Math.ceil(flywheelSpeed.getDouble(0));
+    return 3400;
   }
 
   public static double backspinnerCustom() {
-    return Math.ceil(backspinnerSpeed.getDouble(0));
+    //return Math.ceil(backspinnerSpeed.getDouble(0));
+    return 3550;
   }
 
 

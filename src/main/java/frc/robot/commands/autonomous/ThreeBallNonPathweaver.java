@@ -31,7 +31,7 @@ public class ThreeBallNonPathweaver extends SequentialCommandGroup {
         new IntakeBalls(intake)
       ).withTimeout(1.5),
       new AngleTurn(drivetrain, -115),
-      new DriveForward(drivetrain).withTimeout(0.8),
+      new DriveForward(drivetrain).withTimeout(0.65),
       new ParallelCommandGroup(
         new ShootBalls(shooter, intake),
         new TurnToTarget(drivetrain, vision)
@@ -41,8 +41,8 @@ public class ThreeBallNonPathweaver extends SequentialCommandGroup {
         new DriveForward(drivetrain),
         new IntakeBalls(intake)
       ).withTimeout(2.5),
-      new AngleTurn(drivetrain, 100),
-      new DriveForward(drivetrain).withTimeout(.8),
+      new AngleTurn(drivetrain, 90),
+      new DriveForward(drivetrain).withTimeout(1.1),
       new ParallelCommandGroup(
         new ShootBalls(shooter, intake),
         new TurnToTarget(drivetrain, vision)
