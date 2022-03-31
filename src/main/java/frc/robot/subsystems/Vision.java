@@ -13,8 +13,8 @@ public class Vision extends SubsystemBase {
 
   private static NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
-  public static double distToTarget = 0;
-  public static double x, y;
+  private static double distToTarget = 0;
+  private static double x, y;
 
   // private UsbCamera powerCellCam;
 
@@ -85,6 +85,17 @@ public class Vision extends SubsystemBase {
       //else return 3200;
     }
     return 3000;
+  }
+
+  public static double limelightDistance() {
+    return (Constants.targetHeight - Constants.limelightHeight)/(Math.tan(Math.toRadians(y + Constants.limelightAngle)))-Constants.limelightDistToFront;
+  }
+
+  public static double flywheelAllShotRPM() {
+    return (6.026 * limelightDistance()) + 2514;
+  }
+  public static double backspinnerAllShotRPM() {
+    return (5.98 * limelightDistance()) + 2711;
   }
 
   @Override
