@@ -23,6 +23,7 @@ import frc.robot.commands.drivetrain.DriveArcade;
 import frc.robot.commands.drivetrain.TurnToTarget;
 import frc.robot.commands.intake.IntakeBalls;
 import frc.robot.commands.intake.ReverseIntake;
+import frc.robot.commands.shooter.AllShot;
 import frc.robot.commands.shooter.ShootBalls;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
@@ -130,7 +131,7 @@ public class RobotContainer {
           new ShootBalls(shooter, intake),
           new TurnToTarget(drivetrain, vision))));
     
-    //testShootButton.whenHeld(new TestShoot(shooter));
+    testShootButton.whenHeld(new AllShot(shooter, intake, vision));
   }
 
     
