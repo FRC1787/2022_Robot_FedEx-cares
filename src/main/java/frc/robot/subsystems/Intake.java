@@ -24,9 +24,7 @@ public class Intake extends SubsystemBase {
     setRampRate(1);
     //kowalski.setIdleMode(IdleMode.kCoast); test this
     setIntake(DoubleSolenoid.Value.kReverse);
-
   }
-
   
   /**
   * Sets the state of the pneumatic cylinder via the connected solenoid
@@ -45,7 +43,6 @@ public class Intake extends SubsystemBase {
     intakePiston.set(state);
     setRampRate(0);
   }
-
 
   /**
    * Toggles intake solenoid.

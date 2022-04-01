@@ -31,6 +31,7 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Climb;
 import frc.robot.commands.autonomous.NonPathweaver;
+import frc.robot.commands.autonomous.ThreeBall180End;
 import frc.robot.commands.autonomous.ThreeBallNonPathweaver;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -84,7 +85,7 @@ public class RobotContainer {
       private final Button farShootButton = new JoystickButton(stick, Constants.farShootButtonID);
       private final Button closeShootButton = new JoystickButton(stick, Constants.closeShootButtonID);
       private final Button shooterToggle = new JoystickButton(stick, Constants.shooterToggleButtonID);
-      private final Button testShootButton = new JoystickButton(stick, 4);
+      // private final Button testShootButton = new JoystickButton(stick, 4);
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
@@ -93,8 +94,9 @@ public class RobotContainer {
     drivetrain.setDefaultCommand(driveArcade);
 
     // Adds autonomous routine options :D
-    autoChooser.setDefaultOption("Non-Pathweaver", new NonPathweaver(drivetrain, intake, shooter, vision));
-    //autoChooser.addOption("Three Ball Auto", new ThreeBallNonPathweaver(drivetrain, intake, shooter, vision));
+    autoChooser.setDefaultOption("3 ball turn", new ThreeBall180End(drivetrain, intake, shooter, vision));
+    autoChooser.addOption("3 ball no turn", new ThreeBallNonPathweaver(drivetrain, intake, shooter, vision));
+    autoChooser.addOption("two ball", new NonPathweaver(drivetrain, intake, shooter, vision));
     // Sends the routine options to SmartDashboard
     SmartDashboard.putData(autoChooser);
   }
@@ -128,17 +130,11 @@ public class RobotContainer {
       new InstantCommand(Shooter::raiseShooter, shooter)
       .andThen(
         new ParallelCommandGroup(
-          new ShootBalls(shooter, intake),
-          new TurnToTarget(drivetrain))));
-    
-    testShootButton.whenHeld(
-      new InstantCommand(Shooter::raiseShooter, shooter)
-      .andThen(
-        new ParallelCommandGroup(
-          new TurnToTarget(drivetrain),
-          new AllShot(shooter, intake)
+          new AllShot(shooter, intake),
+          new TurnToTarget(drivetrain)
         )
-      ));
+      )
+    );
   }
 
     
@@ -149,8 +145,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return autoCommand;
-    //return autoChooser.getSelected();
+    // return autoCommand;
+    return autoChooser.getSelected();
   }
 
   /**

@@ -4,6 +4,7 @@
 
 package frc.robot.commands.autonomous;
 
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.AngleTurn;
@@ -19,13 +20,12 @@ import frc.robot.subsystems.Vision;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ThreeBallNonPathweaver extends SequentialCommandGroup {
-  /** Creates a new ThreeBallNonPathweaver. */
-  public ThreeBallNonPathweaver(Drivetrain drivetrain, Intake intake, Shooter shooter, Vision vision) {
+public class ThreeBall180End extends SequentialCommandGroup {
+  /** Creates a new ThreeBall180End. */
+  public ThreeBall180End(Drivetrain drivetrain, Intake intake, Shooter shooter, Vision vision) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-
       new ParallelCommandGroup(
         new DriveForward(drivetrain).withTimeout(0.7),
         new IntakeBalls(intake)
@@ -46,9 +46,9 @@ public class ThreeBallNonPathweaver extends SequentialCommandGroup {
       new ParallelCommandGroup(
         new ShootBalls(shooter, intake),
         new TurnToTarget(drivetrain)
-      ).withTimeout(2.5)
-      
-      
+      ).withTimeout(2.5),
+      new AngleTurn(drivetrain, 130),
+      new DriveForward(drivetrain).withTimeout(1.8)
 
     );
   }

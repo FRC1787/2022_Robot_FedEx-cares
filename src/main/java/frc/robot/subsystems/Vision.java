@@ -10,41 +10,12 @@ import frc.robot.Robot;
 
 public class Vision extends SubsystemBase {
 
-
   private static NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
   private static double distToTarget = 0;
   private static double x, y;
 
-  // private UsbCamera powerCellCam;
-
-  // private CvSource outputStream;
-
-  // private CvSink powerCellFrameGrabber;
-
-  public Vision() {
-
-  //   //Initialize each camera with a channel and name, pushes non-processed images
-  //   powerCellCam = CameraServer.startAutomaticCapture("Camera", 0);
-
-  //   //Configure resoltuion, FPS, exposure, brightness and white-balance
-  //   configureCamera(powerCellCam, false);
-
-  //   //Initialize frame grabber used to grab individual frames from video stream to be processed later
-  //   powerCellFrameGrabber = CameraServer.getVideo(powerCellCam);
-
-  //   //Push processed or unprocessed frames
-  //   outputStream = CameraServer.putVideo("Processed Video", 160, 120);
-  
-  // }
-
-  // public void configureCamera(UsbCamera camera, boolean targetingCamera) {
-  //   camera.setResolution(160, 120);
-  //   camera.setFPS(15);
-  //   camera.setExposureAuto();
-  //   camera.setBrightness(40);
-  //   camera.setWhiteBalanceManual(WhiteBalance.kFixedIndoor);
-  }
+  public Vision() {}
 
   /**
    * Returns the x value of any target seen by the Limelight
@@ -114,6 +85,5 @@ public class Vision extends SubsystemBase {
     SmartDashboard.putNumber("LimelightX", x);
     SmartDashboard.putNumber("LimelightY", y);
     SmartDashboard.putNumber("LimelightArea", area);
-
   }
 }

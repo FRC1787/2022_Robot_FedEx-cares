@@ -11,7 +11,6 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
@@ -31,6 +30,7 @@ public class Shooter extends SubsystemBase {
   
   private static RelativeEncoder flywheelE = flywheel.getEncoder();
   private static RelativeEncoder backspinnerE = backspinner.getEncoder();
+  private static RelativeEncoder indexerE = indexer.getEncoder();
 
   private static DoubleSolenoid piston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.shooterPistonForwardID, Constants.shooterPistonReverseID);
 
@@ -42,10 +42,10 @@ public class Shooter extends SubsystemBase {
     backspinner.setOpenLoopRampRate(0);
     flywheelE.setVelocityConversionFactor(1.0);
     backspinnerE.setVelocityConversionFactor(1.0);
+    indexerE.setVelocityConversionFactor(1.0);
     flywheel.setInverted(true);
     piston.set(DoubleSolenoid.Value.kForward);
     isRaised=true;
-
   }
 
   private static NetworkTableEntry flywheelSpeed = Shuffleboard.getTab("AllShot")
@@ -69,8 +69,6 @@ public class Shooter extends SubsystemBase {
     return Math.ceil(backspinnerSpeed.getDouble(0));
     // return 3550;
   }
-
-
 
   /**
    * Sets the speed of the backspinner and flywheel motors
@@ -175,6 +173,9 @@ public class Shooter extends SubsystemBase {
     return flywheelE.getVelocity();
   }
 
+  public static double getIndexerSpeed() {
+    return indexerE.getVelocity();
+  }
   /**
    * Sets the speed of the flywheel motor using an RPM value
    * @param rpm - RPM speed to set for the motor
@@ -213,9 +214,8 @@ public class Shooter extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("backspinner speed", getBackspinnerSpeed());
     SmartDashboard.putNumber("flywheel speed", getFlywheelSpeed());
+    SmartDashboard.putNumber("indexer speed", getIndexerSpeed());
     SmartDashboard.putBoolean("isRaised", isRaised);
-    // System.out.println(backspinnerCustom());
-    // System.out.println(flywheelCustom());
 
   }
 }

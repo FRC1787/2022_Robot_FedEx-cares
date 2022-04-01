@@ -25,6 +25,7 @@ public class TurnToTarget extends CommandBase {
     // else {
       // controller = new PIDController(0.05, 0, 0.03);
     // }
+    controller.setSetpoint(3);
   }
 
   // Called when the command is initially scheduled.
@@ -37,8 +38,8 @@ public class TurnToTarget extends CommandBase {
   @Override
   public void execute() {
     Drivetrain.tankDrive(
-    -controller.calculate(Vision.getLimelightX(), 2),
-    controller.calculate(Vision.getLimelightX(), 2)
+    -controller.calculate(Vision.getLimelightX()),
+    controller.calculate(Vision.getLimelightX())
     );
   }
 

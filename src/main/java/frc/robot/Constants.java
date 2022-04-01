@@ -48,7 +48,7 @@ public final class Constants {
     public static final double kpShooter = 0.95; //0.65;
     public static final double kiShooter = 0.0;
     public static final double kdShooter = 0.05;
-    public static final double kfShooter = 0.995; //1.0;
+    public static final double kfShooter = 0.975; //1.0;
 
 
 
@@ -83,46 +83,46 @@ public final class Constants {
 
   // MOTOR & SOLENOID IDs
   // Drivetrain
-    public static final int l1MotorID          = 1;
-    public static final int l2MotorID          = 2;
-    public static final int r1MotorID          = 3;
-    public static final int r2MotorID          = 4;
+    public static final int l1MotorID = 1;
+    public static final int l2MotorID = 2;
+    public static final int r1MotorID = 3;
+    public static final int r2MotorID = 4;
   // Intake
-    public static final int intakeMotorID      = 5;
-    public static final int kowalksiMotorID    = 6; // da kowalksi :D
+    public static final int intakeMotorID = 5;
+    public static final int kowalksiMotorID = 6; // da kowalksi :D
   // Shooter
-    public static final int indexerMotorID     = 7;
-    public static final int flywheelMotorID    = 8;
+    public static final int indexerMotorID = 7;
+    public static final int flywheelMotorID = 8;
     public static final int backspinnerMotorID = 9;
   // Climb
-    public static final int armMotorID         = 10;
+    public static final int armMotorID = 10;
   // SOLENOIDS
-    public static final int armPistonFowardID          = 0;
-    public static final int armPistonReverseID         = 1;
-    public static final int shooterPistonReverseID     = 2;
-    public static final int shooterPistonForwardID     = 3;
-    public static final int leftIntakePistonFowardID   = 4;
-    public static final int leftIntakePistonReverseID  = 5;
+    public static final int armPistonFowardID = 0;
+    public static final int armPistonReverseID = 1;
+    public static final int shooterPistonReverseID = 2;
+    public static final int shooterPistonForwardID = 3;
+    public static final int leftIntakePistonFowardID = 4;
+    public static final int leftIntakePistonReverseID = 5;
 
 
 
   // BUTTON IDS
     // Camera
-      public static final int turnToTargetButtonID       = 8;
+      public static final int turnToTargetButtonID = 8;
     // Climb
-      public static final int manualMoveArmButtonID      = 11;
-      public static final int climbRoutineButtonID       = 12;
+      public static final int manualMoveArmButtonID = 11;
+      public static final int climbRoutineButtonID = 12;
       //needs to be implemented
       public static final int manualArmPneumaticButtonID = 7;
-      public static final int fullExtendButtonID         = 10;
-      public static final int fullRetractButtonID        = 9;
+      public static final int fullExtendButtonID = 10;
+      public static final int fullRetractButtonID = 9;
     // Drivetrain
 
     // Intake
-      public static final int intakeBallsButtonID        = 1;
-      public static final int reverseIntakeButtonID      = 5;
+      public static final int intakeBallsButtonID = 1;
+      public static final int reverseIntakeButtonID = 5;
     // Shooter     
-      public static final int closeShootButtonID         = 2;
-      public static final int farShootButtonID           = 3;
-      public static final int shooterToggleButtonID      = 6;
+      public static final int closeShootButtonID = 2;
+      public static final int farShootButtonID = 3;
+      public static final int shooterToggleButtonID = 6;
 }

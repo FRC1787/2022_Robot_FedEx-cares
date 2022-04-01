@@ -43,21 +43,25 @@ public class AllShot extends CommandBase {
   @Override
   public void execute() {
     
+    flywheelPID.setSetpoint(flywheelSetpoint);
+    backspinnerPID.setSetpoint(backspinnerSetpoint);
+
     SmartDashboard.putNumber("flywheel lower bound", flywheelSetpoint-100);
     SmartDashboard.putNumber("flywheel upper bound", flywheelSetpoint+100);
     SmartDashboard.putNumber("flywheel setpoint", flywheelSetpoint);
 
     Shooter.setFlywheelRPM(
-      MathUtil.clamp(flywheelPID.calculate(Shooter.getFlywheelSpeed(), flywheelSetpoint), -75, 75)
+      MathUtil.clamp(flywheelPID.calculate(Shooter.getFlywheelSpeed()), -100, 100)
       + Constants.kfShooter*flywheelSetpoint
     );
     
 
     Shooter.setBackspinnerRPM(
-      MathUtil.clamp(backspinnerPID.calculate(Shooter.getBackspinnerSpeed(), backspinnerSetpoint), -75, 75)
+      MathUtil.clamp(backspinnerPID.calculate(Shooter.getBackspinnerSpeed()), -100, 100)
       + Constants.kfShooter*backspinnerSetpoint
     );
 
+    SmartDashboard.putNumber("pid output", flywheelPID.calculate(Shooter.getFlywheelSpeed()));
 
     if (flywheelPID.atSetpoint() && backspinnerPID.atSetpoint()) {
       Shooter.setIndexerSpeed(0.4);
