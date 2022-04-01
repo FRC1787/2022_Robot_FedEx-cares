@@ -6,7 +6,6 @@ package frc.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.drivetrain.AngleTurn;
 import frc.robot.commands.drivetrain.DriveForward;
 import frc.robot.commands.drivetrain.TurnToTarget;

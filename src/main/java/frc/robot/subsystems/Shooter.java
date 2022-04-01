@@ -192,6 +192,9 @@ public class Shooter extends SubsystemBase {
     backspinner.set(rpm*0.000187 - 0.00259);
   }
 
+  public static void setIndexerRPM(double rpm) {
+    indexer.set(rpm*0.000182 + 0.0102);
+  }
   public static void stopAllMotors() {
     setFlywheelSpeed(0);
     setIndexerSpeed(0);
@@ -215,7 +218,6 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putNumber("backspinner speed", getBackspinnerSpeed());
     SmartDashboard.putNumber("flywheel speed", getFlywheelSpeed());
     SmartDashboard.putNumber("indexer speed", getIndexerSpeed());
-    SmartDashboard.putBoolean("isRaised", isRaised);
 
   }
 }

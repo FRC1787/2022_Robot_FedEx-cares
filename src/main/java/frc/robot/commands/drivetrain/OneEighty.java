@@ -6,7 +6,6 @@ package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
@@ -32,8 +31,6 @@ public class OneEighty extends CommandBase {
   public void initialize() {
     // Drivetrain.resetGyro();
     tx = Drivetrain.getHeading() * -1;
-    SmartDashboard.putNumber("gyroInital", Drivetrain.getHeading());
-    SmartDashboard.putNumber("gyroTX", tx);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

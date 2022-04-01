@@ -4,7 +4,6 @@
 
 package frc.robot.commands.climb;
 
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.Climb;
@@ -34,9 +33,6 @@ public class TestClimb extends CommandBase {
       if (!Climb.isExtended()) Climb.setArm(sliderValue);
       else Climb.setArm(0);
     }
-
-    SmartDashboard.putNumber("sliderValue" , sliderValue);
-
   }
 
   // Called once the command ends or is interrupted.

@@ -5,7 +5,6 @@
 package frc.robot.commands.drivetrain;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
@@ -43,9 +42,6 @@ public class AngleTurn extends CommandBase {
   @Override
   public void execute() {
     controller.calculate(Drivetrain.getAngle());
-    SmartDashboard.putNumber("initAngle", initAngle);
-    SmartDashboard.putNumber("targetAngle", initAngle+angle);
-    SmartDashboard.putBoolean("atSetpoint", controller.atSetpoint());
   }
 
   // Called once the command ends or is interrupted.

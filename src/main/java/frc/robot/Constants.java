@@ -58,16 +58,23 @@ public final class Constants {
     public static final double limelightHeight = 32.0; //estimate
     public static final double limelightAngle  = 25.0;
     public static final double limelightDistToFront = 18.0;
-
-    public static int visionCameraWidth  = 160;
-    public static int visionCameraHeight = 120;
   
     // limelight PID values
     public static final double lookToTargetP = 0.05;
     public static final double lookToTargetI = 0.00;
     public static final double lookToTargetD = 0.00;
 
+  // SHOOTER
+  // Flywheel
+    public static final double flywheelM = 6.026;
+    public static final double flywheelB = 0;
 
+  // Backspinner
+    public static final double backspinnerM = 0;
+    public static final double backspinnerB = 0;
+  
+  // Indexer
+    
   // MOTOR VOLTAGE PERCENTAGES
   // Climb
 

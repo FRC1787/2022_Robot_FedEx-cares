@@ -6,7 +6,6 @@ package frc.robot.commands.shooter;
 
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
@@ -18,7 +17,9 @@ public class AllShot extends CommandBase {
 
   PIDController flywheelPID = new PIDController(Constants.kpShooter, Constants.kiShooter, Constants.kdShooter);
   PIDController backspinnerPID = new PIDController(Constants.kpShooter, Constants.kiShooter, Constants.kdShooter);
+  PIDController indexerPID = new PIDController(Constants.kpShooter, Constants.kiShooter, Constants.kdShooter);
 
+  public double indexerSetpoint = 3600;
   private double flywheelSetpoint;
   private double backspinnerSetpoint;
   
@@ -28,6 +29,7 @@ public class AllShot extends CommandBase {
     
     flywheelPID.setTolerance(100);
     backspinnerPID.setTolerance(100);
+    indexerPID.setTolerance(100);
 
     // Use addRequirements() here to declare subsystem dependencies.
   }
@@ -46,10 +48,6 @@ public class AllShot extends CommandBase {
     flywheelPID.setSetpoint(flywheelSetpoint);
     backspinnerPID.setSetpoint(backspinnerSetpoint);
 
-    SmartDashboard.putNumber("flywheel lower bound", flywheelSetpoint-100);
-    SmartDashboard.putNumber("flywheel upper bound", flywheelSetpoint+100);
-    SmartDashboard.putNumber("flywheel setpoint", flywheelSetpoint);
-
     Shooter.setFlywheelRPM(
       MathUtil.clamp(flywheelPID.calculate(Shooter.getFlywheelSpeed()), -100, 100)
       + Constants.kfShooter*flywheelSetpoint
@@ -61,10 +59,12 @@ public class AllShot extends CommandBase {
       + Constants.kfShooter*backspinnerSetpoint
     );
 
-    SmartDashboard.putNumber("pid output", flywheelPID.calculate(Shooter.getFlywheelSpeed()));
 
     if (flywheelPID.atSetpoint() && backspinnerPID.atSetpoint()) {
-      Shooter.setIndexerSpeed(0.4);
+      Shooter.setIndexerRPM(
+        MathUtil.clamp(indexerPID.calculate(Shooter.getFlywheelSpeed()), -100, 100)
+        + Constants.kfShooter*indexerSetpoint
+      );
       Intake.setKowalskiMotor(0.6);
       Intake.setIntakeMotor(-0.6);
     }

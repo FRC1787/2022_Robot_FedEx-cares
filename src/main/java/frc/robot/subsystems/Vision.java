@@ -13,7 +13,8 @@ public class Vision extends SubsystemBase {
   private static NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
   private static double distToTarget = 0;
-  private static double x, y;
+  private static double x;
+  private static double y;
 
   public Vision() {}
 
@@ -62,8 +63,9 @@ public class Vision extends SubsystemBase {
     return (Constants.targetHeight - Constants.limelightHeight)/(Math.tan(Math.toRadians(y + Constants.limelightAngle)))-Constants.limelightDistToFront;
   }
 
+  // y = mx + b :D
   public static double flywheelAllShotRPM() {
-    return (6.026 * limelightDistance()) + 2514;
+    return (Constants.flywheelM * limelightDistance()) + 2514;
   }
   public static double backspinnerAllShotRPM() {
     return (5.98 * limelightDistance()) + 2711;
@@ -82,8 +84,5 @@ public class Vision extends SubsystemBase {
     distToTarget = (Constants.targetHeight - Constants.limelightHeight)/(Math.tan(Math.toRadians(y + Constants.limelightAngle)))-Constants.limelightDistToFront;
 
     SmartDashboard.putNumber("Limelight Distance", distToTarget);
-    SmartDashboard.putNumber("LimelightX", x);
-    SmartDashboard.putNumber("LimelightY", y);
-    SmartDashboard.putNumber("LimelightArea", area);
   }
 }

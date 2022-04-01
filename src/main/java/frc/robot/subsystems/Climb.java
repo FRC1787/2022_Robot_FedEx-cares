@@ -10,7 +10,6 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -99,12 +98,5 @@ public class Climb extends SubsystemBase {
   }
 
   @Override
-  public void periodic() {
-    //continually updates extendState using the reed switch and two magnets on each end of the arm
-    SmartDashboard.putBoolean("isExtended", isExtended());
-    SmartDashboard.putBoolean("isRetracted", isRetracted());
-    SmartDashboard.putBoolean("bottomLimitSwitchGet", bottomLimitSwitch.get());
-    SmartDashboard.putBoolean("topLimitSwitchGet", topLimitSwitch.get());
-    SmartDashboard.putNumber("armget", arm.get());
-  }
+  public void periodic() {}
 }
