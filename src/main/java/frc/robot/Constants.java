@@ -54,7 +54,7 @@ public final class Constants {
 
   // VISION
   // Measurements for limelight
-    public static final double targetHeight = 107.0; //TODO: CHANGE THIS TO 104 AT COMPETITION
+    public static final double targetHeight = 104.0; //TODO: CHANGE THIS TO 104 AT COMPETITION
     public static final double limelightHeight = 32.0; //estimate
     public static final double limelightAngle  = 25.0;
     public static final double limelightDistToFront = 18.0;
@@ -65,15 +65,21 @@ public final class Constants {
     public static final double lookToTargetD = 0.00;
 
   // SHOOTER
+  // TODO: ensure shooter doesnt overshoot at comp
   // Flywheel
     public static final double flywheelM = 6.026;
-    public static final double flywheelB = 0;
+    public static final double flywheelB = 2514;
 
   // Backspinner
-    public static final double backspinnerM = 0;
-    public static final double backspinnerB = 0;
+    public static final double backspinnerM = 5.98;
+    public static final double backspinnerB = 2711;
   
   // Indexer
+    public static final double indexerSetpoint = 3600; // its like 200 rpm lower in practice because i didnt have time to tune pid lol
+
+    public static final double indexerP = 0; // i will
+    public static final double indexerI = 0; // add these
+    public static final double indexerD = 0; // values later
     
   // MOTOR VOLTAGE PERCENTAGES
   // Climb

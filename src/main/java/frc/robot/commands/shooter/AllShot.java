@@ -19,7 +19,6 @@ public class AllShot extends CommandBase {
   PIDController backspinnerPID = new PIDController(Constants.kpShooter, Constants.kiShooter, Constants.kdShooter);
   PIDController indexerPID = new PIDController(Constants.kpShooter, Constants.kiShooter, Constants.kdShooter);
 
-  public double indexerSetpoint = 3600;
   private double flywheelSetpoint;
   private double backspinnerSetpoint;
   
@@ -63,7 +62,7 @@ public class AllShot extends CommandBase {
     if (flywheelPID.atSetpoint() && backspinnerPID.atSetpoint()) {
       Shooter.setIndexerRPM(
         MathUtil.clamp(indexerPID.calculate(Shooter.getFlywheelSpeed()), -100, 100)
-        + Constants.kfShooter*indexerSetpoint
+        + Constants.kfShooter*Constants.indexerSetpoint
       );
       Intake.setKowalskiMotor(0.6);
       Intake.setIntakeMotor(-0.6);

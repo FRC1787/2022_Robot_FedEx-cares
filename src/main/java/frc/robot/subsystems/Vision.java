@@ -65,10 +65,10 @@ public class Vision extends SubsystemBase {
 
   // y = mx + b :D
   public static double flywheelAllShotRPM() {
-    return (Constants.flywheelM * limelightDistance()) + 2514;
+    return (Constants.flywheelM * limelightDistance()) + Constants.flywheelB;
   }
   public static double backspinnerAllShotRPM() {
-    return (5.98 * limelightDistance()) + 2711;
+    return (Constants.backspinnerM * limelightDistance()) + Constants.backspinnerB;
   }
 
   @Override
