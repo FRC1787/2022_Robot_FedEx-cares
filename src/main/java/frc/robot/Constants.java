@@ -23,6 +23,10 @@ public final class Constants {
   public static final boolean floppyDiskIsACoolRobot       = true;
 
 
+  // CAMERA
+    public static int cameraWidth = 120;
+    public static int cameraHeight = 60;
+    public static int cameraFPS = 18;
 
   //AUTO & trajectory
   //we probably should put units on all of these variable names for clarity
@@ -75,11 +79,11 @@ public final class Constants {
     public static final double backspinnerB = 2711;
   
   // Indexer
-    public static final double indexerSetpoint = 3600; // its like 200 rpm lower in practice because i didnt have time to tune pid lol
+    public static final double indexerSetpoint = 1000; // its like 200 rpm lower in practice because i didnt have time to tune pid lol
 
-    public static final double indexerP = 0; // i will
-    public static final double indexerI = 0; // add these
-    public static final double indexerD = 0; // values later
+    public static final double indexerP = 1.25;
+    public static final double indexerI = 0;
+    public static final double indexerD = 0;
     
   // MOTOR VOLTAGE PERCENTAGES
   // Climb

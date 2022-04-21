@@ -6,6 +6,10 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.Constants;
+import edu.wpi.first.cscore.CvSink;
+import edu.wpi.first.cscore.CvSource;
+import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import frc.robot.Robot;
 
 public class Vision extends SubsystemBase {
@@ -16,7 +20,15 @@ public class Vision extends SubsystemBase {
   private static double x;
   private static double y;
 
-  public Vision() {}
+  // private static UsbCamera camera = new UsbCamera(name, path);
+
+  public Vision() {
+  
+    // // make sure this doesnt break stuff
+    // CameraServer.startAutomaticCapture();
+    // CvSink cvSinkVideo = CameraServer.getVideo();
+    // CvSource outputVideo = CameraServer.putVideo("USB Camera", Constants.cameraWidth, Constants.cameraHeight);
+  }
 
   /**
    * Returns the x value of any target seen by the Limelight
@@ -41,22 +53,37 @@ public class Vision extends SubsystemBase {
   }
 
   public static double calculateFlywheelRPM() {
-    //find regression formula here
+
+    // return 0;
+
     if (Shooter.isRaised) {
-      if (Robot.inAuto) return 2950; //auto shot
-      return 3600; //launchpad shot
-      //else return 3100; //tarmac shot
+      return flywheelAllShotRPM();
     }
-    return 2850; //up close shot
+    else return 2850;
+
+    // //find regression formula here
+    // if (Shooter.isRaised) {
+    //   if (Robot.inAuto) return 2950; //auto shot
+    //   return 3600; //launchpad shot
+    //   //else return 3100; //tarmac shot
+    // }
+    // return 2850; //up close shot
   }
 
   public static double calculateBackspinnerRPM() {
+
+
     if (Shooter.isRaised) {
-      if (Robot.inAuto) return 3150;
-      return 3750;
-      //else return 3200;
+      return backspinnerAllShotRPM();
     }
-    return 3000;
+    else return 3000;
+
+    // if (Shooter.isRaised) {
+    //   if (Robot.inAuto) return 3150;
+    //   return 3750;
+    //   //else return 3200;
+    // }
+    // return 3000;
   }
 
   public static double limelightDistance() {

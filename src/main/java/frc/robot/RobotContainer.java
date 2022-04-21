@@ -22,7 +22,6 @@ import frc.robot.commands.drivetrain.DriveArcade;
 import frc.robot.commands.drivetrain.TurnToTarget;
 import frc.robot.commands.intake.IntakeBalls;
 import frc.robot.commands.intake.ReverseIntake;
-import frc.robot.commands.shooter.AllShot;
 import frc.robot.commands.shooter.ShootBalls;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
@@ -96,6 +95,7 @@ public class RobotContainer {
     autoChooser.setDefaultOption("3 ball turn", new ThreeBall180End(drivetrain, intake, shooter, vision));
     autoChooser.addOption("3 ball no turn", new ThreeBallNonPathweaver(drivetrain, intake, shooter, vision));
     autoChooser.addOption("two ball", new NonPathweaver(drivetrain, intake, shooter, vision));
+    autoChooser.addOption("none", null);
     // Sends the routine options to SmartDashboard
     SmartDashboard.putData(autoChooser);
   }
@@ -129,7 +129,7 @@ public class RobotContainer {
       new InstantCommand(Shooter::raiseShooter, shooter)
       .andThen(
         new ParallelCommandGroup(
-          new AllShot(shooter, intake),
+          new ShootBalls(shooter, intake),
           new TurnToTarget(drivetrain)
         )
       )

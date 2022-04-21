@@ -218,6 +218,7 @@ public class Shooter extends SubsystemBase {
     SmartDashboard.putNumber("backspinner speed", getBackspinnerSpeed());
     SmartDashboard.putNumber("flywheel speed", getFlywheelSpeed());
     SmartDashboard.putNumber("indexer speed", getIndexerSpeed());
+    SmartDashboard.putNumber("indexer setpoint", Constants.indexerSetpoint);
 
   }
 }
