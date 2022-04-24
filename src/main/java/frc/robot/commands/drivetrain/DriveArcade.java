@@ -19,7 +19,7 @@ public class DriveArcade extends CommandBase {
   @Override
   public void initialize() {}
 
-  public double deadzone(double num) {
+  private double deadzone(double num) {
     return Math.abs(num) > 0.02 ? num : 0;
   }
 

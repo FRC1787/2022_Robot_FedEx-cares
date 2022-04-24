@@ -56,7 +56,7 @@ public class RobotContainer {
 
 
   // COMMANDS
-      public final static DriveArcade   driveArcade = new DriveArcade(drivetrain);
+  public final static DriveArcade driveArcade = new DriveArcade(drivetrain);
   public final static Command autoCommand = new ThreeBallNonPathweaver(drivetrain, intake, shooter, vision);
     //  public final static Command autoCommand = new NonPathweaver(drivetrain, intake, shooter, vision);
   // Controllers
@@ -145,7 +145,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // return autoCommand;
-    return autoChooser.getSelected();
+    return autoChooser.getSelected().andThen(() -> Drivetrain.tankDrive(0, 0));
   }
 
   /**
