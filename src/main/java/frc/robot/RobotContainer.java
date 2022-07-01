@@ -61,7 +61,7 @@ public class RobotContainer {
     //  public final static Command autoCommand = new NonPathweaver(drivetrain, intake, shooter, vision);
   // Controllers
     public static Joystick stick = new Joystick(0);
-    // public static XboxController stick = new XboxController(0);
+    public static XboxController brick = new XboxController(1);
 
   // Button Bindings
     // Camera
