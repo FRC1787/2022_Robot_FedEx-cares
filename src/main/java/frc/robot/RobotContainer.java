@@ -22,7 +22,6 @@ import frc.robot.commands.drivetrain.DriveArcade;
 import frc.robot.commands.drivetrain.TurnToTarget;
 import frc.robot.commands.intake.IntakeBalls;
 import frc.robot.commands.intake.ReverseIntake;
-import frc.robot.commands.shooter.AllShot;
 import frc.robot.commands.shooter.ShootBalls;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
@@ -129,7 +128,7 @@ public class RobotContainer {
       new InstantCommand(Shooter::raiseShooter, shooter)
       .andThen(
         new ParallelCommandGroup(
-          new AllShot(shooter, intake),
+          new ShootBalls(shooter, intake),
           new TurnToTarget(drivetrain)
         )
       )
@@ -177,12 +176,6 @@ public class RobotContainer {
       rightController,
       (leftVolts, rightVolts) -> {
         Drivetrain.tankDrive(leftVolts, rightVolts);
-
-        SmartDashboard.putNumber("left measurement", Drivetrain.leftEncoderSpeed());
-        SmartDashboard.putNumber("left reference", leftController.getSetpoint());
-
-        SmartDashboard.putNumber("right measurement", Drivetrain.rightEncoderSpeed());
-        SmartDashboard.putNumber("right reference", rightController.getSetpoint());
       },
       drivetrain
     );

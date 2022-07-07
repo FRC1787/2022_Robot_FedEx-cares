@@ -27,33 +27,37 @@ public class ShootBalls extends CommandBase {
     flywheelPID.setTolerance(100); //TODO: adjust this for better 2nd shot
     backspinnerPID.setTolerance(100);
     flywheelPID.setIntegratorRange(0, 175);
+    backspinnerPID.setIntegratorRange(0, 175);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    flywheelSetpoint = Vision.calculateFlywheelRPM(); //function will change depending on threshold
-    backspinnerSetpoint = Vision.calculateBackspinnerRPM();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    flywheelSetpoint = Vision.calculateFlywheelRPM();
+    backspinnerSetpoint = Vision.calculateBackspinnerRPM();
+
+    flywheelPID.setSetpoint(flywheelSetpoint);
+    backspinnerPID.setSetpoint(backspinnerSetpoint);
 
     Shooter.setFlywheelRPM(
-      MathUtil.clamp(flywheelPID.calculate(Shooter.getFlywheelSpeed(), flywheelSetpoint), -75, 75)
+      MathUtil.clamp(flywheelPID.calculate(Shooter.getFlywheelSpeed()), -100, 100)
       + Constants.kfShooter*flywheelSetpoint
     );
     
 
     Shooter.setBackspinnerRPM(
-      MathUtil.clamp(backspinnerPID.calculate(Shooter.getBackspinnerSpeed(), backspinnerSetpoint), -75, 75)
+      MathUtil.clamp(backspinnerPID.calculate(Shooter.getBackspinnerSpeed()), -100, 100)
       + Constants.kfShooter*backspinnerSetpoint
     );
 
 
     if (flywheelPID.atSetpoint() && backspinnerPID.atSetpoint()) {
-      Shooter.setIndexerSpeed(0.4);
+      Shooter.setIndexerSpeed(0.4); //make this pid
       Intake.setKowalskiMotor(0.6);
       Intake.setIntakeMotor(-0.6);
     }

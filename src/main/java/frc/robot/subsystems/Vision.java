@@ -41,34 +41,34 @@ public class Vision extends SubsystemBase {
   }
 
   public static double calculateFlywheelRPM() {
-    //find regression formula here
-    if (Shooter.isRaised) {
-      if (Robot.inAuto) return 2950; //auto shot
-      return 3600; //launchpad shot
-      //else return 3100; //tarmac shot
-    }
-    return 2850; //up close shot
+  
+    if (Shooter.isRaised)  
+      return (Constants.flywheelM * limelightDistance()) + Constants.flywheelB;
+    else return 2850;
+
+    // if (Shooter.isRaised) {
+    //   if (Robot.inAuto) return 2950; //auto shot
+    //   return 3600; //launchpad shot
+    //   //else return 3100; //tarmac shot
+    // }
+    // return 2850; //up close shot
   }
 
   public static double calculateBackspinnerRPM() {
-    if (Shooter.isRaised) {
-      if (Robot.inAuto) return 3150;
-      return 3750;
-      //else return 3200;
-    }
-    return 3000;
+    if (Shooter.isRaised)
+      return (Constants.backspinnerM * limelightDistance()) + Constants.backspinnerB;
+    else return 3000;
+
+    // if (Shooter.isRaised) {
+    //   if (Robot.inAuto) return 3150;
+    //   return 3750;
+    //   //else return 3200;
+    // }
+    // return 3000;
   }
 
   public static double limelightDistance() {
     return (Constants.targetHeight - Constants.limelightHeight)/(Math.tan(Math.toRadians(y + Constants.limelightAngle)))-Constants.limelightDistToFront;
-  }
-
-  // y = mx + b :D
-  public static double flywheelAllShotRPM() {
-    return (Constants.flywheelM * limelightDistance()) + Constants.flywheelB;
-  }
-  public static double backspinnerAllShotRPM() {
-    return (Constants.backspinnerM * limelightDistance()) + Constants.backspinnerB;
   }
 
   @Override

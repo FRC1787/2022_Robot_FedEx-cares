@@ -252,7 +252,6 @@ public class Drivetrain extends SubsystemBase {
   public void periodic() {
     // Update odometry
     odometry.update(gyro.getRotation2d(), leftEncoderPosition(), rightEncoderPosition());
-    SmartDashboard.putNumber("gyro", getAngle());
     setBlinkin(0.81-Math.abs(leftEncoderSpeed()+rightEncoderSpeed()/30));
   }
 }
