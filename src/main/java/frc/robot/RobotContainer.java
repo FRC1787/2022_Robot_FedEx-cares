@@ -56,12 +56,12 @@ public class RobotContainer {
 
 
   // COMMANDS
-      public final static DriveArcade   driveArcade = new DriveArcade(drivetrain);
+  public final static DriveArcade driveArcade = new DriveArcade(drivetrain);
   public final static Command autoCommand = new ThreeBallNonPathweaver(drivetrain, intake, shooter, vision);
     //  public final static Command autoCommand = new NonPathweaver(drivetrain, intake, shooter, vision);
   // Controllers
     public static Joystick stick = new Joystick(0);
-    // public static XboxController stick = new XboxController(0);
+    public static XboxController brick = new XboxController(1);
 
   // Button Bindings
     // Camera
@@ -95,6 +95,7 @@ public class RobotContainer {
     autoChooser.setDefaultOption("3 ball turn", new ThreeBall180End(drivetrain, intake, shooter, vision));
     autoChooser.addOption("3 ball no turn", new ThreeBallNonPathweaver(drivetrain, intake, shooter, vision));
     autoChooser.addOption("two ball", new NonPathweaver(drivetrain, intake, shooter, vision));
+    autoChooser.addOption("none", null);
     // Sends the routine options to SmartDashboard
     SmartDashboard.putData(autoChooser);
   }
@@ -144,7 +145,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // return autoCommand;
-    return autoChooser.getSelected();
+    return autoChooser.getSelected().andThen(() -> Drivetrain.tankDrive(0, 0));
   }
 
   /**

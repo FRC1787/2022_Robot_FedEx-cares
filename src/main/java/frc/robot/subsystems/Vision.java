@@ -6,7 +6,6 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import frc.robot.Constants;
-import frc.robot.Robot;
 
 public class Vision extends SubsystemBase {
 
@@ -16,7 +15,15 @@ public class Vision extends SubsystemBase {
   private static double x;
   private static double y;
 
-  public Vision() {}
+  // private static UsbCamera camera = new UsbCamera(name, path);
+
+  public Vision() {
+  
+    // // make sure this doesnt break stuff
+    // CameraServer.startAutomaticCapture();
+    // CvSink cvSinkVideo = CameraServer.getVideo();
+    // CvSource outputVideo = CameraServer.putVideo("USB Camera", Constants.cameraWidth, Constants.cameraHeight);
+  }
 
   /**
    * Returns the x value of any target seen by the Limelight

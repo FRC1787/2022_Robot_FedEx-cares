@@ -19,18 +19,20 @@ public class DriveArcade extends CommandBase {
   @Override
   public void initialize() {}
 
-  public double deadzone(double num) {
+  private double deadzone(double num) {
     return Math.abs(num) > 0.02 ? num : 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double y = RobotContainer.stick.getY();
-    double x = RobotContainer.stick.getX();
+    double stickY = RobotContainer.stick.getY();
+    double stickX = RobotContainer.stick.getX();
+    double brickY = RobotContainer.brick.getLeftY();
+    double brickX = RobotContainer.brick.getLeftX();
 
-    double linearSpeed = Math.signum(y)*Math.pow(deadzone(y), 2);
-    double angularSpeed = Math.signum(x)*Math.pow(deadzone(x), 2);
+    double linearSpeed = Math.signum(stickY)*Math.pow(deadzone(stickY), 2) + Math.pow(deadzone(brickY), 3);
+    double angularSpeed = Math.signum(stickX)*Math.pow(deadzone(stickX), 2) + Math.pow(deadzone(brickX), 3);
 
     Drivetrain.moveLeftSide(-linearSpeed + angularSpeed);
     Drivetrain.moveRightSide(-linearSpeed - angularSpeed);

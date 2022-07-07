@@ -26,7 +26,7 @@ public class ThreeBall180End extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new ParallelCommandGroup(
-        new DriveForward(drivetrain).withTimeout(0.7),
+        new DriveForward(drivetrain).withTimeout(0.8),
         new IntakeBalls(intake)
       ).withTimeout(1.5),
       new AngleTurn(drivetrain, -115),
@@ -35,19 +35,19 @@ public class ThreeBall180End extends SequentialCommandGroup {
         new ShootBalls(shooter, intake),
         new TurnToTarget(drivetrain)
       ).withTimeout(2.5),
-      new AngleTurn(drivetrain, -28),
+      new AngleTurn(drivetrain, -37),
       new ParallelCommandGroup(
         new DriveForward(drivetrain),
         new IntakeBalls(intake)
       ).withTimeout(2.5),
-      new AngleTurn(drivetrain, 90),
-      new DriveForward(drivetrain).withTimeout(1.1),
+      new AngleTurn(drivetrain, 85),
+      // new DriveForward(drivetrain).withTimeout(1.1),
       new ParallelCommandGroup(
         new ShootBalls(shooter, intake),
         new TurnToTarget(drivetrain)
       ).withTimeout(2.5),
-      new AngleTurn(drivetrain, 130),
-      new DriveForward(drivetrain).withTimeout(1.8)
+      new AngleTurn(drivetrain, 130)
+      // new DriveForward(drivetrain).withTimeout(1.8)
 
     );
   }

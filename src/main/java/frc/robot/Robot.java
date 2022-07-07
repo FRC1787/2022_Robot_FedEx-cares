@@ -47,10 +47,14 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     
     inAuto=false;
+    
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
     Drivetrain.calibrateGyro();
+    
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+    
     try {
       Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
       trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
@@ -96,12 +100,14 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
-    
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
     inAuto=false;
   }
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
+  }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
@@ -134,7 +140,6 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
 
     inAuto=false;
-
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
     Drivetrain.resetEncoders();
 
