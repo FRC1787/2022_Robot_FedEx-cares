@@ -2,6 +2,14 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import java.util.List;
+
+import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonUtils;
+import org.photonvision.targeting.PhotonPipelineResult;
+import org.photonvision.targeting.PhotonTrackedTarget;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -9,42 +17,21 @@ import frc.robot.Constants;
 
 public class Vision extends SubsystemBase {
 
-  private static NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
-
-  private static double distToTarget = 0;
-  private static double x;
-  private static double y;
-
-  // private static UsbCamera camera = new UsbCamera(name, path);
+  private static PhotonCamera limelight = new PhotonCamera("ballcamera");;
+  private static PhotonPipelineResult result;
+  private static double yaw, pitch, area;
 
   public Vision() {
   
-    // // make sure this doesnt break stuff
-    // CameraServer.startAutomaticCapture();
-    // CvSink cvSinkVideo = CameraServer.getVideo();
-    // CvSource outputVideo = CameraServer.putVideo("USB Camera", Constants.cameraWidth, Constants.cameraHeight);
+
   }
 
-  /**
-   * Returns the x value of any target seen by the Limelight
-   * 
-   * @return x value of target
-   */
+  public static boolean hasTargets() {
+    return result.hasTargets();
+  }
+  
   public static double getLimelightX() {
-    return table.getEntry("tx").getDouble(0.0);
-  }
-
-  public static double getLimelightA() {
-    return table.getEntry("ta").getDouble(0.0);
-  }
-
-  /**
-   * Returns the current mode of the Limelight's LEDs
-   * 
-   * @return current mode of the Limelight's LEDs
-   */
-  public static int getCameraLightState() {
-    return (int) table.getEntry("ledMode").getDouble(3);
+    return yaw;
   }
 
   public static double calculateFlywheelRPM() {
@@ -75,21 +62,31 @@ public class Vision extends SubsystemBase {
   }
 
   public static double limelightDistance() {
-    return (Constants.targetHeight - Constants.limelightHeight)/(Math.tan(Math.toRadians(y + Constants.limelightAngle)))-Constants.limelightDistToFront;
+    return PhotonUtils.calculateDistanceToTargetMeters(
+      Constants.limelightHeightMeters,
+      Constants.targetHeightMeters, 
+      Math.toRadians(Constants.limelightAngle), 
+      Math.toRadians(pitch)
+    );
+  }
+
+  public static double limelightArea() {
+    return area;
   }
 
   @Override
   public void periodic() {
+    result = limelight.getLatestResult();
+    if (result.hasTargets()) {
+      yaw = result.getBestTarget().getYaw();
+      pitch = result.getBestTarget().getPitch();
+      area = result.getBestTarget().getArea();
+    }
+    else {
+      yaw = 0; pitch = 0; area = 0;
+    }
 
-    NetworkTableEntry tx = table.getEntry("tx");
-    NetworkTableEntry ty = table.getEntry("ty");
-    NetworkTableEntry ta = table.getEntry("ta");
+    SmartDashboard.putNumber("limelight distance", limelightDistance());
 
-    x = tx.getDouble(0.0);
-    y = ty.getDouble(0.0);
-    double area = ta.getDouble(0.0);
-    distToTarget = (Constants.targetHeight - Constants.limelightHeight)/(Math.tan(Math.toRadians(y + Constants.limelightAngle)))-Constants.limelightDistToFront;
-
-    SmartDashboard.putNumber("Limelight Distance", distToTarget);
   }
 }

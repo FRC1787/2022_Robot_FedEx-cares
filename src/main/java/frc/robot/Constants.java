@@ -58,9 +58,9 @@ public final class Constants {
 
   // VISION
   // Measurements for limelight
-    public static final double targetHeight = 104.0; //TODO: CHANGE THIS TO 104 AT COMPETITION
-    public static final double limelightHeight = 32.0; //estimate
-    public static final double limelightAngle  = 25.0;
+    public static final double targetHeightMeters = 0.1; 
+    public static final double limelightHeightMeters = 0.3; //estimate
+    public static final double limelightAngle  = -35.0;
     public static final double limelightDistToFront = 18.0;
   
     // limelight PID values

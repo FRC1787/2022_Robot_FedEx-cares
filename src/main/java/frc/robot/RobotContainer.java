@@ -19,6 +19,7 @@ import frc.robot.commands.climb.ClimbRoutine;
 import frc.robot.commands.climb.MoveArm;
 import frc.robot.commands.climb.TestClimb;
 import frc.robot.commands.drivetrain.DriveArcade;
+import frc.robot.commands.drivetrain.FollowTarget;
 import frc.robot.commands.drivetrain.TurnToTarget;
 import frc.robot.commands.intake.IntakeBalls;
 import frc.robot.commands.intake.ReverseIntake;
@@ -28,6 +29,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Climb;
+import frc.robot.commands.autonomous.AutoIntakeBall;
 import frc.robot.commands.autonomous.NonPathweaver;
 import frc.robot.commands.autonomous.ThreeBall180End;
 import frc.robot.commands.autonomous.ThreeBallNonPathweaver;
@@ -121,10 +123,11 @@ public class RobotContainer {
     reverseIntakeButton.whileHeld(new ReverseIntake(intake, shooter));
 
     shooterToggle.whenPressed(new InstantCommand(Shooter::toggleShooterPosition, shooter));
-    closeShootButton.whenHeld(
-      new InstantCommand(Shooter::lowerShooter, shooter)
-      .andThen(
-        new ShootBalls(shooter, intake)));
+    closeShootButton.whileActiveOnce(new AutoIntakeBall(drivetrain, intake));
+    // closeShootButton.whenHeld(
+    //   new InstantCommand(Shooter::lowerShooter, shooter)
+    //   .andThen(
+    //     new ShootBalls(shooter, intake)));
     farShootButton.whenHeld(
       new InstantCommand(Shooter::raiseShooter, shooter)
       .andThen(
