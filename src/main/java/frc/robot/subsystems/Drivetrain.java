@@ -125,7 +125,7 @@ public class Drivetrain extends SubsystemBase {
    * <p>
    * To drive the left side backward, input a negative speed. For example,
    * {@code moveLeftSide(-0.5);}
-   * </p>
+   * </p>g
    * 
    * @param speed - the speed to set the motors to. Value should be between -1.0 and 1.0
    * 
