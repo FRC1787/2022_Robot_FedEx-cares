@@ -30,7 +30,7 @@ public final class Constants {
 
   //AUTO & trajectory
   //we probably should put units on all of these variable names for clarity
-  public static final double gearboxRatio             = 8.01;                             //it probably is not this it just is the most accurate with this value
+  public static final double gearboxRatio             = 8.783;                             //it probably is not this it just is the most accurate with this value
   public static final double positionConversionFactor = 0.1524*Math.PI/gearboxRatio;      //changes rotations of motor to distance traveled in meters
   public static final double velocityConversionFactor = Math.PI*0.1524/60/gearboxRatio;   //changes rpm of motor to m/s
   public static final double kTrackwidth              = 0.6589; //idk if this is right lole
@@ -47,7 +47,7 @@ public final class Constants {
     public static final double ksAuto = 0.18734;
     public static final double kvAuto = 2.1245;
     public static final double kaAuto = 0.48883;
-    public static final double kpAuto = 2.981;
+    public static final double kpAuto = 2.6983;
   // SHOOTER
     public static final double kpShooter = 0.95; //0.65;
     public static final double kiShooter = 0.0;

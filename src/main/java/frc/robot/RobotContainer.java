@@ -38,6 +38,7 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
 import frc.robot.subsystems.Climb;
 import frc.robot.commands.autonomous.NonPathweaver;
+import frc.robot.commands.autonomous.PathPlannerTest;
 import frc.robot.commands.autonomous.ThreeBall180End;
 import frc.robot.commands.autonomous.ThreeBallNonPathweaver;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -153,40 +154,11 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    var autoVoltageConstraint =
-    new DifferentialDriveVoltageConstraint(
-        new SimpleMotorFeedforward(
-            Constants.ksAuto,
-            Constants.kvAuto,
-            Constants.kaAuto),
-        Constants.kDriveKinematics,
-        8);
-  
-    // Create config for trajectory
-    TrajectoryConfig config =
-      new TrajectoryConfig(
-              Constants.kMaxVelocity,
-              Constants.kMaxAcceleration)
-          // Add kinematics to ensure max speed is actually obeyed
-          .setKinematics(Constants.kDriveKinematics)
-          // Apply the voltage constraint
-          .addConstraint(autoVoltageConstraint);
-  
-    // An example trajectory to follow.  All units in meters.
-    Trajectory exampleTrajectory =
-      TrajectoryGenerator.generateTrajectory(
-          // Start at the origin facing the +X direction
-          new Pose2d(0, 0, new Rotation2d(0)),
-          // Pass through these two interior waypoints, making an 's' curve path
-          List.of(new Translation2d(1, 1)),
-          // End 3 meters straight ahead of where we started, facing forward
-          new Pose2d(1, -2, new Rotation2d(0)),
-          // Pass config
-          config);
-    
-    
-    return createCommandForTrajectory(Robot.getPathweaverTrajectory());
-    
+
+    Trajectory trajectory1 = Robot.getPathweaverTrajectory1();
+
+    drivetrain.resetOdometry(trajectory1.getInitialPose());
+    return new PathPlannerTest(intake);    
     // return autoCommand;
     //return autoChooser.getSelected().andThen(() -> Drivetrain.tankDrive(0, 0));
   }
@@ -202,7 +174,7 @@ public class RobotContainer {
    */
   public static Command createCommandForTrajectory(Trajectory trajectory) {
     // drivetrain.resetEncoders();
-    drivetrain.resetOdometry(trajectory.getInitialPose());
+    
 
     var leftController = new PIDController(Constants.kpAuto, 0, 0);
     var rightController = new PIDController(Constants.kpAuto, 0, 0);

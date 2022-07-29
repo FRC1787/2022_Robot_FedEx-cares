@@ -21,7 +21,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import com.pathplanner.lib.PathPlanner; //??????
+import com.pathplanner.lib.PathPlanner; //?????? import
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -39,8 +39,10 @@ public class Robot extends TimedRobot {
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
   */
-  String trajectoryJSON = "line";
-  public static Trajectory trajectory = new Trajectory();
+  String trajectoryJSON1 = "line";
+  String trajectoryJSON2 = "path1";
+  public static Trajectory trajectory1 = new Trajectory();
+  public static Trajectory trajectory2 = new Trajectory();
   public static boolean inAuto=false;
   
   @Override
@@ -54,7 +56,8 @@ public class Robot extends TimedRobot {
     Drivetrain.calibrateGyro();
     
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
-    trajectory = PathPlanner.loadPath(trajectoryJSON, 2, 1); //max velocity, accel
+    trajectory1 = PathPlanner.loadPath(trajectoryJSON1, 1, 1); //max velocity, accel
+    trajectory2 = PathPlanner.loadPath(trajectoryJSON2, 1, 1);
 
     // try {
       
@@ -66,8 +69,12 @@ public class Robot extends TimedRobot {
   }
 
 
-  public static Trajectory getPathweaverTrajectory() {
-    return trajectory;
+  public static Trajectory getPathweaverTrajectory1() {
+    return trajectory1;
+  }
+
+  public static Trajectory getPathweaverTrajectory2() {
+    return trajectory2;
   }
 
   /**
@@ -90,7 +97,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
-    System.out.println("encoder: " + Drivetrain.leftEncoderPosition());
+    System.out.println("end encoder: " + Drivetrain.leftEncoderPosition());
     inAuto=false;
   }
 
@@ -110,7 +117,7 @@ public class Robot extends TimedRobot {
     Drivetrain.setRampRate(0.5);
 
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    System.out.println("encoder: " + Drivetrain.leftEncoderPosition());
+    System.out.println("start encoder: " + Drivetrain.leftEncoderPosition());
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
