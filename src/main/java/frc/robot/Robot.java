@@ -21,7 +21,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-
+import com.pathplanner.lib.PathPlanner; //??????
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -39,7 +39,7 @@ public class Robot extends TimedRobot {
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
   */
-  String trajectoryJSON = "paths/output/Route1Initial.wpilib.json";
+  String trajectoryJSON = "line";
   public static Trajectory trajectory = new Trajectory();
   public static boolean inAuto=false;
   
@@ -49,33 +49,22 @@ public class Robot extends TimedRobot {
     inAuto=false;
     
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-    // autonomous chooser on the dashboard.
+    // autonomous chooser on the dashboar d.
     m_robotContainer = new RobotContainer();
     Drivetrain.calibrateGyro();
     
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
-    
-    try {
-      Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
-      trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
-    } catch (IOException ex) {
-      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
-    }
+    trajectory = PathPlanner.loadPath(trajectoryJSON, 2, 1); //max velocity, accel
+
+    // try {
+      
+      // Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+      // trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+    // } catch (IOException ex) {
+    //   DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
+    // }
   }
 
-  protected static Trajectory loadTrajectory(String trajectoryName) throws IOException {
-    return TrajectoryUtil.fromPathweaverJson(
-      Filesystem.getDeployDirectory().toPath().resolve("paths/output/" + trajectoryName + ".wpilib.json"));
-  }
-  
-  public static Trajectory loadTrajectoryFromFile(String filename) {
-    try {
-      return loadTrajectory(filename);
-    } catch (IOException e) {
-      DriverStation.reportError("Failed to load auto trajectory: " + filename, false);
-      return new Trajectory();
-    }
-  }
 
   public static Trajectory getPathweaverTrajectory() {
     return trajectory;
@@ -101,6 +90,7 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledInit() {
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
+    System.out.println("encoder: " + Drivetrain.leftEncoderPosition());
     inAuto=false;
   }
 
@@ -120,7 +110,8 @@ public class Robot extends TimedRobot {
     Drivetrain.setRampRate(0.5);
 
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    
+    System.out.println("encoder: " + Drivetrain.leftEncoderPosition());
+
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();

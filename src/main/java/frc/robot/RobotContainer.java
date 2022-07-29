@@ -160,7 +160,7 @@ public class RobotContainer {
             Constants.kvAuto,
             Constants.kaAuto),
         Constants.kDriveKinematics,
-        10);
+        8);
   
     // Create config for trajectory
     TrajectoryConfig config =
@@ -178,14 +178,14 @@ public class RobotContainer {
           // Start at the origin facing the +X direction
           new Pose2d(0, 0, new Rotation2d(0)),
           // Pass through these two interior waypoints, making an 's' curve path
-          List.of(new Translation2d(1, 1), new Translation2d(2, -1)),
+          List.of(new Translation2d(1, 1)),
           // End 3 meters straight ahead of where we started, facing forward
-          new Pose2d(3, 0, new Rotation2d(0)),
+          new Pose2d(1, -2, new Rotation2d(0)),
           // Pass config
           config);
     
     
-    return createCommandForTrajectory(exampleTrajectory);
+    return createCommandForTrajectory(Robot.getPathweaverTrajectory());
     
     // return autoCommand;
     //return autoChooser.getSelected().andThen(() -> Drivetrain.tankDrive(0, 0));
