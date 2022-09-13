@@ -28,11 +28,11 @@ public class DriveArcade extends CommandBase {
   public void execute() {
     double stickY = RobotContainer.stick.getY();
     double stickX = RobotContainer.stick.getX();
-    double brickY = RobotContainer.brick.getLeftY();
-    double brickX = RobotContainer.brick.getLeftX();
+    // double brickY = RobotContainer.brick.getLeftY();
+    // double brickX = RobotContainer.brick.getLeftX();
 
-    double linearSpeed = Math.signum(stickY)*Math.pow(deadzone(stickY), 2) + Math.pow(deadzone(brickY), 3);
-    double angularSpeed = Math.signum(stickX)*Math.pow(deadzone(stickX), 2) + Math.pow(deadzone(brickX), 3);
+    double linearSpeed = Math.signum(stickY)*Math.pow(deadzone(stickY), 2) + Math.pow(deadzone(stickY), 3);
+    double angularSpeed = Math.signum(stickX)*Math.pow(deadzone(stickX), 2) + Math.pow(deadzone(stickX), 3);
 
     Drivetrain.moveLeftSide(-linearSpeed + angularSpeed);
     Drivetrain.moveRightSide(-linearSpeed - angularSpeed);
