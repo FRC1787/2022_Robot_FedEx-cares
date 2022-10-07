@@ -26,6 +26,9 @@ public class Intake extends SubsystemBase {
     //kowalski.setIdleMode(IdleMode.kCoast); test this
     setIntake(DoubleSolenoid.Value.kReverse);
     intakeMotor.setSmartCurrentLimit(60);
+    intakeMotor.setInverted(true);
+    kowalski.setInverted(false);
+    
   }
   
   /**
@@ -65,7 +68,7 @@ public class Intake extends SubsystemBase {
    * @param speed - Speed to set for the motor. Value should be between 0 and 1.0
    */
   public static void setIntakeMotor(double speed) {
-    intakeMotor.set(-speed);
+    intakeMotor.set(speed);
   }
 
   public static void setKowalskiMotor(double speed) {

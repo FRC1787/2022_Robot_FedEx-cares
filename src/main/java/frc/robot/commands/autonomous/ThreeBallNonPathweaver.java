@@ -15,6 +15,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Vision;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -30,13 +31,13 @@ public class ThreeBallNonPathweaver extends SequentialCommandGroup {
         new DriveForward(drivetrain).withTimeout(0.8),
         new IntakeBalls(intake)
       ).withTimeout(1.5),
-      new AngleTurn(drivetrain, -115),
-      new DriveForward(drivetrain).withTimeout(0.65),
+      new AngleTurn(drivetrain, -135),
+      new WaitCommand(0.5),
       new ParallelCommandGroup(
         new ShootBalls(shooter, intake),
         new TurnToTarget(drivetrain)
       ).withTimeout(2.5),
-      new AngleTurn(drivetrain, -37),
+      new AngleTurn(drivetrain, -30),
       new ParallelCommandGroup(
         new DriveForward(drivetrain),
         new IntakeBalls(intake)

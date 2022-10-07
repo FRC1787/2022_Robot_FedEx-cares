@@ -44,6 +44,11 @@ public class Shooter extends SubsystemBase {
     backspinnerE.setVelocityConversionFactor(1.0);
     indexerE.setVelocityConversionFactor(1.0);
     flywheel.setInverted(true);
+    backspinner.setInverted(true);
+    indexer.setInverted(false);
+    indexer.setSmartCurrentLimit(90);
+    flywheel.setSmartCurrentLimit(90);
+    backspinner.setSmartCurrentLimit(90);
     piston.set(DoubleSolenoid.Value.kForward);
     isRaised=true;
   }
