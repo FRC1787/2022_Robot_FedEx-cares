@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -24,6 +25,7 @@ public class Intake extends SubsystemBase {
     setRampRate(1);
     //kowalski.setIdleMode(IdleMode.kCoast); test this
     setIntake(DoubleSolenoid.Value.kReverse);
+    intakeMotor.setSmartCurrentLimit(60);
   }
   
   /**
@@ -63,7 +65,7 @@ public class Intake extends SubsystemBase {
    * @param speed - Speed to set for the motor. Value should be between 0 and 1.0
    */
   public static void setIntakeMotor(double speed) {
-    intakeMotor.set(speed);
+    intakeMotor.set(-speed);
   }
 
   public static void setKowalskiMotor(double speed) {
@@ -82,6 +84,6 @@ public class Intake extends SubsystemBase {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("intake motor", intakeMotor.get());
   }
 }
