@@ -1,7 +1,15 @@
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import com.revrobotics.ColorMatch;
+import com.revrobotics.ColorMatchResult;
+
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -11,6 +19,22 @@ public class Vision extends SubsystemBase {
 
   private static NetworkTable table = NetworkTableInstance.getDefault().getTable("limelight");
 
+  NetworkTableEntry proximityEntry;
+  NetworkTableEntry colorEntry;
+
+  //tune these values
+  private final Color kRedTarget = new Color(0.48, 0.39, 0.13);
+  private final Color kBlueTarget = new Color(0.2, 0.38, 0.42);
+
+
+  private final ColorMatch m_colorMatch = new ColorMatch();
+
+  private Color color;
+  private double proximity;
+
+  String allianceColor;
+
+
   private static double distToTarget = 0;
   private static double x;
   private static double y;
@@ -18,11 +42,45 @@ public class Vision extends SubsystemBase {
   // private static UsbCamera camera = new UsbCamera(name, path);
 
   public Vision() {
+    if(DriverStation.getAlliance().equals(Alliance.Blue)) {
+      allianceColor = "blue";
+    }else {
+      allianceColor = "red";
+    }
+
+    m_colorMatch.addColorMatch(kBlueTarget);
+    m_colorMatch.addColorMatch(kRedTarget);
+
+    NetworkTableInstance inst = NetworkTableInstance.getDefault();
+    colorEntry = inst.getEntry("/rawcolor1");
+    proximityEntry = inst.getEntry("/proximity1");
   
     // // make sure this doesnt break stuff
     // CameraServer.startAutomaticCapture();
     // CvSink cvSinkVideo = CameraServer.getVideo();
     // CvSource outputVideo = CameraServer.putVideo("USB Camera", Constants.cameraWidth, Constants.cameraHeight);
+  }
+
+  private double[] getNormalizedColors(double[] rawColors) {
+    double sum = rawColors[0] + rawColors[1] + rawColors[2];
+
+    double[] ret = {rawColors[0] / sum, rawColors[1] / sum, rawColors[2] / sum};
+    return ret;
+}
+
+  public String getPredictedColor() {
+    ColorMatchResult match = m_colorMatch.matchClosestColor(color);
+
+    if(match.color == kBlueTarget) {
+        return "blue";
+    }
+    return "red";
+  }
+
+  public boolean isOppositeColor() {
+    
+    return !getPredictedColor().equals(allianceColor);
+
   }
 
   /**
@@ -91,5 +149,18 @@ public class Vision extends SubsystemBase {
     distToTarget = (Constants.targetHeight - Constants.limelightHeight)/(Math.tan(Math.toRadians(y + Constants.limelightAngle)))-Constants.limelightDistToFront;
 
     SmartDashboard.putNumber("Limelight Distance", distToTarget);
+
+    // Colorsensor stuff
+    double[] rawColors = colorEntry.getDoubleArray(new double[4]);
+    double[] normColors = getNormalizedColors(rawColors);
+    
+    color = new Color(normColors[0], normColors[1], normColors[2]);
+    proximity = proximityEntry.getDouble(0.0);
+
+   
+
+    SmartDashboard.putString("color", getPredictedColor());
   }
+
+
 }
