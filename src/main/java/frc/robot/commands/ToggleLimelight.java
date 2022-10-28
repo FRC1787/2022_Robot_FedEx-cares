@@ -22,6 +22,7 @@ public class ToggleLimelight extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println("\n\nToggling\n\n");
     if(Vision.getCameraLightState() == 3) {
       NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
     }

@@ -26,8 +26,8 @@ public class DriveArcade extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    double stickY = RobotContainer.stick.getY();
-    double stickX = RobotContainer.stick.getX();
+    double stickY = RobotContainer.stick.getY() / 3;
+    double stickX = RobotContainer.stick.getX() / 3;
     // double brickY = RobotContainer.brick.getLeftY();
     // double brickX = RobotContainer.brick.getLeftX();
 

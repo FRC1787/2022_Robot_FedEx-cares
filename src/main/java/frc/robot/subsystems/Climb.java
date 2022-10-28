@@ -4,28 +4,41 @@
 
 package frc.robot.subsystems;
 
+import java.util.Random;
+
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
+import frc.robot.commands.ToggleLimelight;
 
 public class Climb extends SubsystemBase {
   /** Creates a new Climb. */
+  public String state = "";
   private static CANSparkMax arm = new CANSparkMax(Constants.armMotorID, MotorType.kBrushless);
-  private static DigitalInput topLimitSwitch    = new DigitalInput(2);
-  private static DigitalInput bottomLimitSwitch = new DigitalInput(3);
+  public static DigitalInput topLimitSwitch    = new DigitalInput(2);
+  public static DigitalInput bottomLimitSwitch = new DigitalInput(3);
+  // public DigitalInput ghostButton       = new DigitalInput(9);
   private static DoubleSolenoid piston = new DoubleSolenoid(PneumaticsModuleType.CTREPCM, Constants.armPistonFowardID, Constants.armPistonReverseID);
+  public Random random = new Random();
 
+
+
+  
   public Climb() {
-    arm.setIdleMode(IdleMode.kBrake);
+
+    // TODO: make brake
+    arm.setIdleMode(IdleMode.kCoast);
     piston.set(DoubleSolenoid.Value.kReverse); //reverse channel pushes up
     
     // remove this if you want the arm motor to smell funny 🔥
-    setAmpLimit(90);
+    setAmpLimit(30);
   }
 
 
@@ -97,6 +110,12 @@ public class Climb extends SubsystemBase {
     piston.set(value);
   }
 
+
   @Override
-  public void periodic() {}
+  public void periodic() {
+    // System.out.println(ghostButton.get());
+    SmartDashboard.putBoolean("Arm Extended", isExtended());
+    SmartDashboard.putBoolean("Arm Retracted", isRetracted());
+
+  }
 }
