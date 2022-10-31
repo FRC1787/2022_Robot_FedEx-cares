@@ -23,6 +23,7 @@ import frc.robot.commands.drivetrain.TurnToTarget;
 import frc.robot.commands.intake.IntakeBalls;
 import frc.robot.commands.intake.ReverseIntake;
 import frc.robot.commands.shooter.ShootBalls;
+import frc.robot.commands.shooter.ShootBallsWithColor;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
@@ -124,16 +125,22 @@ public class RobotContainer {
     closeShootButton.whenHeld(
       new InstantCommand(Shooter::lowerShooter, shooter)
       .andThen(
-        new ShootBalls(shooter, intake)));
-    farShootButton.whenHeld(
-      new InstantCommand(Shooter::raiseShooter, shooter)
+        new ShootBallsWithColor(shooter, intake)));
+
+    farShootButton.whenPressed(
+      new InstantCommand(Shooter::stopAllMotors, shooter)
       .andThen(
-        new ParallelCommandGroup(
-          new ShootBalls(shooter, intake),
-          new TurnToTarget(drivetrain)
-        )
-      )
-    );
+        new InstantCommand(Intake::stopAllMotors, intake)));
+
+    // farShootButton.whenHeld(
+    //   new InstantCommand(Shooter::raiseShooter, shooter)
+    //   .andThen(
+    //     new ParallelCommandGroup(
+    //       new ShootBalls(shooter, intake),
+    //       new TurnToTarget(drivetrain)
+    //     )
+    //   )
+    // );
   }
 
     

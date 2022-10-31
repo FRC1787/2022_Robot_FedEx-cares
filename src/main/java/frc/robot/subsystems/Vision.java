@@ -24,15 +24,15 @@ public class Vision extends SubsystemBase {
 
   //tune these values
   private final Color kRedTarget = new Color(0.48, 0.39, 0.13);
-  private final Color kBlueTarget = new Color(0.2, 0.38, 0.42);
+  private final static Color kBlueTarget = new Color(0.2, 0.38, 0.42);
 
 
-  private final ColorMatch m_colorMatch = new ColorMatch();
+  private final static ColorMatch m_colorMatch = new ColorMatch();
 
-  private Color color;
+  private static Color color;
   private double proximity;
 
-  String allianceColor;
+  static String allianceColor;
 
 
   private static double distToTarget = 0;
@@ -68,7 +68,7 @@ public class Vision extends SubsystemBase {
     return ret;
 }
 
-  public String getPredictedColor() {
+  public static String getPredictedColor() {
     ColorMatchResult match = m_colorMatch.matchClosestColor(color);
 
     if(match.color == kBlueTarget) {
@@ -77,7 +77,7 @@ public class Vision extends SubsystemBase {
     return "red";
   }
 
-  public boolean isOppositeColor() {
+  public static boolean isOppositeColor() {
     
     return !getPredictedColor().equals(allianceColor);
 
