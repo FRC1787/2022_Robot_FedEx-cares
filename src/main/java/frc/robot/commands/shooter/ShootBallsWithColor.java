@@ -22,7 +22,7 @@ public class ShootBallsWithColor extends SequentialCommandGroup {
     addCommands(
       new TimedIntakeBalls(intake, 0.4, 1.0),
       new WheelToRPM(shooter, intake),
-      new TimedIndexBalls(shooter, 1.0, 500)
+      new TimedIndexBalls(shooter, 1.0, 1000)
     );
   }
 }

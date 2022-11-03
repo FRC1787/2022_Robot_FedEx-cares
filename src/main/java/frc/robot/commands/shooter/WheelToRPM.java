@@ -45,6 +45,11 @@ public class WheelToRPM extends CommandBase {
     flywheelSetpoint = Vision.calculateFlywheelRPM();
     backspinnerSetpoint = Vision.calculateBackspinnerRPM();
 
+    if(Vision.isOppositeColor()) {
+      flywheelSetpoint = 2000;
+      backspinnerSetpoint = 1900;
+    }
+
     flywheelPID.setSetpoint(flywheelSetpoint);
     backspinnerPID.setSetpoint(backspinnerSetpoint);
     indexerPID.setSetpoint(Constants.indexerSetpoint);

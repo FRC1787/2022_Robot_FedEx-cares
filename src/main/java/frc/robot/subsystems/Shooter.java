@@ -187,7 +187,7 @@ public class Shooter extends SubsystemBase {
    */
   public static void setFlywheelRPM(double rpm) {
     if(Vision.isOppositeColor()) {
-      rpm = 1000;
+      // rpm = 1000;
     }
     flywheel.set(rpm*0.000196 + 0.00562); //obtained from testing
   }
@@ -198,7 +198,7 @@ public class Shooter extends SubsystemBase {
    */
   public static void setBackspinnerRPM(double rpm) {
     if(Vision.isOppositeColor()) {
-      rpm = 1000;
+      // rpm = 1000;
     }
     backspinner.set(rpm*0.000187 - 0.00259);
   }
